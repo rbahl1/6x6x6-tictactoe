@@ -1,0 +1,5 @@
+{"ok":true,"rmax":10,"errors":0,"table_lines":93164,"leaf_lines":106723,"bad_lines":0,"noncanonical_lines":0,"duplicate_keys":0,
+ "p_states":153135,"q_states":93164,"leaves_reached":106723,"p_expanded":46412,"states":246299,
+ "threat_children":143498,"danger_children":28275,"reveal_children":54331,"void_threat":0,"void_danger":0,"void_reveal":151,"nonbusy_moves":434,
+ "table_entries_used":93164,"table_entries":93164,"leaf_entries_used":106723,"leaf_entries":106723,
+ "by_t":{"p_states":[1,2,5,14,35,181,1718,7227,34801,93124,16027],"q_states":[0,2,5,14,35,101,446,3487,14362,62381,12331],"leaves":[0,0,0,0,0,0,0,0,3382,87314,16027],"threat_children":[0,0,0,0,0,824,4075,14460,47020,72352,4767],"danger_children":[0,0,0,0,0,0,0,0,20416,6060,1799],"void_reveal":[0,0,0,0,0,0,1,6,54,88,2]}}

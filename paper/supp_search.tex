@@ -1,0 +1,130 @@
+% supp_search.tex -- Appendix S3: how the search works; two observations made with the search program alone
+% (Sections 6.2 and 6.5 of the first revision)
+\section{The search, and two observations about the search space}\label{sec:supp-search}
+
+This appendix gives the details of the search that produced the certificate, which \cref{ssec:search}
+describes in outline, and of the two observations that are summarized in \cref{rem:observations}. The
+search is a heuristic device and is not part of the proof: only its output is used, and the output is
+verified from scratch by programs that share no code with it (\cref{sec:verification}). We describe the
+search because a reader who wants to reproduce or extend the computation will need to know how a tree of
+this size was found.
+
+\subsection{How the search works}\label{ssec:supp-search-details}
+
+The search program is \fn{src/search.cpp}.
+
+\subsubsection*{The basic recursion}
+The search is a depth-first evaluation of the definition of \WON{} (\cref{def:won}). A P-state is an AND
+node: it is proved when it satisfies $\LEAF(B,F,t)$, or when $t<\Rmax$, $\LOST$ is false, and its child~(a)
+and all its non-\VOID{} threat children~(c) and danger children~(d) are proved. A Q-state is an OR node over
+the table move $m$; for a given $m$ both the child~(i) (the cell is empty and Breaker takes it) and, if
+unrevealed stones exist and the child is not \VOID, the child~(ii) (the cell turns out to be occupied and is
+revealed) have to be proved. Every state is replaced by its canonical form (\cref{lem:canon}) when it is
+entered, and results are stored in a transposition table keyed by the canonical state, so that each
+symmetry class is treated once. At a P-state the leaf test comes first; it is preceded by a cheap
+screen (the total surplus of all live lines is compared with $\theta=t-|F|$) and is performed with the
+max-flow procedure of \cref{alg:leaf}.
+
+\subsubsection*{Candidate moves at Q-states}
+For the Q-state $\Qst(B,F,t)$ the candidate table moves are ordered as follows. Let
+$\Busy$ denote the set of busy cells (\cref{def:busy}). Call a set $B'\subseteq\Busy$ of size $k\in\{8,9\}$
+\emph{good} if $\LEAF(B',\emptyset,k)$ holds; the good sets are known in advance (\cref{ssec:leaftable}).
+\begin{enumerate}[label=(\arabic*),leftmargin=2.2em]
+\item Busy cells $m\notin B\cup F$ are sorted by: first, whether $\Pst(B\cup\{m\},F,t)$ is immediately a
+  leaf; second, whether $m$ is the antipode of a stone of $B$; third, the number of good $8$-sets that
+  contain $(B\cap\Busy)\cup\{m\}$ and avoid $F$, then the same number for good $9$-sets; fourth, the slack
+  of $B\cup\{m\}$ (\cref{def:slack}); ties are broken by the cell id.
+\item A second list contains cells that need not be busy. When the leaf test for $(B,F,t)$ fails, the
+  max-flow procedure returns a witness: a set $S$ of live lines that violates Hall's condition, or an
+  $F$-connected set $S$ with $\sur_F(S)<\theta$. The cells outside $B\cup F$ are ranked by the number of
+  lines of $S$ through them (then by the number of live lines through them), and the first six are kept.
+\item The final order is: immediate leaves first, then the two lists interleaved.
+\end{enumerate}
+Only the first $10$ candidates of this order are considered at all, and at most $4$ of them are examined in
+full (see below). These limits make the search incomplete: a failure of the search does not show that a
+state is not \WON.
+
+\subsubsection*{The relaxed pre-pass}
+The decisive device for speed is a \emph{relaxed game}: the same game without $\LOST$ and without the
+forced children (c) and (d), i.e.\ with the single child (a) at P-states. With the same candidate lists, a
+state that is \WON{} is also \WON{} in the relaxed game, by induction on the rank of the state
+(\cref{lem:rank}): the relaxed game imposes a subset of the requirements. The search therefore evaluates
+the relaxed game
+first (with its own entries in the transposition table) and uses it only to fail fast: a P-state whose
+relaxed version fails is abandoned, and a candidate move whose children (i) or (ii) fail in the relaxed
+game is skipped; at most $4$ candidates that survive this filter are tried in the real game. Inside the
+relaxed game the program prunes further with a bound that we state without proof: a stone on a cell with
+$d$ live lines can raise the difference
+between the total surplus and $\theta$ by at most $2d-2$, so a deficit that the best $\Rmax-t$ remaining
+stones cannot close is treated as hopeless. Relaxed results are never written out and can only produce
+failures.
+
+\subsubsection*{Other details}
+At an expanded P-state the forced children are searched before the child (a). The forced children of
+P-states on the main trunk are distributed over threads; the transposition table is shared and lock-free
+and stores $112$ hash bits per state. When the root has been proved, the proof tree is walked once more
+from the root and the Q-states with their moves and the leaves that occur in it are written to the two
+files. With the option \fn{--selfcheck} the program then reads the files back and re-expands the tree with
+a deliberately naive child generator.
+
+\subsubsection*{The run}
+The certificate was produced by
+\begin{verbatim}
+bin/search --rmax 10 --maxcand 4 --relcand 10 --nonbusy --threads 4 \
+           --out results/final --selfcheck
+\end{verbatim}
+in $57.9$ seconds of wall-clock time on a four-core machine (\cref{sec:repro}), with a peak memory of
+$601$\,MB, most of which is the fixed-size transposition table. The search expanded $49{,}397$ P-states
+and $96{,}487$ Q-states of the real game and $48{,}937$ and $97{,}478$ of the relaxed game, made
+$655{,}010$ leaf tests ($25.7$ CPU-seconds) and created $930{,}120$ transposition-table entries
+(\fn{results/final/stats.json}). Since $46{,}412$ of the $49{,}397$ expanded P-states belong to the final
+tree, the search does very little backtracking with this move ordering. What is known about the
+dependence of the output on the number of threads is stated in \cref{ssec:search}.
+
+\subsection{Computed observations about the search space}\label{ssec:supp-observations}
+
+The following two observations were obtained with the search program alone. They are \emph{not} verified
+by an independent program, they are not used anywhere in the proof, and we record them only because they
+explain two features of the certificate.
+
+\subsubsection*{Busy cells alone seem not to suffice for $\Rmax\le 10$ (single program)}
+It is natural to restrict Breaker's table moves to the $24$ busy cells, each of which lies on seven
+lines. According to the search program, the root is not \WON{} with this restriction for $\Rmax=10$, and
+hence for no smaller $\Rmax$ (a
+valid certificate for $\Rmax$ is valid for every larger value): already the relaxed game of
+\cref{ssec:supp-search-details}, in which Maker never forces, fails. For this run the search tried \emph{all} busy cells
+outside $B\cup F$ at every Q-state, so that it is exhaustive for the relaxed game with busy table moves:
+\begin{verbatim}
+bin/search --rmax 10 --maxcand 4 --relcand 24      (no --nonbusy)
+\end{verbatim}
+reports failure after visiting $12{,}437$ relaxed P-states and $14{,}196$ relaxed Q-states ($14$ to $22$
+seconds in three runs, one of them made during the internal refereeing of this paper with a binary built
+from the archive; all runs gave the same counts). The conclusion that busy cells do not suffice rests on three things: the
+correctness of the search program in this mode, which no second program has checked; the fact that a
+state that is \WON{} is also \WON{} in the relaxed game (\cref{ssec:supp-search-details}); and the pruning bound of the
+relaxed game, which was applied $48$ times in this run and which is not proved in this paper.
+
+The obstruction is easy to describe. In the failing branch Maker's revealed stones are the four corners
+of a face, for instance $F=\{(5,0,0),(5,0,5),(5,5,0),(5,5,5)\}$ in the face $x=5$. The $14$ lines that lie
+inside a face ($6$ rows, $6$ columns and $2$ diagonals) can only be killed by a stone of Breaker inside
+that face, and the only busy cells of a face are its four corners. As long as Breaker plays busy cells,
+the set
+$S$ of these $14$ lines therefore stays alive; it is $F$-connected, and
+\[
+\sur_F(S)=|\N(S)\setminus F|-2|S| = (36-4)-28 = 4 .
+\]
+By the definition of $\LEAF$ (\cref{def:leaf}), a leaf with these revealed stones needs
+$\sur_F(S)\ge\theta=t-4$, i.e.\ $t\le 8$; and by round $8$ Breaker has not reached a leaf in this branch
+either. (In the final position of the failing branch, after round $10$, the max-flow procedure indeed
+returns exactly these $14$ lines as its witness, with surplus $4<\theta=6$.) This is why the search was run
+with the option \fn{--nonbusy} and why $434$ table moves of the certificate are non-busy cells. For
+$\Rmax=11$ the search with busy cells also failed, but with only $8$ candidates per state, which is not
+exhaustive. Whether busy table moves suffice for some larger $\Rmax$ is open.
+
+\subsubsection*{$\Rmax=9$ was not achieved}
+With non-busy moves allowed and $\Rmax=9$ the search fails, both with the candidate limits of the
+certified run and with up to $6$ candidates per state (options \texttt{-{}-rmax 9 -{}-maxcand 6 -{}-relcand 16 -{}-nbextra 10 -{}-nonbusy};
+$128$ seconds). The failing branch is a double threat: Maker makes a first threat that is answered in round
+$5$ and a second one, through a stone of the first line, that is answered in round $9$; the resulting P-state
+of round $9$ is not a leaf. Since the candidate lists are truncated, this does not show that the root is not
+\WON{} for $\Rmax=9$. Whether $\Rmax=9$ suffices is open; the theorem does not depend on it.

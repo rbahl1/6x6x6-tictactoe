@@ -1,0 +1,192 @@
+\section{Reproducibility}\label{sec:repro}
+
+
+The computation can be replicated at three levels: by verifying the certificate with the supplied
+verifiers (seconds to minutes), by regenerating the certificate and all checks from the sources (under an
+hour), or by writing a verifier from this paper alone. This section describes the artifact and gives the
+commands, the expected outputs and the running times we measured.
+
+\subsection{The artifact}\label{ssec:artifact}
+
+The artifact is one archive, \fn{ttt6-artifact.tar.gz} (about $3.5$\,MB; $30$\,MB unpacked), produced by
+\fn{scripts/make_artifact.sh}. It contains sources and results but no binaries. Its file
+\fn{MANIFEST.sha256} lists the SHA-256 checksum of every other file. \Cref{tab:artifact} shows the
+contents. The documents \fn{SPEC.md}, \fn{PROOF.md}, \fn{REPORT.md} and \fn{REVIEW.md} and the comments in the
+sources predate this paper and call Maker and Breaker the first player (FP) and the second player (SP).
+
+\begin{table}[ht]
+\centering\footnotesize
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.39\textwidth}>{\raggedright\arraybackslash}p{0.57\textwidth}@{}}
+\toprule
+path & content\\
+\midrule
+\fn{README.md}, \fn{MANIFEST.sha256} & quick start; checksums of all files\\
+\fn{paper/} & sources of this paper\\
+\fn{PROOF.md}, \fn{SPEC.md} & the mathematics and the specification in their original form\\
+\fn{REPORT.md}, \fn{REVIEW.md}, \fn{PROGRESS.md} & results, internal review, project log\\
+\fn{logs/review/*.md}, \fn{logs/spec_issues.md} & audit reports; issues raised against the specification\\
+\fn{Makefile} & \texttt{make bin/}$\langle$\textit{name}$\rangle$ builds one program\\
+\fn{verify/treecheck.cpp} & verifier 1 (C++, self-contained)\\
+\fn{verify/spotcheck.py} & verifier 2 (Python, self-contained)\\
+\fn{src/geom.hpp}, \fn{canon.hpp}, \fn{match.hpp}, \fn{phi.hpp} & library of the search: geometry,
+  canonical forms, pairings and exact enumeration, the leaf test\\
+\fn{src/search.cpp} & the AND--OR search (\cref{ssec:search})\\
+\fn{src/leaftable.cpp}, \fn{phicheck.cpp}, \fn{enumcheck.cpp}, \fn{certify.cpp}, \fn{minstones.cpp} & leaf
+  table; leaf test and exact enumeration from the command line; exact decision of $\CC$; minimum number of
+  stones for a pairing\\
+\fn{src/geom_selftest.cpp}, \fn{test_canon.cpp}, \fn{test_core.cpp} & unit tests of the library\\
+\fn{sim/sim.cpp} & simulator of the real strategy (self-contained)\\
+\fn{py/ip_check.py}, \fn{geom.py}, \fn{regress.py}, \fn{crosscheck.py} & the integer program of
+  \cref{sec:ip} and its drivers\\
+\fn{scripts/reproduce.sh} and two helpers & one-command reproduction\\
+\fn{scripts/make_artifact.sh} & builds the archive and the manifest\\
+\midrule
+\fn{results/final/strategy.tbl}, \fn{leaves.txt} & the certificate\\
+\fn{results/final/stats.json} & statistics of the search run\\
+\fn{results/final/treecheck.json}, \fn{treecheck_crosscheck.json}, \fn{spotcheck_full.json} & outputs of
+  the verifiers (\cref{tab:verifiers})\\
+\fn{results/final/checks/enum_theta*.jsonl} & exact enumeration on the leaves with $\theta\le3$\\
+\fn{results/final/checks/ip_leaf_*} & integer program on the leaves (instances and results)\\
+\fn{results/final/sim/} & the $10^6$ simulated games; list of states not reached\\
+\fn{results/regression/} & regression values (\cref{ssec:fmt-minstones,ssec:ip-regression})\\
+\fn{results/leaftable/phi_k*.jsonl} & the leaf table (\cref{tab:leaftable})\\
+\fn{results/ip/leaftable_k*.jsonl} & integer program on the leaf table\\
+\fn{results/crosscheck/summary.json}, \fn{instances.txt} & exact certifier versus integer program\\
+\bottomrule
+\end{tabular}
+\caption{Contents of the artifact.}
+\label{tab:artifact}
+\end{table}
+
+Not included are files that the scripts regenerate (binaries, the instance files derived from the leaf
+file, repeated and exploratory runs, working logs) and the small programs written during the internal
+review (the two re-expansions of \cref{tab:verifiers}), whose results are documented in the review
+reports. Also not included are the small stand-alone programs and logs that are named in the Computed
+Facts not used by \cref{thm:main} (\cref{fact:aut,fact:T-pairings,fact:T8-leaf,fact:e23}), at the end of
+\cref{sec:extra-monoC} and in \cref{rem:seven}; they are kept in the directories \fn{logs/canon/},
+\fn{logs/core/}, \fn{logs/minstones/}, \fn{logs/paper/}, \fn{logs/proof/} and \fn{scripts/} of the
+project repository.
+
+\subsection{Requirements}\label{ssec:requirements}
+
+The proof pipeline needs a C++17 compiler with OpenMP, \texttt{make}, and Python~3.10 or later, and no
+further libraries. We used g++~13.3 and CPython~3.13 under Linux on a machine with four cores (Intel Xeon,
+$2.1$\,GHz) and $15$\,GB of memory. The search needs about $600$\,MB of memory, the verifiers much less.
+The optional cross-checks with the integer program additionally need the Python package \texttt{highspy}
+(HiGHS~1.16 was used).
+
+\subsection{Verifying the certificate}\label{ssec:certifying}
+
+The following two commands, run in the unpacked archive, each establish \cref{fact:H}.
+{\small
+\begin{verbatim}
+make bin/treecheck
+bin/treecheck --table results/final/strategy.tbl \
+    --leaves results/final/leaves.txt --rmax 10 --exact --paranoid \
+    --threads 4 --out treecheck.json
+\end{verbatim}
+}
+\noindent The program exits with code $0$ and prints one line of JSON, which begins
+{\small
+\begin{verbatim}
+{"ok":true,"p_states":153135,"q_states":93164,"leaves_checked":106723,
+ "max_t":10,"errors":[],"error_count":0,"complete":true,"timed_out":false,
+ "root_void":false,"rmax":10,"root":"0 - -", ...
+ "exact_visited_set":true,"paranoid_flows":true, ...
+\end{verbatim}
+}
+\noindent and continues with \texttt{"states\_visited":246299}, the counters of \cref{tab:tree}, and the byte counts
+and FNV checksums of the two input files. Except for the fields that record threads and timing, the output
+must be identical to \fn{results/final/treecheck.json}. In a test of the unpacked archive on the machine
+described above, compilation took $12$ seconds and the run $3$ seconds of wall-clock time with four threads
+($11$ CPU-seconds).
+
+The second, independent verifier is run by
+{\small
+\begin{verbatim}
+python3 verify/spotcheck.py --selftest
+python3 verify/spotcheck.py --table results/final/strategy.tbl \
+    --leaves results/final/leaves.txt --rmax 10 --samples 0 --seed 20261112 \
+    --procs 4 --full --all-leaves --out spotcheck_full.json
+\end{verbatim}
+}
+\noindent The first command ($12$ seconds) tests the geometry, the canonical form, the leaf test and $\LOST$ against
+brute force and ends with \texttt{selftest OK}. The second expands the whole tree and recomputes every leaf;
+its last line of output reads, after a time stamp,
+{\small
+\begin{verbatim}
+ok=True  errors=0  p_expanded=46412 q_checked=93164 children={'a': 46412,
+ 'c': 143498, 'd': 28275, 'i': 93164, 'ii': 54482} void=151
+ leaves_recomputed=106723  CPU ...s
+\end{verbatim}
+}
+\noindent(one line). In the same test it took $2$ minutes $14$ seconds with three processes ($6.3$
+CPU-minutes), and all counters in its output file agreed with those of
+\fn{results/final/spotcheck_full.json}.
+
+The command \texttt{sha256sum -c MANIFEST.sha256} checks all files of the archive. The SHA-256
+checksums of the two certificate files are given in \cref{ssec:fact}.
+
+\subsection{Reproducing everything}\label{ssec:reproduce}
+
+The script \fn{scripts/reproduce.sh} recomputes the whole pipeline from the sources into
+\fn{results/repro/}, with logs in \fn{logs/repro/}, prints \texttt{PASS} or \texttt{FAIL} for each step and
+ends with \texttt{ALL STEPS PASSED} if every step passed. \Cref{tab:reproduce} lists its steps. We validated
+the script end to end with $20{,}000$ simulated games and two threads, on the machine described above
+while it was running other jobs: all $26$ steps passed, in about $23$ minutes. With the default of
+$10^6$ simulated games, which took $26$ minutes on four threads in the run reported in \cref{ssec:cross},
+the script should need somewhat less than an hour on four idle cores.
+
+\begin{table}[ht]
+\centering\footnotesize
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.72\textwidth}r@{}}
+\toprule
+step & time\\
+\midrule
+build of the eleven programs ($55$ s for a fresh build, measured in the unpacked archive) & ---\\
+self-tests: geometry; canonical forms; matching and leaf test of the library; the verifier
+  \fn{treecheck} (including small synthetic trees and deliberately broken certificates); the simulator;
+  the Python verifier; the $\LOST$ test of the search & $3.3$ min\\
+minimum number of stones for a pairing, $n=5,\dots,8$ (\cref{ssec:fmt-minstones}) & $1$ s\\
+leaf table of busy sets for $k=8,9,10$ (\cref{tab:leaftable}) & $4$ s\\
+the search with its self-check ($59$ s for the search proper); byte-for-byte comparison of the regenerated
+  certificate with \fn{results/final/} & $1.6$ min\\
+\fn{treecheck} with \fn{--exact} \fn{--paranoid} on the regenerated certificate & $15$ s\\
+\fn{spotcheck.py}, exhaustive, on the regenerated certificate ($5.5$ CPU-minutes) & $8.5$ min\\
+leaf test of the library against the leaf test of \fn{treecheck} on all leaves and on $20{,}000$
+  perturbed instances & $20$ s\\
+exact enumeration of $\CC$ on all leaves with $\theta\le 2$ & $40$ s\\
+exact enumeration of $\CC$ on the $1{,}434$ leaves with $\theta=3$ & $8$ min\\
+simulator: $2{,}000$ games with canonical forms verified, then $20{,}000$ games & $22$ s\\
+\bottomrule
+\end{tabular}
+\caption{The steps of \fn{scripts/reproduce.sh} and their wall-clock times in the validation run (two
+threads, loaded machine; from the time stamps of the logs of that run, in which the binaries were mostly
+up to date).}
+\label{tab:reproduce}
+\end{table}
+
+The search is deterministic, and in the validation run the regenerated certificate was byte-identical to
+the one distributed. The script does not depend on this: it verifies whatever certificate the search
+produces and only reports whether it differs. With the option \fn{--with-ip} the script also runs the
+integer-program checks of \cref{ssec:cross} (regression values, comparison with the exact certifier, the
+leaves); these take several core-hours and were made separately, with the same commands, for the results
+reported here, as was the run of $10^6$ simulated games.
+
+\subsection{Writing your own verifier}\label{ssec:own}
+
+Readers who do not wish to trust our programs can verify \cref{fact:H} with a program of
+their own. Everything needed is in this paper: the board and the group (\cref{sec:board}), admissibility and
+the leaf predicate (\cref{def:admissible,def:leaf}), the states and their children (\cref{def:states}), the
+two algorithms (\cref{alg:verify,alg:leaf}), and the file formats, the canonical form and test vectors
+(\cref{sec:formats}). The task is small: the two re-expansions written during the review have about $700$
+lines of C++ each, compute canonical forms by brute force over the $1{,}152$ maps, and run in about $90$
+CPU-seconds. For $\Rmax=10$ the predicate $\LOST$ need not be implemented at all
+(\cref{prop:lost-stones}); it is enough to check $t<10$ at every expanded P-state.
+
+An independent verifier should reproduce the following numbers (\cref{ssec:fmt-targets}): $246{,}299$
+reachable states, namely $153{,}135$ P-states ($46{,}412$ expanded, $106{,}723$ leaves) and $93{,}164$
+Q-states; $143{,}498$ threat children and $28{,}275$ danger children; $151$ \VOID{} children, all of type
+(ii); the counts per round of \cref{tab:tree}; and $\LEAF(B,F,t)$ true for each of the $106{,}723$ lines of
+the leaf file. Agreement in all these numbers is strong evidence that two programs have expanded the
+same tree; a defect that drops children shows up in them (\cref{ssec:audits}).

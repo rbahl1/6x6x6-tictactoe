@@ -1,0 +1,2039 @@
+{
+ "generation": {
+  "ii": {
+   "pool": 228,
+   "pool_holds": 80,
+   "kept_holds": 1,
+   "kept_fails": 70
+  },
+  "iii": {
+   "pool": 6000,
+   "pool_decisions": {
+    "holds": 2618,
+    "fails": 3382
+   },
+   "kept": {
+    "holds_hi": 8,
+    "fails": 200,
+    "holds_lo": 180
+   }
+  },
+  "v": {
+   "pairs": 80000,
+   "pool": 162066,
+   "pool_classes": {
+    "holds/leaf": 54022,
+    "fails/witness": 105510,
+    "fails/bnb": 1931,
+    "holds/noleaf": 603
+   },
+   "kept": {
+    "holds_noleaf": 160,
+    "holds_noleaf_hi": 70,
+    "holds_leaf": 60,
+    "fails_witness": 60,
+    "fails_search": 80
+   }
+  },
+  "vi": {
+   "leaves": 145,
+   "pool": 282,
+   "kept": {
+    "fails": 60,
+    "holds": 60
+   }
+  },
+  "total": 1291,
+  "by_family": {
+   "iv": 31,
+   "v": 360,
+   "vi": 265,
+   "iii": 388,
+   "i": 120,
+   "ii": 115,
+   "void": 12
+  },
+  "seed": 20261112,
+  "seconds": 90.1
+ },
+ "instances": 1291,
+ "holds": 656,
+ "fails": 623,
+ "undecided": 0,
+ "void": 12,
+ "by_method": {
+  "fails/bnb": 99,
+  "fails/enum": 4,
+  "fails/witness": 520,
+  "holds/bnb": 70,
+  "holds/enum": 90,
+  "holds/phi": 496,
+  "void/phi": 12
+ },
+ "by_family": {
+  "i": {
+   "fails": 117,
+   "holds": 3
+  },
+  "ii": {
+   "fails": 100,
+   "holds": 15
+  },
+  "iii": {
+   "holds": 188,
+   "fails": 200
+  },
+  "iv": {
+   "holds": 25,
+   "fails": 6
+  },
+  "v": {
+   "holds": 220,
+   "fails": 140
+  },
+  "vi": {
+   "holds": 205,
+   "fails": 60
+  },
+  "void": {
+   "void": 12
+  }
+ },
+ "by_theta": {
+  "holds": {
+   "0": 40,
+   "1": 64,
+   "2": 144,
+   "3": 142,
+   "4": 138,
+   "5": 81,
+   "6": 5,
+   "7": 20,
+   "8": 9,
+   "9": 13
+  },
+  "fails": {
+   "0": 12,
+   "1": 22,
+   "2": 32,
+   "3": 18,
+   "4": 37,
+   "5": 49,
+   "6": 52,
+   "7": 44,
+   "8": 108,
+   "9": 156,
+   "10": 63,
+   "11": 23,
+   "12": 7
+  },
+  "undecided": {},
+  "void": {
+   "-1": 3,
+   "2": 3,
+   "4": 6
+  }
+ },
+ "disagreements": [],
+ "ip": {
+  "compared": 1275,
+  "agree_holds": 652,
+  "agree_fails": 623,
+  "agree_void": 12,
+  "agree_by_certify_method": {
+   "fails/bnb": 99,
+   "fails/enum": 4,
+   "fails/witness": 520,
+   "holds/bnb": 70,
+   "holds/enum": 90,
+   "holds/phi": 492
+  },
+  "void_mismatches": [],
+  "ip_missing": 0,
+  "ip_missing_instances": [],
+  "ip_undecided": [
+   {
+    "instance": "8 5,43,61,93,122,123,154,210 -",
+    "certify": "holds",
+    "ip_status": "timeout",
+    "seconds": 300.018
+   },
+   {
+    "instance": "9 35,46,92,123,129,135,151,169,180 -",
+    "certify": "holds",
+    "ip_status": "timeout",
+    "seconds": 300.083
+   },
+   {
+    "instance": "9 5,43,46,64,93,122,129,154,210 -",
+    "certify": "holds",
+    "ip_status": "timeout",
+    "seconds": 300.171
+   },
+   {
+    "instance": "9 5,30,46,64,87,128,129,169,210 -",
+    "certify": "holds",
+    "ip_status": "timeout",
+    "seconds": 300.005
+   }
+  ],
+  "reused_records": 74,
+  "reused_by_source": {
+   "results/regression/ip_regression.cache.jsonl": 25,
+   "results/ip/leaftable_k9.shard0of2.jsonl": 20,
+   "results/ip/leaftable_k9.shard1of2.jsonl": 19,
+   "results/ip/leaftable_k8.jsonl": 6,
+   "results/ip/leaf_sample_provisional.jsonl": 4
+  },
+  "seconds": {
+   "holds": {
+    "n": 613,
+    "total": 5252.7,
+    "median": 3.951,
+    "max": 287.971
+   },
+   "fails": {
+    "n": 588,
+    "total": 8280.1,
+    "median": 5.757,
+    "max": 291.388
+   }
+  },
+  "run": {
+   "wall_seconds": 4653.0,
+   "shards": 3,
+   "return_codes": [
+    0,
+    0,
+    0
+   ],
+   "solved_now": 1112,
+   "reused": 74,
+   "time_limit": 300.0
+  },
+  "seconds_by_theta": {
+   "fails theta 00": {
+    "n": 12,
+    "median": 0.041,
+    "max": 0.116
+   },
+   "fails theta 01": {
+    "n": 21,
+    "median": 0.112,
+    "max": 2.222
+   },
+   "fails theta 02": {
+    "n": 32,
+    "median": 0.087,
+    "max": 5.347
+   },
+   "fails theta 03": {
+    "n": 17,
+    "median": 1.472,
+    "max": 6.95
+   },
+   "fails theta 04": {
+    "n": 37,
+    "median": 2.316,
+    "max": 23.1
+   },
+   "fails theta 05": {
+    "n": 49,
+    "median": 5.049,
+    "max": 15.662
+   },
+   "fails theta 06": {
+    "n": 52,
+    "median": 13.717,
+    "max": 187.038
+   },
+   "fails theta 07": {
+    "n": 43,
+    "median": 9.352,
+    "max": 159.662
+   },
+   "fails theta 08": {
+    "n": 108,
+    "median": 6.355,
+    "max": 132.724
+   },
+   "fails theta 09": {
+    "n": 124,
+    "median": 6.508,
+    "max": 291.388
+   },
+   "fails theta 10": {
+    "n": 63,
+    "median": 13.064,
+    "max": 103.087
+   },
+   "fails theta 11": {
+    "n": 23,
+    "median": 9.914,
+    "max": 23.713
+   },
+   "fails theta 12": {
+    "n": 7,
+    "median": 1.507,
+    "max": 3.386
+   },
+   "holds theta 00": {
+    "n": 40,
+    "median": 0.035,
+    "max": 0.057
+   },
+   "holds theta 01": {
+    "n": 62,
+    "median": 0.118,
+    "max": 0.264
+   },
+   "holds theta 02": {
+    "n": 143,
+    "median": 1.656,
+    "max": 16.921
+   },
+   "holds theta 03": {
+    "n": 141,
+    "median": 3.927,
+    "max": 20.87
+   },
+   "holds theta 04": {
+    "n": 137,
+    "median": 8.872,
+    "max": 47.063
+   },
+   "holds theta 05": {
+    "n": 79,
+    "median": 8.279,
+    "max": 48.068
+   },
+   "holds theta 06": {
+    "n": 5,
+    "median": 91.957,
+    "max": 123.268
+   },
+   "holds theta 07": {
+    "n": 3,
+    "median": 190.064,
+    "max": 217.687
+   },
+   "holds theta 08": {
+    "n": 1,
+    "median": 287.971,
+    "max": 287.971
+   },
+   "holds theta 09": {
+    "n": 2,
+    "median": 171.77,
+    "max": 171.77
+   }
+  }
+ },
+ "certify_witnesses_rechecked_in_python": {
+  "n": 623,
+  "bad": 0
+ },
+ "ip_witnesses_rechecked_in_cpp": {
+  "n": 623,
+  "bad": 0
+ },
+ "bnb_only_vs_default": {
+  "pairs": {
+   "fails|fails": 623,
+   "holds|holds": 656,
+   "void|void": 12
+  },
+  "mismatches": [],
+  "bnb_only_nodes_max": 527
+ },
+ "enumcheck_vs_certify": {
+  "n": 488,
+  "mismatches": [],
+  "by_theta_and_certify_method": {
+   "theta 0: fails/witness": 12,
+   "theta 0: holds/phi": 40,
+   "theta 1: fails/witness": 22,
+   "theta 1: holds/enum": 13,
+   "theta 1: holds/phi": 51,
+   "theta 2: fails/enum": 1,
+   "theta 2: fails/witness": 31,
+   "theta 2: holds/enum": 33,
+   "theta 2: holds/phi": 111,
+   "theta 3: fails/enum": 3,
+   "theta 3: fails/witness": 15,
+   "theta 3: holds/enum": 44,
+   "theta 3: holds/phi": 98,
+   "theta 4: holds/bnb": 14
+  },
+  "note": "all non-void instances with theta <= 3; theta >= 4 only where bnb decided"
+ },
+ "leaf_false_but_C_holds": {
+  "n": 160,
+  "by_theta": {
+   "1": 13,
+   "2": 33,
+   "3": 44,
+   "4": 61,
+   "5": 9
+  },
+  "by_method": {
+   "bnb": 70,
+   "enum": 90
+  },
+  "ip_confirms": 160,
+  "instances": [
+   {
+    "instance": "14 0,1,25,35,64,87,128,172,180,185 12,42,51,61,66,120,127,156,169,192",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 85,
+    "bnb_only_nodes": 43,
+    "ip": "holds",
+    "ip_seconds": 17.195
+   },
+   {
+    "instance": "11 5,26,64,75,93,122,129,151,154,210 39,43,44,46,47,63,69,117,189",
+    "family": "v",
+    "theta": 2,
+    "method": "enum",
+    "nodes": 17870,
+    "bnb_only_nodes": 4,
+    "ip": "holds",
+    "ip_seconds": 2.553
+   },
+   {
+    "instance": "12 30,46,64,86,92,93,122,154,180,210 39,51,87,111,117,128,129,133,138,141,159",
+    "family": "v",
+    "theta": 1,
+    "method": "enum",
+    "nodes": 185,
+    "bnb_only_nodes": 1,
+    "ip": "holds",
+    "ip_seconds": 0.113
+   },
+   {
+    "instance": "10 46,61,87,92,93,154,169,180,185,215 66,67,69,71,140,212",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 75,
+    "bnb_only_nodes": 33,
+    "ip": "holds",
+    "ip_seconds": 12.382
+   },
+   {
+    "instance": "12 5,8,64,86,123,129,151,154,204,210 4,40,74,76,111,144,145,146,184,185",
+    "family": "v",
+    "theta": 2,
+    "method": "enum",
+    "nodes": 17679,
+    "bnb_only_nodes": 1,
+    "ip": "holds",
+    "ip_seconds": 0.977
+   },
+   {
+    "instance": "13 0,30,46,86,109,129,151,169,185 6,8,44,64,80,117,124,152,191",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 85,
+    "bnb_only_nodes": 43,
+    "ip": "holds",
+    "ip_seconds": 19.127
+   },
+   {
+    "instance": "10 46,86,87,92,93,129,169,172,180,210 37,38,39,40,47,53,71",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1157894,
+    "bnb_only_nodes": 10,
+    "ip": "holds",
+    "ip_seconds": 3.576
+   },
+   {
+    "instance": "11 5,43,45,61,86,122,129,172,210 62,134,146,153,158,164,176",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 75,
+    "bnb_only_nodes": 33,
+    "ip": "holds",
+    "ip_seconds": 16.476
+   },
+   {
+    "instance": "10 0,30,35,46,92,93,123,169,188,215 115,121,126,128,130,131",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 74,
+    "bnb_only_nodes": 32,
+    "ip": "holds",
+    "ip_seconds": 31.213
+   },
+   {
+    "instance": "12 5,41,43,92,93,122,154,172,195,210 35,71,105,106,107,113,119,131,137",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1122534,
+    "bnb_only_nodes": 10,
+    "ip": "holds",
+    "ip_seconds": 3.365
+   },
+   {
+    "instance": "13 30,43,48,93,122,128,151,158,172,185 40,46,58,62,63,64,65,168,204",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 85,
+    "bnb_only_nodes": 43,
+    "ip": "holds",
+    "ip_seconds": 14.754
+   },
+   {
+    "instance": "12 0,5,30,43,46,86,93,122,198,215 6,42,78,144,156,165,166,167,168,174,204",
+    "family": "v",
+    "theta": 1,
+    "method": "enum",
+    "nodes": 185,
+    "bnb_only_nodes": 1,
+    "ip": "holds",
+    "ip_seconds": 0.102
+   },
+   {
+    "instance": "11 0,5,30,46,64,87,128,169,215 2,14,24,28,29,32,98,170,206",
+    "family": "v",
+    "theta": 2,
+    "method": "enum",
+    "nodes": 19430,
+    "bnb_only_nodes": 8,
+    "ip": "holds",
+    "ip_seconds": 1.606
+   },
+   {
+    "instance": "10 43,64,93,123,128,151,154,172,180,215 33,68,70,141,177,213",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 82,
+    "bnb_only_nodes": 40,
+    "ip": "holds",
+    "ip_seconds": 12.686
+   },
+   {
+    "instance": "10 30,43,46,86,93,129,139,172,185,189 1,37,73,110,111,181",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 74,
+    "bnb_only_nodes": 32,
+    "ip": "holds",
+    "ip_seconds": 15.313
+   },
+   {
+    "instance": "11 0,43,64,87,92,123,151,172,185,215 67,115,133,140,141,142,175",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 136,
+    "bnb_only_nodes": 73,
+    "ip": "holds",
+    "ip_seconds": 21.913
+   },
+   {
+    "instance": "12 0,5,30,46,64,87,128,169,215 2,14,24,28,29,32,98,170,206",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1272137,
+    "bnb_only_nodes": 8,
+    "ip": "holds",
+    "ip_seconds": 5.894
+   },
+   {
+    "instance": "10 5,35,61,62,64,86,129,151,174,180 42,79,80,83,114,150,186",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1141309,
+    "bnb_only_nodes": 10,
+    "ip": "holds",
+    "ip_seconds": 3.325
+   },
+   {
+    "instance": "11 1,30,43,64,87,128,151,172,185 10,28,34,40,82,88,94,112,148,184",
+    "family": "v",
+    "theta": 1,
+    "method": "enum",
+    "nodes": 189,
+    "bnb_only_nodes": 1,
+    "ip": "holds",
+    "ip_seconds": 0.077
+   },
+   {
+    "instance": "11 5,17,64,92,93,123,144,151,172,210 2,36,39,40,41,56,74",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 114,
+    "bnb_only_nodes": 72,
+    "ip": "holds",
+    "ip_seconds": 19.903
+   },
+   {
+    "instance": "13 0,1,35,61,87,92,123,154,215 11,46,89,95,119,127,131,155,191",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 86,
+    "bnb_only_nodes": 44,
+    "ip": "holds",
+    "ip_seconds": 18.272
+   },
+   {
+    "instance": "11 0,5,30,92,123,128,129,151,169,185 17,52,81,105,122,157,194",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 82,
+    "bnb_only_nodes": 40,
+    "ip": "holds",
+    "ip_seconds": 15.854
+   },
+   {
+    "instance": "15 0,5,30,43,46,65,93,101,122,172 95,107,113,119,125,128,130,137,180,185,210,215",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1169003,
+    "bnb_only_nodes": 13,
+    "ip": "holds",
+    "ip_seconds": 3.466
+   },
+   {
+    "instance": "11 5,43,61,93,122,124,129,172,210 35,107,113,125,138,140,142,179,215",
+    "family": "v",
+    "theta": 2,
+    "method": "enum",
+    "nodes": 18564,
+    "bnb_only_nodes": 4,
+    "ip": "holds",
+    "ip_seconds": 1.364
+   },
+   {
+    "instance": "12 0,30,35,86,92,123,128,151,185,215 5,37,40,73,75,110,181,198,204,210",
+    "family": "v",
+    "theta": 2,
+    "method": "enum",
+    "nodes": 17984,
+    "bnb_only_nodes": 1,
+    "ip": "holds",
+    "ip_seconds": 1.309
+   },
+   {
+    "instance": "13 0,1,30,35,43,87,92,123,172,185 18,21,22,58,59,93,131,167,215",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 44,
+    "bnb_only_nodes": 23,
+    "ip": "holds",
+    "ip_seconds": 22.185
+   },
+   {
+    "instance": "11 5,35,43,46,49,92,123,172,210 8,80,115,118,122,152,188",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 82,
+    "bnb_only_nodes": 40,
+    "ip": "holds",
+    "ip_seconds": 16.991
+   },
+   {
+    "instance": "12 30,35,43,87,105,128,129,172,180,186 26,56,60,63,65,98,122,134,170,182",
+    "family": "v",
+    "theta": 2,
+    "method": "enum",
+    "nodes": 17796,
+    "bnb_only_nodes": 4,
+    "ip": "holds",
+    "ip_seconds": 1.202
+   },
+   {
+    "instance": "11 35,46,86,93,116,122,169,180,185,206 0,6,18,61,96,98,135,209",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1151638,
+    "bnb_only_nodes": 10,
+    "ip": "holds",
+    "ip_seconds": 3.243
+   },
+   {
+    "instance": "12 30,43,46,93,122,152,169,172,185,191 15,87,123,156,157,158,160,167,173",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1159085,
+    "bnb_only_nodes": 4,
+    "ip": "holds",
+    "ip_seconds": 2.562
+   },
+   {
+    "instance": "11 0,43,61,86,122,128,151,169,172,210 67,104,105,123,129,135,177,215",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1269294,
+    "bnb_only_nodes": 23,
+    "ip": "holds",
+    "ip_seconds": 2.835
+   },
+   {
+    "instance": "10 0,46,64,92,93,122,154,210,215 108,111,113,124,130,136,142",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1204665,
+    "bnb_only_nodes": 10,
+    "ip": "holds",
+    "ip_seconds": 2.625
+   },
+   {
+    "instance": "10 30,43,46,83,86,93,129,161,172,185 12,48,84,122,124,156",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 74,
+    "bnb_only_nodes": 32,
+    "ip": "holds",
+    "ip_seconds": 13.743
+   },
+   {
+    "instance": "11 5,61,93,112,122,154,172,210,215 34,184,190,196,202,209",
+    "family": "v",
+    "theta": 5,
+    "method": "bnb",
+    "nodes": 221,
+    "bnb_only_nodes": 110,
+    "ip": "holds",
+    "ip_seconds": 18.491
+   },
+   {
+    "instance": "12 0,5,43,64,92,123,169,179,210 1,13,19,25,30,35,46,151",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 82,
+    "bnb_only_nodes": 40,
+    "ip": "holds",
+    "ip_seconds": 13.042
+   },
+   {
+    "instance": "10 0,5,61,93,122,154,173,210,215 92,126,127,130,131,200",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 78,
+    "bnb_only_nodes": 36,
+    "ip": "holds",
+    "ip_seconds": 13.353
+   },
+   {
+    "instance": "11 35,64,86,123,124,129,151,168,169,180 73,79,82,85,98,99,100",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 103,
+    "bnb_only_nodes": 51,
+    "ip": "holds",
+    "ip_seconds": 14.622
+   },
+   {
+    "instance": "11 14,35,64,87,92,113,123,151,180,215 0,4,37,40,74,111,184,190,210",
+    "family": "v",
+    "theta": 2,
+    "method": "enum",
+    "nodes": 18255,
+    "bnb_only_nodes": 4,
+    "ip": "holds",
+    "ip_seconds": 0.537
+   },
+   {
+    "instance": "10 30,35,43,80,87,93,114,122,172,180 149,150,152,153,155,169,174,175",
+    "family": "v",
+    "theta": 2,
+    "method": "enum",
+    "nodes": 17913,
+    "bnb_only_nodes": 4,
+    "ip": "holds",
+    "ip_seconds": 2.975
+   },
+   {
+    "instance": "14 5,64,86,87,92,93,151,169,180,215 46,78,81,118,187,188,190,191,195,201,207",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1137208,
+    "bnb_only_nodes": 19,
+    "ip": "holds",
+    "ip_seconds": 2.411
+   },
+   {
+    "instance": "11 0,5,44,61,93,122,154,210,215 39,50,51,54,55,56,63,69",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1161821,
+    "bnb_only_nodes": 10,
+    "ip": "holds",
+    "ip_seconds": 2.146
+   },
+   {
+    "instance": "12 0,5,61,90,93,122,154,210,215 144,147,151,153,164,166,167,171,172,177",
+    "family": "v",
+    "theta": 2,
+    "method": "enum",
+    "nodes": 17962,
+    "bnb_only_nodes": 1,
+    "ip": "holds",
+    "ip_seconds": 5.916
+   },
+   {
+    "instance": "13 5,61,64,86,93,129,154,173,210 71,83,89,95,101,102,103,104,141,142,143",
+    "family": "v",
+    "theta": 2,
+    "method": "enum",
+    "nodes": 18397,
+    "bnb_only_nodes": 4,
+    "ip": "holds",
+    "ip_seconds": 0.825
+   },
+   {
+    "instance": "12 5,61,92,93,123,154,172,179,210 18,42,55,58,59,66,162,198",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 45,
+    "bnb_only_nodes": 24,
+    "ip": "holds",
+    "ip_seconds": 13.431
+   },
+   {
+    "instance": "12 5,43,64,86,99,115,123,129,172,210 37,92,122,180,181,183,185,196",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 82,
+    "bnb_only_nodes": 40,
+    "ip": "holds",
+    "ip_seconds": 16.868
+   },
+   {
+    "instance": "11 5,61,86,93,102,129,154,155,185,210 7,19,30,33,35,103,139,211",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1204748,
+    "bnb_only_nodes": 27,
+    "ip": "holds",
+    "ip_seconds": 4.066
+   },
+   {
+    "instance": "12 5,61,86,106,122,129,151,154,190,210 50,54,55,57,71,72,108,180",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 102,
+    "bnb_only_nodes": 50,
+    "ip": "holds",
+    "ip_seconds": 21.415
+   },
+   {
+    "instance": "11 0,30,61,93,128,151,169,172,185,215 18,90,126,162,186,201,203,210",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1190352,
+    "bnb_only_nodes": 13,
+    "ip": "holds",
+    "ip_seconds": 6.012
+   },
+   {
+    "instance": "11 0,50,61,93,122,128,154,169,171,215 8,9,10,11,13,25,31,43,151,187",
+    "family": "v",
+    "theta": 1,
+    "method": "enum",
+    "nodes": 183,
+    "bnb_only_nodes": 1,
+    "ip": "holds",
+    "ip_seconds": 0.144
+   },
+   {
+    "instance": "13 35,43,93,122,128,172,176,180,185,198 33,44,50,56,67,69,70,71,141,213",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1089478,
+    "bnb_only_nodes": 10,
+    "ip": "holds",
+    "ip_seconds": 5.483
+   },
+   {
+    "instance": "11 0,1,61,64,87,92,128,154,215 3,39,75,117,123,147,181",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 113,
+    "bnb_only_nodes": 71,
+    "ip": "holds",
+    "ip_seconds": 26.829
+   },
+   {
+    "instance": "10 0,46,64,68,86,88,129,151,185,215 155,161,167,173,174,175",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 86,
+    "bnb_only_nodes": 44,
+    "ip": "holds",
+    "ip_seconds": 10.092
+   },
+   {
+    "instance": "11 35,46,86,87,123,129,151,180,185 31,37,43,61,103,141,178,211,215",
+    "family": "v",
+    "theta": 2,
+    "method": "enum",
+    "nodes": 19497,
+    "bnb_only_nodes": 8,
+    "ip": "holds",
+    "ip_seconds": 3.247
+   },
+   {
+    "instance": "14 5,61,64,86,123,129,151,172,185,215 58,76,82,94,106,130,166,190,198,199,201,208,214",
+    "family": "v",
+    "theta": 1,
+    "method": "enum",
+    "nodes": 181,
+    "bnb_only_nodes": 1,
+    "ip": "holds",
+    "ip_seconds": 0.139
+   },
+   {
+    "instance": "11 0,5,64,87,123,151,169,180,185,215 3,15,30,32,35,105",
+    "family": "v",
+    "theta": 5,
+    "method": "bnb",
+    "nodes": 299,
+    "bnb_only_nodes": 154,
+    "ip": "holds",
+    "ip_seconds": 24.952
+   },
+   {
+    "instance": "11 0,30,61,64,87,103,128,154,204,215 8,39,40,41,50,56,62,68,80,116",
+    "family": "v",
+    "theta": 1,
+    "method": "enum",
+    "nodes": 183,
+    "bnb_only_nodes": 1,
+    "ip": "holds",
+    "ip_seconds": 0.222
+   },
+   {
+    "instance": "11 35,43,77,86,128,129,172,180,185 9,15,33,39,75,105,111,147",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1181340,
+    "bnb_only_nodes": 10,
+    "ip": "holds",
+    "ip_seconds": 5.418
+   },
+   {
+    "instance": "11 5,61,86,93,110,122,154,172,209,210 73,78,80,81,82,97,187",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 76,
+    "bnb_only_nodes": 34,
+    "ip": "holds",
+    "ip_seconds": 16.465
+   },
+   {
+    "instance": "13 30,35,43,73,93,122,169,172,180 9,39,45,57,81,99,135,153,171,207",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1160024,
+    "bnb_only_nodes": 10,
+    "ip": "holds",
+    "ip_seconds": 9.286
+   },
+   {
+    "instance": "11 0,1,5,61,86,93,123,154,210 28,64,100,129,172,204,205,207",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1231860,
+    "bnb_only_nodes": 10,
+    "ip": "holds",
+    "ip_seconds": 7.797
+   },
+   {
+    "instance": "11 35,46,61,92,123,129,154,165,180 147,148,152,158,164,170,182",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 86,
+    "bnb_only_nodes": 44,
+    "ip": "holds",
+    "ip_seconds": 8.754
+   },
+   {
+    "instance": "13 0,43,46,86,93,122,129,172,180,210 6,18,42,90,108,126,150,186,201",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 86,
+    "bnb_only_nodes": 44,
+    "ip": "holds",
+    "ip_seconds": 23.885
+   },
+   {
+    "instance": "12 0,5,43,51,93,122,154,172,215 50,61,182,184,185,187,193,205",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 122,
+    "bnb_only_nodes": 70,
+    "ip": "holds",
+    "ip_seconds": 38.842
+   },
+   {
+    "instance": "14 35,46,87,92,123,129,154,180,210,215 4,40,58,76,130,166,184,190,202",
+    "family": "v",
+    "theta": 5,
+    "method": "bnb",
+    "nodes": 221,
+    "bnb_only_nodes": 110,
+    "ip": "holds",
+    "ip_seconds": 48.068
+   },
+   {
+    "instance": "10 30,46,64,93,122,123,169,185,215 13,121,187,199,205,211",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 74,
+    "bnb_only_nodes": 32,
+    "ip": "holds",
+    "ip_seconds": 33.6
+   },
+   {
+    "instance": "15 5,30,43,87,93,122,172,185,204 10,40,61,62,64,65,154,173,190,209",
+    "family": "v",
+    "theta": 5,
+    "method": "bnb",
+    "nodes": 321,
+    "bnb_only_nodes": 176,
+    "ip": "holds",
+    "ip_seconds": 32.901
+   },
+   {
+    "instance": "11 0,46,56,61,86,93,129,169,215 34,70,106,112,118,130,140,143",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1280234,
+    "bnb_only_nodes": 27,
+    "ip": "holds",
+    "ip_seconds": 5.171
+   },
+   {
+    "instance": "12 30,46,64,73,86,109,129,151,169,185 19,91,93,128,162,164,165,199",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 44,
+    "bnb_only_nodes": 23,
+    "ip": "holds",
+    "ip_seconds": 27.169
+   },
+   {
+    "instance": "15 0,35,46,64,92,123,151,154,210,215 5,40,90,120,150,180,182,183,185,190,196,208",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1081887,
+    "bnb_only_nodes": 10,
+    "ip": "holds",
+    "ip_seconds": 5.915
+   },
+   {
+    "instance": "13 0,23,61,87,93,119,128,154,169,215 19,54,56,58,91,92,163,199,201,203",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1100800,
+    "bnb_only_nodes": 4,
+    "ip": "holds",
+    "ip_seconds": 4.698
+   },
+   {
+    "instance": "11 5,30,43,93,122,132,154,172,210 8,10,47,83,119,155,188",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 82,
+    "bnb_only_nodes": 40,
+    "ip": "holds",
+    "ip_seconds": 15.298
+   },
+   {
+    "instance": "16 0,5,30,43,64,87,92,172,201,215 1,13,25,54,55,57,58,91,123,127,128,183,198,199,213",
+    "family": "v",
+    "theta": 1,
+    "method": "enum",
+    "nodes": 183,
+    "bnb_only_nodes": 1,
+    "ip": "holds",
+    "ip_seconds": 0.109
+   },
+   {
+    "instance": "13 30,35,43,64,87,128,152,172,180 0,3,39,108,109,113,127,133,147",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 100,
+    "bnb_only_nodes": 48,
+    "ip": "holds",
+    "ip_seconds": 22.191
+   },
+   {
+    "instance": "10 30,43,92,93,123,151,172,185,210 32,38,44,104,140,176",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 82,
+    "bnb_only_nodes": 40,
+    "ip": "holds",
+    "ip_seconds": 14.517
+   },
+   {
+    "instance": "15 0,5,30,43,46,65,93,122,169,172 11,78,81,83,87,88,92,94,100,102,106,155,191",
+    "family": "v",
+    "theta": 2,
+    "method": "enum",
+    "nodes": 16611,
+    "bnb_only_nodes": 1,
+    "ip": "holds",
+    "ip_seconds": 1.769
+   },
+   {
+    "instance": "11 0,5,61,64,93,122,123,180,210,215 20,22,23,55,92,129,154,160,172,203",
+    "family": "v",
+    "theta": 1,
+    "method": "enum",
+    "nodes": 185,
+    "bnb_only_nodes": 1,
+    "ip": "holds",
+    "ip_seconds": 0.156
+   },
+   {
+    "instance": "11 35,46,61,65,86,129,154,169,180 28,136,184,190,196,207,214",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 82,
+    "bnb_only_nodes": 40,
+    "ip": "holds",
+    "ip_seconds": 12.695
+   },
+   {
+    "instance": "11 26,30,43,46,93,107,122,169,172,185 13,49,61,85,157,192,194,197",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1171910,
+    "bnb_only_nodes": 10,
+    "ip": "holds",
+    "ip_seconds": 4.227
+   },
+   {
+    "instance": "14 5,64,86,93,114,129,151,185,194,210 0,36,48,60,66,72,109,110,112,144,146",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1061703,
+    "bnb_only_nodes": 10,
+    "ip": "holds",
+    "ip_seconds": 3.646
+   },
+   {
+    "instance": "11 0,61,64,91,92,111,123,154,210,215 73,76,77,79,90,93,100,102,107",
+    "family": "v",
+    "theta": 2,
+    "method": "enum",
+    "nodes": 18050,
+    "bnb_only_nodes": 4,
+    "ip": "holds",
+    "ip_seconds": 1.239
+   },
+   {
+    "instance": "15 0,1,35,43,87,92,123,172,185,215 69,72,84,96,103,105,106,107,138,139,141,213",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1077349,
+    "bnb_only_nodes": 10,
+    "ip": "holds",
+    "ip_seconds": 5.044
+   },
+   {
+    "instance": "13 5,64,122,128,129,151,169,180,185,210 22,94,130,148,149,162,172,173,178",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 111,
+    "bnb_only_nodes": 59,
+    "ip": "holds",
+    "ip_seconds": 24.824
+   },
+   {
+    "instance": "15 5,61,64,86,123,129,151,172,185,215 58,76,82,94,106,130,166,190,198,199,201,208,214",
+    "family": "v",
+    "theta": 2,
+    "method": "enum",
+    "nodes": 16626,
+    "bnb_only_nodes": 1,
+    "ip": "holds",
+    "ip_seconds": 1.397
+   },
+   {
+    "instance": "13 35,46,66,86,93,129,154,169,180 23,47,53,55,56,57,58,71,92,128",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1193561,
+    "bnb_only_nodes": 10,
+    "ip": "holds",
+    "ip_seconds": 5.189
+   },
+   {
+    "instance": "13 30,46,64,86,92,93,122,154,180,210 39,51,87,111,117,128,129,133,138,141,159",
+    "family": "v",
+    "theta": 2,
+    "method": "enum",
+    "nodes": 17471,
+    "bnb_only_nodes": 1,
+    "ip": "holds",
+    "ip_seconds": 1.835
+   },
+   {
+    "instance": "10 0,35,61,66,86,87,129,154,172,180 26,62,96,99,170,206",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 76,
+    "bnb_only_nodes": 34,
+    "ip": "holds",
+    "ip_seconds": 17.863
+   },
+   {
+    "instance": "11 35,61,86,87,128,154,169,180,210 77,78,81,89,101,107,155",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 76,
+    "bnb_only_nodes": 34,
+    "ip": "holds",
+    "ip_seconds": 14.272
+   },
+   {
+    "instance": "10 35,41,43,46,92,102,123,129,169,180 100,172,204,205,206,207",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 74,
+    "bnb_only_nodes": 32,
+    "ip": "holds",
+    "ip_seconds": 18.195
+   },
+   {
+    "instance": "11 5,61,82,86,93,122,129,154,168,210 0,4,10,16,21,24,25,34",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1157688,
+    "bnb_only_nodes": 13,
+    "ip": "holds",
+    "ip_seconds": 4.997
+   },
+   {
+    "instance": "12 0,5,43,51,92,93,122,172,215 6,7,11,45,83,117,123,153,189",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1191033,
+    "bnb_only_nodes": 19,
+    "ip": "holds",
+    "ip_seconds": 4.321
+   },
+   {
+    "instance": "12 0,23,61,87,93,119,128,154,169,215 19,54,56,58,91,92,163,199,201,203",
+    "family": "v",
+    "theta": 2,
+    "method": "enum",
+    "nodes": 17463,
+    "bnb_only_nodes": 4,
+    "ip": "holds",
+    "ip_seconds": 1.136
+   },
+   {
+    "instance": "14 0,6,30,61,64,87,128,154,175,185 27,63,96,99,100,101,171,189,201,205,206,213",
+    "family": "v",
+    "theta": 2,
+    "method": "enum",
+    "nodes": 17308,
+    "bnb_only_nodes": 4,
+    "ip": "holds",
+    "ip_seconds": 4.569
+   },
+   {
+    "instance": "11 0,30,35,86,92,123,128,151,185,215 5,37,40,73,75,110,181,198,204,210",
+    "family": "v",
+    "theta": 1,
+    "method": "enum",
+    "nodes": 189,
+    "bnb_only_nodes": 1,
+    "ip": "holds",
+    "ip_seconds": 0.173
+   },
+   {
+    "instance": "13 0,5,35,43,122,123,151,154,169,210 24,29,61,65,101,135,155,161,209",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 86,
+    "bnb_only_nodes": 44,
+    "ip": "holds",
+    "ip_seconds": 14.931
+   },
+   {
+    "instance": "11 5,30,43,58,64,92,123,154,172,210 67,103,145,151,157,174,178",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 124,
+    "bnb_only_nodes": 61,
+    "ip": "holds",
+    "ip_seconds": 11.219
+   },
+   {
+    "instance": "12 0,5,61,64,93,122,123,180,210,215 20,22,23,55,92,129,154,160,172,203",
+    "family": "v",
+    "theta": 2,
+    "method": "enum",
+    "nodes": 17633,
+    "bnb_only_nodes": 1,
+    "ip": "holds",
+    "ip_seconds": 1.298
+   },
+   {
+    "instance": "11 0,5,30,43,87,93,128,172,198 46,58,60,61,62,63,169,204",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1257930,
+    "bnb_only_nodes": 16,
+    "ip": "holds",
+    "ip_seconds": 5.339
+   },
+   {
+    "instance": "12 0,30,61,64,87,103,128,154,204,215 8,39,40,41,50,56,62,68,80,116",
+    "family": "v",
+    "theta": 2,
+    "method": "enum",
+    "nodes": 17325,
+    "bnb_only_nodes": 1,
+    "ip": "holds",
+    "ip_seconds": 1.912
+   },
+   {
+    "instance": "11 0,43,61,93,122,129,169,172,180,185 39,51,57,67,68,71,105,141,177",
+    "family": "v",
+    "theta": 2,
+    "method": "enum",
+    "nodes": 18398,
+    "bnb_only_nodes": 8,
+    "ip": "holds",
+    "ip_seconds": 0.771
+   },
+   {
+    "instance": "16 5,35,46,122,128,129,154,169,180,210 70,112,114,120,124,130,132,138,141,142,178",
+    "family": "v",
+    "theta": 5,
+    "method": "bnb",
+    "nodes": 221,
+    "bnb_only_nodes": 110,
+    "ip": "holds",
+    "ip_seconds": 18.94
+   },
+   {
+    "instance": "11 0,23,46,61,93,122,154,210,215 9,57,63,69,117,129,153",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 104,
+    "bnb_only_nodes": 52,
+    "ip": "holds",
+    "ip_seconds": 8.872
+   },
+   {
+    "instance": "13 0,46,64,92,123,129,151,169,190,215 75,87,99,105,189,195,201,207",
+    "family": "v",
+    "theta": 5,
+    "method": "bnb",
+    "nodes": 187,
+    "bnb_only_nodes": 76,
+    "ip": "holds",
+    "ip_seconds": 25.073
+   },
+   {
+    "instance": "15 0,5,43,66,92,93,122,172,215 7,8,19,30,31,55,85,103,127,138,199",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 82,
+    "bnb_only_nodes": 40,
+    "ip": "holds",
+    "ip_seconds": 24.173
+   },
+   {
+    "instance": "11 30,43,46,93,122,152,169,172,185,191 15,87,123,156,157,158,160,167,173",
+    "family": "v",
+    "theta": 2,
+    "method": "enum",
+    "nodes": 18055,
+    "bnb_only_nodes": 4,
+    "ip": "holds",
+    "ip_seconds": 0.833
+   },
+   {
+    "instance": "12 0,46,64,87,92,128,169,196,215 33,120,123,125,150,151,152,154",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 74,
+    "bnb_only_nodes": 32,
+    "ip": "holds",
+    "ip_seconds": 19.914
+   },
+   {
+    "instance": "14 5,30,43,87,93,109,113,122,172,185 2,14,20,24,25,27,98,146,152,170,176,206",
+    "family": "v",
+    "theta": 2,
+    "method": "enum",
+    "nodes": 18126,
+    "bnb_only_nodes": 8,
+    "ip": "holds",
+    "ip_seconds": 2.559
+   },
+   {
+    "instance": "11 5,32,43,92,122,123,172,180,210 23,58,128,145,157,166,169",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 111,
+    "bnb_only_nodes": 59,
+    "ip": "holds",
+    "ip_seconds": 20.262
+   },
+   {
+    "instance": "12 5,30,43,81,92,123,151,172,185 34,40,46,61,62,65,70,94,124",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1272664,
+    "bnb_only_nodes": 8,
+    "ip": "holds",
+    "ip_seconds": 6.151
+   },
+   {
+    "instance": "12 0,2,43,92,123,145,151,172,210,215 3,69,75,105,111,165,171,177,183",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1120511,
+    "bnb_only_nodes": 10,
+    "ip": "holds",
+    "ip_seconds": 6.006
+   },
+   {
+    "instance": "13 0,30,61,86,122,128,129,154,185,210 24,27,60,63,97,98,99,135,168,204",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1072412,
+    "bnb_only_nodes": 10,
+    "ip": "holds",
+    "ip_seconds": 5.697
+   },
+   {
+    "instance": "14 5,43,53,61,87,93,128,135,154,210 4,28,76,82,88,96,97,99,136,172,214",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1161311,
+    "bnb_only_nodes": 8,
+    "ip": "holds",
+    "ip_seconds": 7.639
+   },
+   {
+    "instance": "10 5,6,64,70,93,122,123,151,210,215 0,7,21,65,95,125,155",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1174199,
+    "bnb_only_nodes": 10,
+    "ip": "holds",
+    "ip_seconds": 5.122
+   },
+   {
+    "instance": "11 0,5,61,90,93,122,154,210,215 144,147,151,153,164,166,167,171,172,177",
+    "family": "v",
+    "theta": 1,
+    "method": "enum",
+    "nodes": 189,
+    "bnb_only_nodes": 1,
+    "ip": "holds",
+    "ip_seconds": 0.162
+   },
+   {
+    "instance": "12 0,5,30,43,51,64,93,122,172 72,78,84,90,97,98,185,210",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 86,
+    "bnb_only_nodes": 44,
+    "ip": "holds",
+    "ip_seconds": 22.712
+   },
+   {
+    "instance": "11 5,43,61,92,123,129,172,185,210,215 4,16,28,64,70,142,178",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 103,
+    "bnb_only_nodes": 51,
+    "ip": "holds",
+    "ip_seconds": 17.715
+   },
+   {
+    "instance": "11 35,46,61,86,87,110,123,128,169,180 32,56,62,66,140,176,212",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 82,
+    "bnb_only_nodes": 40,
+    "ip": "holds",
+    "ip_seconds": 28.211
+   },
+   {
+    "instance": "11 0,5,64,92,121,123,128,151,215 180,181,183,185,196,200,202,206,212,214",
+    "family": "v",
+    "theta": 1,
+    "method": "enum",
+    "nodes": 191,
+    "bnb_only_nodes": 1,
+    "ip": "holds",
+    "ip_seconds": 0.123
+   },
+   {
+    "instance": "11 30,46,64,86,87,123,129,151,154,210 0,72,108,144,182,187,194,208",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1187634,
+    "bnb_only_nodes": 10,
+    "ip": "holds",
+    "ip_seconds": 3.913
+   },
+   {
+    "instance": "11 31,35,46,84,92,123,129,169,180,210 10,12,13,14,17,22,53",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 77,
+    "bnb_only_nodes": 35,
+    "ip": "holds",
+    "ip_seconds": 20.204
+   },
+   {
+    "instance": "13 0,30,61,64,93,122,129,151,210 1,7,19,31,69,70,71,103,139,175",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1150205,
+    "bnb_only_nodes": 10,
+    "ip": "holds",
+    "ip_seconds": 3.538
+   },
+   {
+    "instance": "13 5,43,53,61,87,93,128,135,154,210 4,28,76,82,88,96,97,99,136,172,214",
+    "family": "v",
+    "theta": 2,
+    "method": "enum",
+    "nodes": 18148,
+    "bnb_only_nodes": 8,
+    "ip": "holds",
+    "ip_seconds": 1.202
+   },
+   {
+    "instance": "11 35,46,61,86,92,123,154,180,211 0,1,3,111,144,145,146,149,183",
+    "family": "v",
+    "theta": 2,
+    "method": "enum",
+    "nodes": 18336,
+    "bnb_only_nodes": 4,
+    "ip": "holds",
+    "ip_seconds": 0.83
+   },
+   {
+    "instance": "11 5,8,64,86,123,129,151,154,204,210 4,40,74,76,111,144,145,146,184,185",
+    "family": "v",
+    "theta": 1,
+    "method": "enum",
+    "nodes": 185,
+    "bnb_only_nodes": 1,
+    "ip": "holds",
+    "ip_seconds": 0.181
+   },
+   {
+    "instance": "11 0,5,46,92,123,151,169,205,215 26,61,62,96,101,135,170,172,206",
+    "family": "v",
+    "theta": 2,
+    "method": "enum",
+    "nodes": 18399,
+    "bnb_only_nodes": 4,
+    "ip": "holds",
+    "ip_seconds": 6.103
+   },
+   {
+    "instance": "15 5,30,43,87,93,109,113,122,172,185 2,14,20,24,25,27,98,146,152,170,176,206",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1156692,
+    "bnb_only_nodes": 8,
+    "ip": "holds",
+    "ip_seconds": 7.02
+   },
+   {
+    "instance": "11 5,61,92,93,123,154,172,179,210 18,42,55,58,59,66,162,198",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1273431,
+    "bnb_only_nodes": 24,
+    "ip": "holds",
+    "ip_seconds": 5.75
+   },
+   {
+    "instance": "18 0,5,8,43,64,92,123,154,172,215 6,7,9,10,61,78,84,86,96,102,126,151,198,210",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 75,
+    "bnb_only_nodes": 33,
+    "ip": "holds",
+    "ip_seconds": 47.063
+   },
+   {
+    "instance": "10 0,5,30,46,61,87,128,169,180,185 55,90,93,94,95,127,199",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1166098,
+    "bnb_only_nodes": 10,
+    "ip": "holds",
+    "ip_seconds": 4.085
+   },
+   {
+    "instance": "14 0,5,30,43,46,65,93,122,169,172 11,78,81,83,87,88,92,94,100,102,106,155,191",
+    "family": "v",
+    "theta": 1,
+    "method": "enum",
+    "nodes": 179,
+    "bnb_only_nodes": 1,
+    "ip": "holds",
+    "ip_seconds": 0.132
+   },
+   {
+    "instance": "10 0,61,86,128,129,154,169,210,215 31,32,33,34,60,180",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 74,
+    "bnb_only_nodes": 32,
+    "ip": "holds",
+    "ip_seconds": 16.143
+   },
+   {
+    "instance": "10 0,43,82,92,123,128,164,172,180,215 9,15,81,87,129,153,171,213",
+    "family": "v",
+    "theta": 2,
+    "method": "enum",
+    "nodes": 17675,
+    "bnb_only_nodes": 4,
+    "ip": "holds",
+    "ip_seconds": 1.351
+   },
+   {
+    "instance": "12 35,46,86,91,92,97,123,169,180,210 19,22,23,55,56,59,163,166",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 124,
+    "bnb_only_nodes": 61,
+    "ip": "holds",
+    "ip_seconds": 33.929
+   },
+   {
+    "instance": "12 0,30,61,93,128,151,169,172,185,215 18,90,126,162,186,201,203,210",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 28,
+    "bnb_only_nodes": 13,
+    "ip": "holds",
+    "ip_seconds": 40.205
+   },
+   {
+    "instance": "14 0,5,43,61,87,93,128,172,210 6,12,24,30,33,69,123,129,213",
+    "family": "v",
+    "theta": 5,
+    "method": "bnb",
+    "nodes": 299,
+    "bnb_only_nodes": 154,
+    "ip": "holds",
+    "ip_seconds": 48.005
+   },
+   {
+    "instance": "11 0,5,43,86,92,93,151,180,185,215 12,84,108,123,132,138,156",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 110,
+    "bnb_only_nodes": 58,
+    "ip": "holds",
+    "ip_seconds": 21.528
+   },
+   {
+    "instance": "12 1,30,43,64,87,128,151,172,185 10,28,34,40,82,88,94,112,148,184",
+    "family": "v",
+    "theta": 2,
+    "method": "enum",
+    "nodes": 18012,
+    "bnb_only_nodes": 1,
+    "ip": "holds",
+    "ip_seconds": 1.215
+   },
+   {
+    "instance": "13 0,61,87,92,128,151,154,202,215 30,60,66,102,120,140,142,150,210",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 122,
+    "bnb_only_nodes": 80,
+    "ip": "holds",
+    "ip_seconds": 28.621
+   },
+   {
+    "instance": "11 0,64,86,87,128,143,151,185,215 138,149,154,162,164,169,210",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 82,
+    "bnb_only_nodes": 40,
+    "ip": "holds",
+    "ip_seconds": 23.283
+   },
+   {
+    "instance": "11 0,5,31,64,86,92,123,154,210 35,47,83,95,167,173,179",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 124,
+    "bnb_only_nodes": 61,
+    "ip": "holds",
+    "ip_seconds": 43.046
+   },
+   {
+    "instance": "11 5,30,43,81,92,123,151,172,185 34,40,46,61,62,65,70,94,124",
+    "family": "v",
+    "theta": 2,
+    "method": "enum",
+    "nodes": 19390,
+    "bnb_only_nodes": 8,
+    "ip": "holds",
+    "ip_seconds": 3.419
+   },
+   {
+    "instance": "13 35,43,61,93,122,154,156,180,210 72,73,76,77,78,79,83,87,88,100,106",
+    "family": "v",
+    "theta": 2,
+    "method": "enum",
+    "nodes": 18099,
+    "bnb_only_nodes": 4,
+    "ip": "holds",
+    "ip_seconds": 1.929
+   },
+   {
+    "instance": "11 0,5,43,51,93,122,154,172,215 8,41,50,56,62,68",
+    "family": "v",
+    "theta": 5,
+    "method": "bnb",
+    "nodes": 221,
+    "bnb_only_nodes": 110,
+    "ip": "holds",
+    "ip_seconds": 42.305
+   },
+   {
+    "instance": "13 5,30,36,61,86,122,129,154,185 52,157,158,159,161,192,193,196,197",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 77,
+    "bnb_only_nodes": 35,
+    "ip": "holds",
+    "ip_seconds": 27.648
+   },
+   {
+    "instance": "12 0,50,61,93,122,128,154,169,171,215 8,9,10,11,13,25,31,43,151,187",
+    "family": "v",
+    "theta": 2,
+    "method": "enum",
+    "nodes": 17265,
+    "bnb_only_nodes": 1,
+    "ip": "holds",
+    "ip_seconds": 1.645
+   },
+   {
+    "instance": "13 5,32,35,46,92,119,123,169,172,180 3,37,39,74,75,81,87,93,148,183",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1121409,
+    "bnb_only_nodes": 10,
+    "ip": "holds",
+    "ip_seconds": 4.52
+   },
+   {
+    "instance": "13 30,46,64,86,87,119,128,151,185 5,17,23,29,53,125,156,158,197",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 76,
+    "bnb_only_nodes": 34,
+    "ip": "holds",
+    "ip_seconds": 20.841
+   },
+   {
+    "instance": "14 0,46,64,84,92,93,122,151,176,215 53,65,71,77,83,95,102,103,107,125,197",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1140125,
+    "bnb_only_nodes": 10,
+    "ip": "holds",
+    "ip_seconds": 5.058
+   },
+   {
+    "instance": "10 0,46,86,122,129,169,185,203,215 23,58,92,93,162,164,198,200",
+    "family": "v",
+    "theta": 2,
+    "method": "enum",
+    "nodes": 18783,
+    "bnb_only_nodes": 4,
+    "ip": "holds",
+    "ip_seconds": 2.414
+   },
+   {
+    "instance": "12 5,43,92,93,95,122,123,172,210 11,29,65,101,119,155,209",
+    "family": "v",
+    "theta": 5,
+    "method": "bnb",
+    "nodes": 221,
+    "bnb_only_nodes": 110,
+    "ip": "holds",
+    "ip_seconds": 14.023
+   },
+   {
+    "instance": "13 5,30,43,93,122,123,172,199,210 31,73,79,91,97,121,139,175,176,181",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1146417,
+    "bnb_only_nodes": 10,
+    "ip": "holds",
+    "ip_seconds": 3.605
+   },
+   {
+    "instance": "14 0,35,46,61,86,128,169,180,210,215 28,100,144,151,156,158,162,174,179,196,208",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1088705,
+    "bnb_only_nodes": 10,
+    "ip": "holds",
+    "ip_seconds": 6.546
+   },
+   {
+    "instance": "11 0,35,61,92,123,128,154,180,181 17,40,46,88,122,157,192",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 118,
+    "bnb_only_nodes": 76,
+    "ip": "holds",
+    "ip_seconds": 23.994
+   },
+   {
+    "instance": "10 5,35,43,64,92,123,172,185,215 14,16,17,48,84,120,156",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1234763,
+    "bnb_only_nodes": 10,
+    "ip": "holds",
+    "ip_seconds": 4.599
+   },
+   {
+    "instance": "13 5,30,61,86,93,98,122,154,185,208 35,71,88,143,172,211,212,213,215",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 79,
+    "bnb_only_nodes": 37,
+    "ip": "holds",
+    "ip_seconds": 16.894
+   },
+   {
+    "instance": "10 0,30,46,92,93,123,133,169,185 64,70,106,112,124,130,178,214",
+    "family": "v",
+    "theta": 2,
+    "method": "enum",
+    "nodes": 18910,
+    "bnb_only_nodes": 4,
+    "ip": "holds",
+    "ip_seconds": 2.648
+   },
+   {
+    "instance": "12 0,35,61,77,86,87,129,140,154,180 66,90,96,102,138,174,212,214,215",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1158190,
+    "bnb_only_nodes": 10,
+    "ip": "holds",
+    "ip_seconds": 4.824
+   },
+   {
+    "instance": "11 35,64,92,123,128,151,172,180,196 156,157,158,161,165,169,171",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 75,
+    "bnb_only_nodes": 33,
+    "ip": "holds",
+    "ip_seconds": 9.075
+   },
+   {
+    "instance": "13 35,60,61,87,89,128,129,154,180,185 181,187,189,195,197,199,205,207,213",
+    "family": "v",
+    "theta": 4,
+    "method": "bnb",
+    "nodes": 82,
+    "bnb_only_nodes": 40,
+    "ip": "holds",
+    "ip_seconds": 4.279
+   },
+   {
+    "instance": "10 5,30,35,87,122,123,129,151,172,215 13,49,121,157,187,199,211",
+    "family": "v",
+    "theta": 3,
+    "method": "enum",
+    "nodes": 1203431,
+    "bnb_only_nodes": 10,
+    "ip": "holds",
+    "ip_seconds": 4.512
+   },
+   {
+    "instance": "11 0,46,61,93,122,148,154,169,215 3,39,75,180,181,185,189,195,207",
+    "family": "v",
+    "theta": 2,
+    "method": "enum",
+    "nodes": 19522,
+    "bnb_only_nodes": 8,
+    "ip": "holds",
+    "ip_seconds": 2.675
+   }
+  ]
+ },
+ "F_empty": {
+  "counts": {
+   "k<=10 leaf=False fails": 239,
+   "k<=10 leaf=True holds": 25,
+   "k>=11 leaf=False fails": 21
+  },
+  "violations_of_C_iff_LEAF_for_k_le_10": []
+ },
+ "certify_us": {
+  "fails/bnb": {
+   "n": 99,
+   "total": 386833,
+   "median": 1175,
+   "max": 45787
+  },
+  "fails/enum": {
+   "n": 4,
+   "total": 1558786,
+   "median": 629201,
+   "max": 785019
+  },
+  "fails/witness": {
+   "n": 520,
+   "total": 184495,
+   "median": 108,
+   "max": 10435
+  },
+  "holds/bnb": {
+   "n": 70,
+   "total": 264789,
+   "median": 1802,
+   "max": 26889
+  },
+  "holds/enum": {
+   "n": 90,
+   "total": 28859520,
+   "median": 37063,
+   "max": 2251318
+  },
+  "holds/phi": {
+   "n": 496,
+   "total": 126010,
+   "median": 44,
+   "max": 11753
+  },
+  "void/phi": {
+   "n": 12,
+   "total": 0,
+   "median": 0,
+   "max": 0
+  }
+ }
+}

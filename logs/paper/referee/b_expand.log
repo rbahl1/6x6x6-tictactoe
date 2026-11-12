@@ -1,0 +1,21 @@
+expansion finished in 204.6 s
+P-states           [1, 2, 5, 14, 35, 181, 1718, 7227, 34801, 93124, 16027] 153135
+expanded           [1, 2, 5, 14, 35, 181, 1718, 7227, 31419, 5810, 0] 46412
+leaves             [0, 0, 0, 0, 0, 0, 0, 0, 3382, 87314, 16027] 106723
+Q-states           [0, 2, 5, 14, 35, 101, 446, 3487, 14362, 62381, 12331] 93164
+threat children    [0, 0, 0, 0, 0, 824, 4075, 14460, 47020, 72352, 4767] 143498
+danger children    [0, 0, 0, 0, 0, 0, 0, 0, 20416, 6060, 1799] 28275
+children (ii)      [0, 1, 3, 9, 24, 70, 282, 2033, 8476, 36813, 6771] 54482
+VOID children (ii) [0, 0, 0, 0, 0, 0, 1, 6, 54, 88, 2] 151
+VOID children (c)  0  VOID children (d) 0
+non-busy table moves [0, 0, 0, 0, 0, 0, 0, 16, 399, 11, 8] 434
+leaves by theta    [64841, 32703, 7267, 1434, 343, 105, 25, 4, 1]
+table entries used: 93164 of 93164; leaves used: 106723 of 106723
+all counts agree with Appendix A.5 / Table 3; (V2) t<Rmax and (V3) hold on the reachable set
+(L1) on all leaves and (L2) on a sample of 1500 leaves: OK   [LEAF (L3) not evaluated here]
+reachable set V (246299 canonical states) written for b_play6.py
+total 207.7 s
+
+real	3m29.812s
+user	3m27.913s
+sys	0m0.265s

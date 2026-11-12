@@ -1,0 +1,12 @@
+leaves by theta: {0: 64841, 1: 32703, 2: 7267, 3: 1434, 4: 343, 5: 105, 6: 25, 7: 4, 8: 1}
+theta 8 sampled 1 LEAF true 1 LEAF(B,F,t+1) false: 1
+theta 7 sampled 4 LEAF true 4 LEAF(B,F,t+1) false: 4
+theta 6 sampled 25 LEAF true 25 LEAF(B,F,t+1) false: 17
+theta 5 sampled 105 LEAF true 105 LEAF(B,F,t+1) false: 38
+theta 4 sampled 60 LEAF true 60 
+theta 3 sampled 60 LEAF true 60 
+theta 2 sampled 60 LEAF true 60 
+theta 1 sampled 60 LEAF true 60 
+theta 0 sampled 150 LEAF true 150 
+total tested 525 failures 0  (108.3 s)
+exit 0

@@ -1,0 +1,5 @@
+4x3 21 {'tried': 3917, 'C_true': 775, 'checked': 775, 'X_total': 26508, 'X_notBadm': 18895, 'cap': 7719, 'danger_b': 11314, 'danger_a': 2162, 'vacuous_cex': 0}
+6x3 21 {'tried': 4000, 'C_true': 1993, 'checked': 1993, 'X_total': 238791, 'X_notBadm': 126943, 'cap': 44194, 'danger_b': 79829, 'danger_a': 9390, 'vacuous_cex': 0}
+6x2 21 {'tried': 3999, 'C_true': 1371, 'checked': 1371, 'X_total': 66835, 'X_notBadm': 31240, 'cap': 14702, 'danger_b': 15734, 'danger_a': 1754, 'vacuous_cex': 0}
+5x3 21 {'tried': 3994, 'C_true': 1435, 'checked': 1435, 'X_total': 115322, 'X_notBadm': 67640, 'cap': 25076, 'danger_b': 41896, 'danger_a': 4736, 'vacuous_cex': 0}
+finished

@@ -1,0 +1,3 @@
+lines 148 = 108 axis + 36 face + 4 space
+slack T7 = 1 (expect 1), slack T8 = 8 (expect 8)
+closure failures 0 (expect 0), symmetries 1152

@@ -1,0 +1,7 @@
+dense small instances: {'inst': 900, 'leaf_true': 3480, 'leaf_false': 1020, 'fail_L1': 0, 'fail_L2': 355, 'fail_L3': 665, 'C_true': 2962, 'C_false': 638, 'C_not_leaf': 29, 'alg_mismatch': 0, 'mu_checks': 12586, 'triples': 8666, 'quick_reject': 388, 'quick_reject_wrong': 0, 'mono_a': 1964, 'mono_c': 2933, 'pair_phase_fail': 71, 'hall_violator_ok': 71, 'theta0': 900}
+examples with F admissible, C true, LEAF false (lines, F, k, Phi):
+    ([18, 31, 40, 84], [52, 58, 64, 70, 82, 88, 118, 124, 130, 190, 196, 214], 13, 0)
+    ([18, 31, 40, 84], [52, 58, 64, 70, 82, 88, 118, 124, 130, 190, 196, 214], 14, 0)
+    ([18, 31, 40, 84], [52, 58, 64, 70, 82, 88, 118, 124, 130, 190, 196, 214], 15, 0)
+SEC4B ALL OK  (54.0 s)
+exit 0

@@ -1,0 +1,20 @@
+Lemma 4.3 (equivalence) and 4.2 on 4000 random (B,X): admissible 1626 not admissible 2374
+Example 4.11: live lines = T: True  Phi(B,0) = 10  LEAF(B,0,11) = False  LEAF(B,0,10) = True ; admissible X (all 2^16 subsets of N(T) tried): 45292  largest 10  all have a pairing: True  => C(B,0,11) true
+connected triples of lines (kind, |N(T)|) -> count: [(('path', 16), 22248), (('star', 16), 1464), (('triangle', 15), 1464)]
+Lemma 4.19: 3000 random triples of live lines, X_T and random subsets admissible
+Prop 4.22: for each of the 36 face diagonals and each admissible choice of (r,s): a, b busy-free, d,a,b a triangle; 288 triangles checked
+   Figure 2 (v=1, r=2, s=3): s in {r, 5-r}? True  -> violates the choice made in the proof (r, s from different pairs)
+   triangles: distinct busy-footprints 348  minimal ones 36  sizes [2]
+   busy 11-sets: 2496144 ; without a live triangle: 0
+   busy 12-sets: 2704156 ; without a live triangle: 0
+   busy 17-sets: 346104 ; without a live triangle: 0
+   busy 18-sets: 134596 ; without a live triangle: 4096
+   example of a busy 18-set without a live triangle: [(0, 0, 0), (0, 0, 5), (0, 5, 0), (0, 5, 5), (1, 1, 1), (1, 1, 4), (1, 4, 1), (1, 4, 4), (2, 2, 2), (2, 2, 3), (2, 3, 2), (2, 3, 3), (3, 2, 2), (3, 2, 3), (4, 1, 1), (4, 1, 4), (5, 0, 0), (5, 0, 5)]
+small instances: {'inst': 700, 'leaf': 2764, 'C': 949, 'C_not_leaf': 0, 'alg_mismatch': 0, 'mu_checks': 4311, 'phi_inf': 197, 'eq_checks': 0, 'comp_checks': 1317, 'mono_a': 580, 'mono_c': 700, 'slack_checks': 0, 'order_checks': 4311, 'closed_checks': 700}
+Prop 4.20 (C <=> LEAF for F empty, k<=10) and Cor 4.21 by exhaustive enumeration: {'inst': 40, 'C_true': 76, 'C_false': 7, 'slack_viol': 0, 'visited': 25624767, 'both_impl': 18}
+T8: max number of lines adjacent to a live line: 16 ; on the empty board: 36
+T8: mu({l}) histogram: [(4, 100)]
+T8: connected triples: 5652
+T8: min mu(T) over 4000 triples = 8 (Fact 4.23: Phi(T8,0) = 8)
+SEC4 ALL OK  (104.8 s)
+exit 0

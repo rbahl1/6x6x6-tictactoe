@@ -1,0 +1,27 @@
+=== exact enumeration
+ theta 0 records 64841 distinct 64841 equal to the set of leaves with this theta: True all holds: True status values Counter({1: 64841}) max nodes 1 sum nodes 64841 X all "-": True
+ theta 1 records 32703 distinct 32703 equal to the set of leaves with this theta: True all holds: True status values Counter({1: 32703}) max nodes 201 sum nodes 6377347 X all "-": True
+ theta 2 records 7267 distinct 7267 equal to the set of leaves with this theta: True all holds: True status values Counter({1: 7267}) max nodes 20485 sum nodes 142553649 X all "-": True
+ theta 3 records 1434 distinct 1434 equal to the set of leaves with this theta: True all holds: True status values Counter({1: 1434}) max nodes 1394130 sum nodes 1888135820 X all "-": True
+ total 106245 share of leaves 99.5521% distinct 106245
+=== integer program on the leaves
+  ip_leaf_sample.jsonl 889
+  ip_leaf_theta_ge4_rest.shard0of2.jsonl 210
+  ip_leaf_theta_ge4_rest.shard1of2.jsonl 209
+ records 1308 distinct 1308 all are leaves: True
+ distinct instances by theta {0: 300, 1: 300, 2: 150, 3: 80, 4: 343, 5: 105, 6: 25, 7: 4, 8: 1}
+ theta>=4 covered 478 of 478 ; all theta>=4 leaves covered: True
+ theta<=3 sampled 830
+ decisions Counter({'holds': 1308}) status Counter({'optimal': 1308}) modes Counter({'decide': 1308})
+ worst values Counter({0: 1308})
+  theta 0 n=300 median 0.031 max 0.1
+  theta 1 n=300 median 0.105 max 0.2
+  theta 2 n=150 median 1.817 max 9.6
+  theta 3 n=80 median 2.783 max 5.4
+  theta 4 n=343 median 12.670 max 52.5
+  theta 5 n=105 median 12.436 max 34.2
+  theta 6 n=25 median 116.707 max 931.5
+  theta 7 n=4 median 76.505 max 132.9
+  theta 8 n=1 median 15.617 max 15.6
+  theta 4,5 together: median 12.64 max 52.5
+  total seconds 11138 = 3.09 h

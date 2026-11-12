@@ -1,0 +1,251 @@
+\section{Pairings and Hall's condition}\label{sec:pairing}
+
+A pairing strategy is the simplest way in which \Breaker{} can win a game of this kind: \Breaker{} fixes,
+for every line, two of its cells, such that the pairs of different lines are disjoint, and whenever \Maker{}
+takes a cell of a pair, \Breaker{} takes the other one. Pairing strategies for $n^d$ tic-tac-toe go back to
+Hales and Jewett~\cite{HalesJewett1963}; see also~\cite{Beck2008,Krivelevich2014}. On the empty $6\times6\times6$ board
+there is no pairing, since the $148$ lines would need $296$ cells. In this section we study pairings in
+positions in which some lines are already dead and some cells are occupied by \Maker: the strategy that
+goes with them (\cref{lem:pairing}), the criterion for their existence (\cref{lem:hall}), and the number
+of stones that \Breaker{} needs before a pairing can exist at all.
+
+\subsection{The pairing strategy}\label{ssec:pairing-strategy}
+
+Recall the rules of the Maker--Breaker game on the board: the players alternately occupy an empty cell,
+\Maker{} moving first, and \Maker{} wins by owning, at some moment, all six cells of a line. A
+\emph{position} is described by the disjoint sets $B$ and $X$ of the stones of \Breaker{} and of \Maker;
+it is \Maker's turn if $|B|=|X|$, and \Breaker's turn if $|X|=|B|+1$.
+
+\begin{definition}[Pairing]\label{def:pairing}
+Let $B,X$ be disjoint sets of cells. A \emph{pairing for $(B,X)$} is a family $\pi=(\pi(l))_{l\in\live{B}}$
+of pairwise disjoint sets with $\pi(l)\subseteq l\setminus X$ and $|\pi(l)|=2$ for every live line $l$.
+\end{definition}
+
+The cells of $\pi(l)$ are empty: they are not in $X$ by definition and not in $B$ because $l$ is live.
+We say that the two cells of $\pi(l)$ are \emph{assigned to} $l$, and that each of them is the
+\emph{partner} of the other.
+
+\begin{lemma}[Pairing strategy]\label{lem:pairing}
+Consider a position $(B,X)$ with \Maker{} to move, so that $|B|=|X|$, and let $\pi$ be a pairing for
+$(B,X)$. Suppose that from now on \Breaker{} answers every move $x$ of \Maker{} by the following rule:
+\begin{quote}
+if $x\in\pi(l)$ for some $l\in\live{B}$ and the partner of $x$ is empty, take the partner of $x$;
+otherwise take an arbitrary empty cell.
+\end{quote}
+Then, whenever \Breaker{} is to move, the rule names an empty cell, and \Maker{} never owns all six cells
+of a line, neither in the position $(B,X)$ nor at any later moment.
+\end{lemma}
+
+\begin{proof}
+Since $|B|=|X|$ and the players alternate, the number of occupied cells is odd after each move of \Maker,
+hence at most $215$: there is an empty cell, and the rule names one. (The line $l$ in the rule is unique,
+because the sets $\pi(l)$ are disjoint.)
+
+We claim that the following holds whenever \Maker{} is to move:
+\begin{equation}\label{eq:pairing-inv}
+  \text{every line $l\in\live{B}$ contains a stone of \Breaker, or both cells of $\pi(l)$ are empty.}
+\end{equation}
+Here $\live{B}$ refers to the set $B$ of the initial position. In the initial position both cells of
+$\pi(l)$ are empty for every $l\in\live{B}$. Assume that \eqref{eq:pairing-inv} holds, let \Maker{} play
+$x$ and \Breaker{} reply $z$, and let $l\in\live{B}$. If $l$ contained a stone of \Breaker{} before, it
+still does. Otherwise both cells of $\pi(l)$ were empty. If $x\in\pi(l)$, the partner of $x$ is empty, so
+$z$ is this partner, and $l$ now contains the stone $z$ of \Breaker. If $x\notin\pi(l)$, then either
+$z\in\pi(l)\subseteq l$, and $l$ contains a stone of \Breaker, or both cells of $\pi(l)$ are still empty.
+Thus \eqref{eq:pairing-inv} holds again.
+
+Now suppose that at some moment \Maker{} owns all six cells of a line $l$. Then $l$ contains no stone of
+\Breaker; in particular $l\cap B=\emptyset$, so $l\in\live{B}$. In the initial position this is
+impossible, because $\pi(l)\subseteq l\setminus X$ is not empty. So \Maker{} completed $l$ by a later move
+$x$; just before this move \Maker{} owned five cells of $l$, and $x$ was the only empty cell of $l$. This
+contradicts \eqref{eq:pairing-inv}, applied just before the move $x$, according to which the two cells of
+$\pi(l)\subseteq l$ were both empty.
+\end{proof}
+
+The second alternative of the rule cannot be dispensed with. The partner of $x$ may already hold a stone
+of \Breaker, placed earlier as an arbitrary move; the line is then dead, and nothing needs to be done for
+it. (The partner of $x$ never holds a stone of \Maker{} when \Maker{} plays $x$: when \Maker{} took the
+partner, \Breaker{} answered with $x$ unless $x$ was occupied already.) The
+lemma is applied in the proof of \cref{thm:sigma}, from the moment at which \Breaker's strategy switches
+from its table to a pairing.
+
+\subsection{Hall's condition}\label{ssec:hall}
+
+Let $B,X$ be disjoint sets of cells. For a set $S\subseteq\live{B}$ of live lines the \emph{deficiency} of
+$S$ is
+\[
+  \dfc_X(S)=2|S|-|\N(S)\setminus X| ,
+\]
+and we put $\delta(B,X)=\max\{\dfc_X(S):S\subseteq\live{B}\}$; note that $\delta(B,X)\ge\dfc_X(\emptyset)=0$.
+An \emph{assignment} for $(B,X)$ is a set of pairs $(l,c)$ with $l\in\live{B}$ and $c\in l\setminus X$ in
+which every line occurs at most twice and every cell at most once; a pairing is the same thing as an
+assignment with $2|\live{B}|$ pairs. The following lemma is Hall's theorem~\cite{Hall1935} for the
+bipartite graph between lines and cells in which every live line is taken twice, in its deficiency
+version, together with the usual formulation as a flow
+problem~\cite{FordFulkerson1962,Schrijver2003}.
+
+\begin{lemma}[Hall's condition]\label{lem:hall}
+Let $B,X$ be disjoint sets of cells and $L=\live{B}$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item The maximum number of pairs in an assignment for $(B,X)$ is $2|L|-\delta(B,X)$.
+\item A pairing for $(B,X)$ exists if and only if $\delta(B,X)=0$, that is, if and only if
+      \[
+         |\N(S)\setminus X|\ge 2|S|\qquad\text{for every } S\subseteq\live{B}.
+      \]
+\item The number in \textup{(a)} is the value of a maximum flow in the following network $\mathcal N(B,X)$:
+      a source $s$, a node for every line $l\in L$, a node for every cell $c\in\N(L)\setminus X$, and a
+      sink $t$; arcs $s\to l$ of capacity $2$, arcs $l\to c$ of capacity $1$ for $c\in l\setminus X$, and
+      arcs $c\to t$ of capacity $1$.
+\item If $X\subseteq X'$ and $X'\cap B=\emptyset$, then $\dfc_X(S)\le\dfc_{X'}(S)$ for every
+      $S\subseteq\live{B}$, hence $\delta(B,X)\le\delta(B,X')$; a pairing for $(B,X')$ is also a pairing for
+      $(B,X)$.
+\item If $B\subseteq B'$ and $B'\cap X=\emptyset$, then the restriction of a pairing for $(B,X)$ to
+      $\live{B'}$ is a pairing for $(B',X)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The integral flows in $\mathcal N(B,X)$ are exactly the assignments for $(B,X)$: a flow of $1$ on the arc
+$l\to c$ means that the pair $(l,c)$ belongs to the assignment, and the value of the flow is the number of
+pairs. As the capacities are integers, there is a maximum flow that is
+integral~\cite{FordFulkerson1962}; so the maximum in (a) equals the maximum flow value, and by the
+max-flow min-cut theorem it equals the minimum capacity of a cut. Let $A$ be a set of nodes with $s\in A$,
+$t\notin A$, and put $S=A\cap L$. The capacity of the cut defined by $A$ is
+\[
+  2|L\setminus S|+\#\{(l,c): l\in S,\ c\in l\setminus X,\ c\notin A\}+\#\{c : c\in A\}.
+\]
+Every cell $c\in\N(S)\setminus X$ contributes at least $1$ to the sum of the last two terms: the arc
+$c\to t$ if $c\in A$, and an arc $l\to c$ with $l\in S$ otherwise. Hence the capacity is at least
+$2|L|-2|S|+|\N(S)\setminus X|=2|L|-\dfc_X(S)$, and equality holds for $A=\{s\}\cup S\cup(\N(S)\setminus X)$.
+The minimum capacity of a cut is therefore $2|L|-\delta(B,X)$, which proves (a) and (c). A pairing is an
+assignment with $2|L|$ pairs, so (b) is the case $\delta(B,X)=0$ of (a). (d) holds because
+$\N(S)\setminus X'\subseteq\N(S)\setminus X$ and $l\setminus X'\subseteq l\setminus X$. (e) holds because
+$\live{B'}\subseteq\live{B}$.
+\end{proof}
+
+A maximum assignment, and with it either a pairing or a set $S$ violating the condition in (b), is found
+by any algorithm for bipartite matching, for instance by augmenting
+paths~\cite{FordFulkerson1962,HopcroftKarp1973}. The graphs involved have at most $148$ lines and $216$
+cells, and all quantities are small integers; no floating-point arithmetic occurs.
+
+\subsection{Slack, and the number of stones that Breaker needs}\label{ssec:slack}
+
+The simplest obstruction to a pairing is the number of cells.
+
+\begin{definition}[Slack]\label{def:slack}
+For a set $B$ of cells, $\slack(B)=(216-|B|)-2\,|\live{B}|$.
+\end{definition}
+
+\begin{lemma}\label{lem:slack-bound}
+If a pairing for $(B,X)$ exists, then $|X|\le\slack(B)$, and the pairing leaves exactly $\slack(B)-|X|$
+cells outside $B\cup X$ unassigned.
+\end{lemma}
+
+\begin{proof}
+The $2|\live{B}|$ assigned cells are distinct and lie outside $B\cup X$, a set of $216-|B|-|X|$ cells.
+\end{proof}
+
+\begin{proposition}[Fewer than seven stones do not suffice]\label{prop:seven}
+If $|B|\le 6$, then $\slack(B)<0$, and there is no pairing for $(B,X)$, whatever $X$ is. In particular
+there is no pairing on the empty board.
+\end{proposition}
+
+\begin{proof}
+Every cell lies on at most seven lines (\cref{lem:degree}), so $|\live{B}|\ge 148-7|B|$ and
+\[
+  \slack(B)\le 216-|B|-2\,(148-7|B|)=13|B|-80\le -2 .
+\]
+For instance, six stones leave at least $106$ live lines, which need $212$ cells, while only $210$ cells
+are free. The claim follows from \cref{lem:slack-bound}.
+\end{proof}
+
+A pairing strategy can therefore not be used before the seventh move of \Breaker, and when that move has
+been made, \Maker{} has seven stones on the board as well. For sets of busy cells the slack is easily computed.
+
+\begin{lemma}[Slack of a set of busy cells]\label{lem:busy-slack}
+Let $B\subseteq\Busy$ be a set of busy cells that has at most two cells on each of the four space
+diagonals, and let $p(B)$ be the number of pairs of collinear cells in $B$; by \cref{lem:busy}\,\textup{(c)}
+these are the pairs of cells of $B$ that have the same level or lie on the same space diagonal. Then
+\[
+  |\live{B}|=148-7|B|+p(B)\qquad\text{and}\qquad \slack(B)=13|B|-80-2p(B).
+\]
+\end{lemma}
+
+\begin{proof}
+A line that is not a space diagonal contains at most two busy cells (\cref{lem:busy}\,(b)); so by the
+hypothesis no line contains more than two cells of $B$. Each cell of $B$ lies on seven lines. A dead line
+is counted once or twice in the resulting number $7|B|$, and twice if and only if it contains two cells
+of $B$. The lines with two cells of $B$ correspond bijectively to the collinear pairs in $B$, because
+two cells lie on at most one line (\cref{lem:geometry}\,(c)) and no line contains three cells of $B$.
+Hence there are $7|B|-p(B)$ dead lines. The second formula follows from \cref{def:slack}.
+\end{proof}
+
+\subsection{Two examples}\label{ssec:examples}
+
+\begin{example}[The set $\Tseven$]\label{ex:T7}
+Let
+\[
+  \Tseven=\{(0,0,0),\ (5,5,5),\ (5,0,0),\ (1,1,4),\ (4,4,1),\ (2,3,2),\ (3,2,3)\}
+\]
+(see \cref{fig:busy}). All seven cells are busy; the first three have level $0$, the next two level
+$1$, the last two level $2$. The cells $(0,0,0),(5,5,5)$ lie on the space diagonal $\{(t,t,t)\}$, the
+cells $(1,1,4),(4,4,1)$ on $\{(t,t,5-t)\}$, the cells $(2,3,2),(3,2,3)$ on $\{(t,5-t,t)\}$, and $(5,0,0)$ on
+$\{(5-t,t,t)\}$. So no space diagonal contains more than two cells of $\Tseven$, and two cells of
+different levels never lie on the same space diagonal. By \cref{lem:busy}\,(c) the collinear pairs are
+the pairs of equal level, hence $p(\Tseven)=3+1+1=5$, and by \cref{lem:busy-slack}
+\[
+  |\live{\Tseven}|=148-49+5=104,\qquad \slack(\Tseven)=209-208=1 :
+\]
+the seven stones kill $44$ lines, and the $104$ live lines need all but one of the $209$ remaining cells.
+\end{example}
+
+\begin{example}[The set $\Teight$]\label{ex:T8}
+Let $\Teight=\Tseven+(0,5,5)$. The new cell is busy of level $0$ and lies on the space diagonal
+$\{(5-t,t,t)\}$ together with $(5,0,0)$. Again no space diagonal contains more than two cells of
+$\Teight$, cells of different levels lie on different space diagonals, and the collinear pairs are the
+pairs of equal level: $p(\Teight)=6+1+1=8$. Hence
+\[
+  |\live{\Teight}|=148-56+8=100,\qquad \slack(\Teight)=208-200=8 :
+\]
+the eighth stone kills only four further lines (three of the seven lines through it contain one of the
+cells $(0,0,0)$, $(5,5,5)$, $(5,0,0)$ and are dead already), but it raises the slack from $1$ to $8$.
+\end{example}
+
+\begin{fact}[Pairings for $\Tseven$ and $\Teight$]\label{fact:T-pairings}
+There is a pairing for $(\Tseven,\emptyset)$ and a pairing for $(\Teight,\emptyset)$.
+
+\established bipartite matching in the programs \fn{bin/minstones} (for $\Tseven$; output in
+\fn{logs/minstones/run.log}), \fn{bin/test_core} (both sets; \fn{logs/core/test_core.log}) and,
+with independent code, \fn{bin/treecheck} with the option \fn{--leafcheck}, which reports that $\LEAF(\Tseven,\emptyset,1)$
+and $\LEAF(\Teight,\emptyset,8)$ hold (the existence of a pairing is part of the condition $\LEAF$,
+\cref{def:leaf}), and in the script \fn{secA_check1.py} in the directory \fn{logs/paper/} of the archive; the
+outputs of the last two are in the file \fn{secA_checks.log} in the same directory (see
+\cref{ssec:artifact}).
+\end{fact}
+
+Together with \cref{prop:seven} this shows that seven is the least number of stones of \Breaker{} for
+which a pairing can exist. A pairing is a witness that is easy to check, and each of the programs
+named above checks the pairing it has found against \cref{def:pairing}.
+
+\subsection{Why this is not yet a strategy}\label{ssec:not-yet}
+
+Neither example gives \Breaker{} a strategy. \Breaker{} needs seven or eight moves to occupy $\Tseven$ or
+$\Teight$, and \Maker{} has made as many moves in the meantime. Suppose that after eight rounds
+\Breaker{} does own $B=\Teight$, and let $X$ be the set of the eight stones of \Maker. What \Breaker{}
+needs is a pairing for $(\Teight,X)$, not for $(\Teight,\emptyset)$, and three things can go wrong.
+\begin{itemize}
+\item By \cref{lem:slack-bound} a pairing for $(B,X)$ requires $|X|\le\slack(B)$. This rules out
+      $\Tseven$, whose slack is $1$, and for $\Teight$ with $|X|=8$ it means that the pairing must use
+      \emph{every} remaining cell.
+\item Whether a pairing exists depends on where the stones of \Maker{} are. If five of them lie on a live
+      line, or if they form two live lines with four stones each that meet in an empty cell, there is no
+      pairing (\cref{lem:one-two} below). \Breaker{} can prevent such configurations, but only by
+      answering them at once, and such a forced reply is in general not a cell of $\Teight$.
+\item \Maker{} may simply occupy cells of $\Teight$.
+\end{itemize}
+The next section deals with the first two points: it singles out the sets $X$ that \Breaker{} can
+enforce by answering immediate threats (the \emph{admissible} sets) and gives a criterion, decidable by
+exact integer computations, which guarantees a pairing for $(B,X)$ for every admissible set $X$ that is
+compatible with what \Breaker{} knows. For instance, for \emph{every} $\Teight$-admissible set $X$ of
+eight cells there is a pairing for $(\Teight,X)$ (\cref{fact:T8-leaf}). The third point,
+and the forced replies, are the subject of \cref{sec:game}: there a finite table of moves steers every
+play into a position for which the criterion holds.

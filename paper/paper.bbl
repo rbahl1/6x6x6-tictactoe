@@ -1,0 +1,132 @@
+\providecommand{\bysame}{\leavevmode\hbox to3em{\hrulefill}\thinspace}
+\providecommand{\MR}{\relax\ifhmode\unskip\space\fi MR }
+% \MRhref is called by the amsart/book/proc definition of \MR.
+\providecommand{\MRhref}[2]{%
+  \href{http://www.ams.org/mathscinet-getitem?mr=#1}{#2}
+}
+\providecommand{\href}[2]{#2}
+\begin{thebibliography}{10}
+
+\bibitem{Allis1994}
+L.~V. Allis, \emph{Searching for solutions in games and artificial
+  intelligence}, Ph.D. thesis, Rijksuniversiteit Limburg, Maastricht, 1994.
+
+\bibitem{AllisSchoo1992}
+L.~V. Allis and P.~N.~A. Schoo, \emph{Qubic solved again}, Heuristic
+  Programming in Artificial Intelligence 3: The Third Computer Olympiad (H.~J.
+  van~den Herik and L.~V. Allis, eds.), Ellis Horwood, Chichester, 1992,
+  pp.~192--204.
+
+\bibitem{AllisvandenHerikHuntjens1996}
+L.~V. Allis, H.~J. van~den Herik, and M.~P.~H. Huntjens, \emph{Go-{M}oku solved
+  by new search techniques}, Comput. Intell. \textbf{12} (1996), no.~1, 7--23.
+
+\bibitem{AllisvanderMeulenvandenHerik1994}
+L.~V. Allis, M.~van~der Meulen, and H.~J. van~den Herik, \emph{Proof-number
+  search}, Artificial Intelligence \textbf{66} (1994), no.~1, 91--124.
+
+\bibitem{Beck2008}
+J.~Beck, \emph{Combinatorial games: Tic-tac-toe theory}, Encyclopedia of
+  Mathematics and its Applications, vol. 114, Cambridge University Press,
+  Cambridge, 2008.
+
+\bibitem{BerlekampConwayGuy2003}
+E.~R. Berlekamp, J.~H. Conway, and R.~K. Guy, \emph{Winning ways for your
+  mathematical plays. {V}ol. 3}, 2nd ed., A K Peters, Natick, MA, 2003, Chapter
+  22, ``Lines and squares''.
+
+\bibitem{CainRaymondKallersjo2025}
+J.~W. Cain, I.~M. Raymond, and N.~C. K{\"a}llersj{\"o}, \emph{Cubic
+  tic-tac-toe: A matching-based approach}, Preprint, arXiv:2509.21494v1
+  [math.CO], 2025.
+
+\bibitem{DvorakValla2021}
+P.~Dvo{\v{r}}{\'a}k and T.~Valla, \emph{Automorphisms of the cube $n^d$},
+  Discrete Math. \textbf{344} (2021), no.~3, 112234.
+
+\bibitem{ErdosSelfridge1973}
+P.~Erd{\H{o}}s and J.~L. Selfridge, \emph{On a combinatorial game}, J. Combin.
+  Theory Ser. A \textbf{14} (1973), no.~3, 298--301.
+
+\bibitem{FordFulkerson1962}
+L.~R. Ford, Jr. and D.~R. Fulkerson, \emph{Flows in networks}, Princeton
+  University Press, Princeton, NJ, 1962.
+
+\bibitem{GolombHales2002}
+S.~W. Golomb and A.~W. Hales, \emph{Hypercube tic-tac-toe}, More Games of No
+  Chance (R.~J. Nowakowski, ed.), Math. Sci. Res. Inst. Publ., vol.~42,
+  Cambridge University Press, Cambridge, 2002, pp.~167--182.
+
+\bibitem{HalesJewett1963}
+A.~W. Hales and R.~I. Jewett, \emph{Regularity and positional games}, Trans.
+  Amer. Math. Soc. \textbf{106} (1963), no.~2, 222--229.
+
+\bibitem{Hall1935}
+P.~Hall, \emph{On representatives of subsets}, J. London Math. Soc. \textbf{10}
+  (1935), no.~1, 26--30.
+
+\bibitem{HefetzKrivelevichStojakovicSzabo2014}
+D.~Hefetz, M.~Krivelevich, M.~Stojakovi{\'c}, and T.~Szab{\'o},
+  \emph{Positional games}, Oberwolfach Seminars, vol.~44,
+  Birkh{\"a}user/Springer, Basel, 2014.
+
+\bibitem{HeuleKullmannMarek2016}
+M.~J.~H. Heule, O.~Kullmann, and V.~W. Marek, \emph{Solving and verifying the
+  {B}oolean {P}ythagorean triples problem via cube-and-conquer}, Theory and
+  Applications of Satisfiability Testing -- {SAT} 2016 (N.~Creignou and
+  D.~Le~Berre, eds.), Lecture Notes in Computer Science, Springer, Cham, 2016,
+  pp.~228--245.
+
+\bibitem{HopcroftKarp1973}
+J.~E. Hopcroft and R.~M. Karp, \emph{An $n^{5/2}$ algorithm for maximum
+  matchings in bipartite graphs}, SIAM J. Comput. \textbf{2} (1973), no.~4,
+  225--231.
+
+\bibitem{HsuEtAl2020}
+W.-Y. Hsu, C.-L. Ko, J.-C. Chen, T.-H. Wei, C.-H. Hsueh, and I.-C. Wu, \emph{On
+  solving the 7,7,5-game and the 8,8,5-game}, Theoret. Comput. Sci.
+  \textbf{815} (2020), 79--94.
+
+\bibitem{HuangfuHall2018}
+Q.~Huangfu and J.~A.~J. Hall, \emph{Parallelizing the dual revised simplex
+  method}, Math. Program. Comput. \textbf{10} (2018), no.~1, 119--142.
+
+\bibitem{Krivelevich2014}
+M.~Krivelevich, \emph{Positional games}, Proceedings of the {I}nternational
+  {C}ongress of {M}athematicians---{S}eoul 2014. {V}ol. {IV}, Kyung Moon Sa,
+  Seoul, 2014, pp.~355--379. Theorem numbers quoted here are those of the
+  preprint arXiv:1404.2731.
+
+\bibitem{McConnellEtAl2011}
+R.~M. McConnell, K.~Mehlhorn, S.~N{\"a}her, and P.~Schweitzer, \emph{Certifying
+  algorithms}, Comput. Sci. Rev. \textbf{5} (2011), no.~2, 119--161.
+
+\bibitem{Patashnik1980}
+O.~Patashnik, \emph{Qubic: $4\times 4\times 4$ tic-tac-toe}, Math. Mag.
+  \textbf{53} (1980), no.~4, 202--216.
+
+\bibitem{Schrijver2003}
+A.~Schrijver, \emph{Combinatorial optimization: Polyhedra and efficiency},
+  Algorithms and Combinatorics, vol.~24, Springer-Verlag, Berlin, 2003.
+
+\bibitem{Silver1967}
+R.~Silver, \emph{The group of automorphisms of the game of 3-dimensional
+  ticktacktoe}, Amer. Math. Monthly \textbf{74} (1967), no.~3, 247--254.
+
+\bibitem{Uiterwijk2019}
+J.~W. H.~M. Uiterwijk, \emph{Set matching with applications: An enhancement of
+  the {H}ales--{J}ewett pairing strategy}, ICGA J. \textbf{40} (2019), no.~3,
+  129--148.
+
+\bibitem{vandenHerikUiterwijkvanRijswijck2002}
+H.~J. van~den Herik, J.~W. H.~M. Uiterwijk, and J.~van Rijswijck, \emph{Games
+  solved: Now and in the future}, Artificial Intelligence \textbf{134} (2002),
+  no.~1--2, 277--311.
+
+\bibitem{Zermelo1913}
+E.~Zermelo, \emph{{\"U}ber eine {A}nwendung der {M}engenlehre auf die {T}heorie
+  des {S}chachspiels}, Proceedings of the Fifth International Congress of
+  Mathematicians (Cambridge, 1912), vol.~2, Cambridge University Press,
+  Cambridge, 1913, pp.~501--504.
+
+\end{thebibliography}

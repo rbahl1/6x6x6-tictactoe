@@ -1,0 +1,145 @@
+\section{The integer program used as a cross-check}\label{sec:ip}
+
+
+The leaf condition $\LEAF$ is only sufficient for the pairing condition $\CC(B,F,k)$ of \cref{def:C}.
+To test the conclusion $\CC(B,F,k)$ directly, and independently of the max-flow machinery, we used a
+$0$--$1$ program whose optimal value measures the largest violation of Hall's condition that Maker can
+reach. It is solved in floating-point arithmetic, so its answers are computed statements of a weaker kind
+than those of \cref{sec:verification}; \emph{none of them is used in the proof of \cref{thm:main}}.
+
+\subsection{The program}\label{ssec:ip-model}
+
+Let $B$ and $F$ be disjoint sets of cells and $k\ge 0$. Define
+\[
+\worst(B,F,k)=\max\bigl\{\,2|S|-|\N(S)\setminus X|\;:\; S\subseteq\live{B},\ X \text{ $B$-admissible},\
+F\subseteq X,\ |X|\le k\,\bigr\},
+\]
+the maximum being taken over the empty family if no such $X$ exists. Since $S=\emptyset$ is allowed,
+$\worst(B,F,k)\ge0$ whenever some $X$ exists, and by \cref{lem:hall} the pairing condition $\CC(B,F,k)$ holds
+if and only if $\worst(B,F,k)\le 0$ (or no admissible $X$ exists, in which case $\CC$ holds vacuously).
+
+The program has four families of binary variables: $s_l$ and $q_l$ for every live line $l\in\live{B}$, and
+$n_c$ and $x_c$ for every cell $c\notin B$. The intended meaning is $s_l=1$ iff $l\in S$; $x_c=1$ iff
+$c\in X$; $n_c=1$ for the cells of $\N(S)\cup X$; $q_l=1$ if $l$ carries four stones of $X$.
+\begin{align}
+\text{maximize}\quad & 2\sum_{l}s_l-\sum_{c}n_c+\sum_{c}x_c \label{eq:ip-obj}\\
+\text{subject to}\quad
+ & n_c\ge s_l && \text{for } l\in\live{B},\ c\in l, \label{eq:ip-n}\\
+ & x_c\le n_c && \text{for } c\notin B, \label{eq:ip-xn}\\
+ & \textstyle\sum_{c}x_c\le k,\qquad x_c=1 && \text{for } c\in F, \label{eq:ip-k}\\
+ & \textstyle\sum_{c\in l}x_c\le 4 && \text{for } l\in\live{B}, \label{eq:ip-cap}\\
+ & \textstyle q_l\ge\sum_{c\in l}x_c-3 && \text{for } l\in\live{B}, \label{eq:ip-q}\\
+ & q_a+q_b-x_c\le 1 && \text{for } c\notin B \text{ and live lines } a\neq b \text{ through } c. \label{eq:ip-danger}
+\end{align}
+
+\begin{proposition}[Exactness of the integer program]\label{prop:ip-exact}
+The program \eqref{eq:ip-obj}--\eqref{eq:ip-danger} is feasible if and only if $F$ is $B$-admissible and
+$|F|\le k$, and then its optimal value is $\worst(B,F,k)$.
+\end{proposition}
+
+\begin{proof}
+Let $(s,n,x,q)$ be feasible and put $X=\{c:x_c=1\}$, $S=\{l:s_l=1\}$. By \eqref{eq:ip-k}, $F\subseteq X$ and
+$|X|\le k$; $X\cap B=\emptyset$ because there are no variables for the cells of $B$. By \eqref{eq:ip-cap}
+every live line has at most four cells of $X$. If two live lines $a\ne b$ with exactly four cells of $X$
+each share a cell $c$, then $q_a=q_b=1$ by \eqref{eq:ip-q}, hence $x_c=1$ by \eqref{eq:ip-danger}: the
+common cell is in $X$, so $a,b$ is not a danger pair. Thus $X$ is $B$-admissible (\cref{def:admissible}).
+Conversely, for a $B$-admissible $X$ with $F\subseteq X$, $|X|\le k$, and any $S\subseteq\live{B}$, set $x$ and
+$s$ accordingly, $q_l=1$ exactly for the live lines with four cells of $X$, and $n_c=1$ exactly for
+$c\in\N(S)\cup X$. All constraints hold; for \eqref{eq:ip-danger} note that $q_a=q_b=1$ forces the common
+cell into $X$, because $X$ has no danger pair. So the feasible choices of $(x,s)$ are exactly the pairs
+$(X,S)$ in the definition of $\worst$; in particular the program is feasible iff $X=F$ is feasible, i.e.\ iff
+$F$ is $B$-admissible and $|F|\le k$.
+
+For fixed $(X,S)$ the constraints \eqref{eq:ip-n} and \eqref{eq:ip-xn} say that the set $\{c:n_c=1\}$
+contains $\N(S)\cup X$, and the objective is $2|S|-|\{c:n_c=1\}\setminus X|$, which is largest, namely
+$2|S|-|\N(S)\setminus X|$, when equality holds. The variables $q$ do not occur in the objective. Hence the
+optimal value is the maximum of $2|S|-|\N(S)\setminus X|$ over the admissible pairs $(X,S)$.
+\end{proof}
+
+The constraints \eqref{eq:ip-q} and \eqref{eq:ip-danger} encode the danger rule. Without them the
+program computes the analogous maximum over all sets $X$ that merely respect the cap of four stones per
+live line; the difference is visible already for $\Teight$ (\cref{tab:ip-regression}).
+
+For $B=\Teight$ the program has $2\cdot100+2\cdot208=616$ binary variables and $1{,}605$ constraints, $596$
+of which are of type \eqref{eq:ip-danger}.
+
+\subsection{Solver and settings}\label{ssec:ip-solver}
+
+The program is built by \fn{py/ip_check.py}, which has its own implementation of the geometry
+(\fn{py/geom.py}) and shares no code with the C++ programs, and is solved with HiGHS~\cite{HuangfuHall2018},
+version~1.16, through its Python interface, on one thread. The objective is integral, so the relative gap
+is set to $0$ and the absolute gap to $0.99$: a gap below $1$ proves optimality of the incumbent. Two
+modes are used.
+\begin{itemize}[leftmargin=1.6em]
+\item \emph{Full mode} computes $\worst(B,F,k)$.
+\item \emph{Decide mode} only decides whether $\worst(B,F,k)\ge1$: the solver is told to stop as soon as it
+  has a solution with objective value at least $1$ (objective target $0.999$); otherwise it runs until it
+  has proved that the optimum is below $1$.
+\end{itemize}
+Before the solver is called, the program checks in exact arithmetic whether $F$ is $B$-admissible and
+$|F|\le k$; if not, the instance is reported as infeasible (the pairing condition holds vacuously). Every
+solution returned by the solver is re-evaluated in exact integer arithmetic: $X$ and $S$ are read off,
+admissibility, $F\subseteq X$ and $|X|\le k$ are checked, and $2|S|-|\N(S)\setminus X|$ is recomputed from the
+sets. Consequently an answer ``fails'' ($\worst\ge1$) comes with an integer-verified violating position and
+is exact. An answer ``holds'' ($\worst\le0$) cannot be verified from a solution: it rests on the dual bound
+reported by a floating-point branch-and-bound code. This asymmetry is the reason why the integer program
+is used as a cross-check only.
+
+\subsection{Regression values}\label{ssec:ip-regression}
+
+\Cref{tab:ip-regression} lists values of $\worst$ that were fixed in advance as regression targets and
+that the program reproduces (file \fn{ip_regression.json} in \fn{results/regression/}; full mode).
+
+\begin{table}[ht]
+\centering\small
+\begin{tabular}{@{}lcc@{}}
+\toprule
+instance & expected & obtained\\
+\midrule
+$\slack(\Tseven)$; a pairing for $(\Tseven,\emptyset)$ exists & $1$; yes & $1$; yes\\
+$\worst(\Tseven,\emptyset,7)$ & $6$ & $6$\\
+$\slack(\Teight)$ & $8$ & $8$\\
+$\worst(\Teight,\emptyset,8)$ & $0$ & $0$\\
+the same without the constraints \eqref{eq:ip-q}, \eqref{eq:ip-danger} & $1$ & $1$\\
+$\worst(\Teight,\emptyset,9)$ & $1$ & $1$\\
+$\worst(\Teight,\{h\},8)$ for each of the $16$ busy cells $h\notin\Teight$ & $0$ & $0$ ($16$ times)\\
+$\worst(\Teight-(5,5,5)+(1,1,1),\{(5,5,5)\},8)$ & $0$ & $0$\\
+antipode stealing after $8$, $9$, $10$ rounds & $6$, $0$, $0$ & $6$, $0$, $0$\\
+threat branch: $\Teight\cup\{(0,1,2)\}$, $F=\{(x,1,2):x\ge1\}$, $k=9$ & $0$ & $0$\\
+threat branch: $\Tseven\cup\{(0,1,2)\}$, the same $F$, $k=8$ & $2$ & $2$\\
+\bottomrule
+\end{tabular}
+\caption{Regression values for the integer program. The instances are those of \cref{tab:leafvectors}; the
+three antipode-stealing values were also confirmed by exact enumeration.}
+\label{tab:ip-regression}
+\end{table}
+
+In addition, $20$ random sets of eight busy cells (seeded) all fail, with $\worst$ between $2$ and $12$:
+a set of eight busy cells is typically far from admitting a pairing strategy, which makes the six orbits of
+\cref{ssec:leaftable} remarkable. On seven small instances the program was compared with a brute-force
+enumeration of $\worst$ (for example $\worst(\emptyset,\emptyset,0)=80$ and $\worst(\emptyset,\emptyset,1)=81$
+on the empty board), with equal values. On all $45$ regression instances the leaf condition is consistent
+with the integer program: $\LEAF$ is true on $21$ of them, and these are exactly the instances with
+$\worst\le0$.
+
+\subsection{Running times and use}\label{ssec:ip-times}
+
+The running time depends strongly on the number $\theta=k-|F|$ of free stones and on the answer. Instances
+that fail are usually fast, because a violating position is found early. Instances that hold require a
+proof of optimality. On the leaves of the certificate (decide mode, all answers ``holds'') the median
+time per instance was $0.03$\,s and $0.10$\,s for $\theta=0,1$; $1.8$\,s and $2.8$\,s for $\theta=2,3$;
+about $12.5$\,s for $\theta=4,5$ (maximum $52$\,s); $117$\,s for $\theta=6$ (maximum $931$\,s); and
+$77$\,s for $\theta=7$ (four instances, between $37$ and $133$\,s). In full mode $\worst(\Teight,\emptyset,8)=0$ took $19$\,s, the sixteen instances
+$\worst(\Teight,\{h\},8)$ between $26$ and $69$\,s, and
+$\worst(\Teight-(5,5,5)+(1,1,1),\{(5,5,5)\},8)$ took $155$\,s. On the leaf table the six orbits for $k=8$
+needed between $18$ and $297$\,s each and the eight orbits for $k=9$ that hold between $97$ and $323$\,s. In
+short: seconds for small $\theta$, minutes for $\theta\ge6$, and occasionally more; with a time limit of
+$300$\,s four of the $1{,}279$ non-degenerate instances of the comparison in \cref{ssec:supp-cross} remained
+undecided.
+
+The coverage achieved with the integer program is stated in \cref{ssec:supp-cross}: all $478$ leaves with
+$\theta\ge4$ and $830$ sampled leaves with $\theta\le3$; the leaf table for $k=8$ and part of it for $k=9$;
+the regression instances; and $1{,}275$ of $1{,}291$ test instances compared with an exact integer decision
+procedure. In all cases in which both the integer program and an exact method gave an answer, the answers
+agree. We repeat that all ``holds'' answers of the integer program rest on floating-point bounds; they
+corroborate the certificate but prove nothing, and \cref{thm:main} does not depend on them.

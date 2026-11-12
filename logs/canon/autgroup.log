@@ -1,0 +1,8 @@
+level 0: base vertex 222 (line), colour class size 4, orbit size 4
+level 1: base vertex 239 (line), colour class size 3, orbit size 3
+level 2: base vertex 279 (line), colour class size 2, orbit size 2
+level 3: base vertex 35 (cell), colour class size 6, orbit size 6
+level 4: base vertex 181 (cell), colour class size 4, orbit size 4
+level 5: base vertex 38 (cell), colour class size 2, orbit size 2
+full automorphism group order = 1152   (G has 1152; search nodes 75)
+EQUAL: the 1152 maps are the full automorphism group

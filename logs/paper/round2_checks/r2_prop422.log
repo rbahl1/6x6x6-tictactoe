@@ -1,0 +1,10 @@
+six classes of four busy cells                                                                           ok
+36 face diagonals, two busy cells each, busy pairs = the 36 pairs inside the classes                     ok
+triangles: 1464 by kinds of lines (1 axis, 2 face diagonal, 3 space diagonal): [((1, 1, 2), 1080), ((1, 2, 3), 360), ((2, 2, 2), 24)]
+every triangle contains a face diagonal                                                                  ok
+4096 sets of three cells from each class: 18 busy cells, every face diagonal is met, no live triangle    ok
+the four space diagonals are pairwise disjoint                                                           ok
+three axis lines that meet pairwise have three different directions and pass through one cell            ok
+no two axis lines that meet each other meet a space diagonal in two different cells                      ok
+two different cells of a space diagonal differ in all three coordinates                                  ok
+ALL OK

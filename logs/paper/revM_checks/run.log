@@ -1,0 +1,53 @@
+## sec5_example.py
+Q(0,0,1): (((), (), 0), [0, 5, 30, 35, 43, 46, 61, 64, 86, 87, 92, 93, 122, 123, 128, 129, 151, 154, 169, 172, 180, 185, 210, 215])
+Q(0,{000},1): (((), (0,), 43), [43, 86, 129, 172])
+P({111},{000},1): expanded (child (a) has entry 215)
+Q({000},0,2): (((0,), (), 215), [215])
+Q({000},{555},2) [table move occupied]: (((0,), (215,), 46), [46, 61, 64, 87, 92, 93, 122, 123, 128, 151, 154, 169]) adm: True
+   then P(B1+(1, 1, 4),{555},2): expanded (child (a) has entry 215)
+   then P(B1+(1, 4, 1),{555},2): expanded (child (a) has entry 215)
+   then P(B1+(1, 4, 4),{555},2): expanded (child (a) has entry 215)
+   then P(B1+(2, 2, 3),{555},2): expanded (child (a) has entry 215)
+   then P(B1+(2, 3, 2),{555},2): expanded (child (a) has entry 215)
+   then P(B1+(2, 3, 3),{555},2): expanded (child (a) has entry 215)
+   then P(B1+(3, 2, 2),{555},2): expanded (child (a) has entry 215)
+   then P(B1+(3, 2, 3),{555},2): expanded (child (a) has entry 215)
+   then P(B1+(3, 3, 2),{555},2): expanded (child (a) has entry 215)
+   then P(B1+(4, 1, 1),{555},2): expanded (child (a) has entry 215)
+   then P(B1+(4, 1, 4),{555},2): expanded (child (a) has entry 215)
+   then P(B1+(4, 4, 1),{555},2): expanded (child (a) has entry 215)
+Q(B2,0,3): (((0, 215), (), 46), [46, 61, 64, 87, 92, 93, 122, 123, 128, 151, 154, 169]) [(1, 1, 4), (1, 4, 1), (1, 4, 4), (2, 2, 3), (2, 3, 2), (2, 3, 3), (3, 2, 2), (3, 2, 3), (3, 3, 2), (4, 1, 1), (4, 1, 4), (4, 4, 1)]
+Q(B3,0,4): canonical {(0, 0, 0), (1, 1, 4), (4, 4, 1)} entry (5, 5, 5) real moves [(4, 4, 1)]
+g(B3)= {(0, 0, 0), (1, 1, 4), (4, 4, 1)}  g^-1(555)= (4, 4, 1)
+B4 canonical? ((0, 46, 169, 215), ()) [0, 46, 169, 215]
+P(B4,0,4): live lines 122 children (c): 732 (d): 0 distinct children: 732 non-void: 732 distinct canonical forms: 55
+threat child: B {(0, 0, 0), (0, 0, 1), (1, 1, 4), (4, 4, 1), (5, 5, 5)} F {(0, 1, 1), (0, 2, 1), (0, 3, 1), (0, 4, 1), (0, 5, 1)} adm: True canon: ((0, 1, 46, 169, 215), (7, 13, 19, 25, 31)) status: expanded (child (a) has entry 92)
+  its child (a) Q(Bc,Fc,6): ((0, 1, 46, 169, 215), (7, 13, 19, 25, 31), 92) [(2, 3, 2), (3, 2, 3)]
+X4 B4-admissible: True  X5 (B4+e)-admissible: True
+Q(B4,0,5): entry (2, 3, 2) canonical B (0, 46, 169, 215) real moves [(2, 3, 2), (2, 3, 3), (3, 2, 2), (3, 2, 3)]
+Q(B5,0,6): entry (5, 5, 5) canonical B (0, 46, 92, 123, 169) real moves [(3, 2, 3)]
+Q(B6,0,7): entry (0, 5, 5) canonical B (0, 46, 92, 123, 169, 215) real moves [(0, 5, 5), (1, 4, 4), (2, 3, 3), (3, 2, 2), (4, 1, 1), (5, 0, 0)]
+Q(B7,0,8): entry (5, 5, 5) canonical B (0, 5, 61, 93, 122, 154, 210) real moves [(5, 0, 0)]
+P(B7,0,7): expanded (child (a) has entry 215)
+danger child: |F| 8 adm: True status: expanded (child (a) has entry 215) canon ((0, 5, 61, 70, 93, 122, 154, 210), (66, 67, 68, 69, 106, 142, 178, 214))
+X7 B7-admissible: True X8 B7-adm: False X8 (B7+c)-adm: True
+P(B7,0,7): children (c) 624 (d) 16250 distinct 16874 void 0 live 104
+## children_distinct.py
+expanded P-states tested: 157  children (c): 2016  (d): 0  void: 0  duplicates: 0
+random non-void P-states: 250  duplicates: 0
+void P-state: children 2 distinct 1
+## busy_triangles.py
+components: [4, 4, 4, 4, 4, 4] each complete: True
+min vertex cover = sum over K4 of 3 = 18  number of minimum covers = 4096
+triangles of the proof checked: 288
+figure: meeting cells [(2, 2, 1), (0, 0, 1), (0, 2, 1)]
+figure: meeting cells [(3, 2, 1), (0, 5, 1), (0, 2, 1)]
+busy cells in plane z=1: [(1, 1, 1), (1, 4, 1), (4, 1, 1), (4, 4, 1)]
+## pattern_figure.py
+E2: stones 11  X admissible: True  threats of X1: 1  danger pairs of X1: 1  after reply e: admissible False  danger pairs: 1
+   stones: [(0, 0), (0, 1), (0, 2), (0, 3), (2, 0), (2, 3), (3, 0), (3, 2), (4, 0), (4, 1), (5, 0)]
+E3: stones 13  X admissible: True  threats of X1: 0  danger pairs of X1: 2 [(0, 1), (5, 0)]
+   reply (5, 0) : admissible False
+   reply (0, 1) : admissible False
+   any single reply restores admissibility: False
+   stones: [(0, 0), (0, 2), (0, 3), (0, 5), (1, 0), (1, 1), (1, 4), (2, 0), (2, 1), (2, 3), (3, 0), (3, 1), (4, 1)]

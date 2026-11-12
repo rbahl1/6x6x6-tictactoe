@@ -1,0 +1,39 @@
+[    3.2s] parsed 93164 table lines, 106723 leaf lines (0 syntax/size errors)
+[   80.8s] part A: canonical form checked on 93164 table + 106723 leaf lines; 0 errors so far
+[  545.3s] part B: LEAF recomputed on 106723 leaves (478 with t-|F| >= 4, 106245 sampled of 106245 others), 211 CPU-s
+[  545.3s]   traversal round 1: 1 states so far, next frontier 1
+[  545.3s]   traversal round 2: 2 states so far, next frontier 2
+[  545.3s]   traversal round 3: 4 states so far, next frontier 2
+[  545.3s]   traversal round 4: 6 states so far, next frontier 3
+[  545.3s]   traversal round 5: 9 states so far, next frontier 5
+[  545.3s]   traversal round 6: 14 states so far, next frontier 6
+[  545.3s]   traversal round 7: 20 states so far, next frontier 9
+[  545.3s]   traversal round 8: 29 states so far, next frontier 14
+[  545.6s]   traversal round 9: 43 states so far, next frontier 72
+[  545.7s]   traversal round 10: 115 states so far, next frontier 104
+[  546.1s]   traversal round 11: 219 states so far, next frontier 284
+[  547.4s]   traversal round 12: 503 states so far, next frontier 1240
+[  549.0s]   traversal round 13: 1743 states so far, next frontier 1386
+[  550.9s]   traversal round 14: 3129 states so far, next frontier 2068
+[  560.6s]   traversal round 15: 5930 states so far, next frontier 7254
+[  571.3s]   traversal round 16: 15951 states so far, next frontier 8647
+[  585.1s]   traversal round 17: 26158 states so far, next frontier 13097
+[  607.0s]   traversal round 18: 42754 states so far, next frontier 23450
+[  632.0s]   traversal round 19: 70568 states so far, next frontier 24545
+[  664.0s]   traversal round 20: 115478 states so far, next frontier 24591
+[  695.7s]   traversal round 21: 176338 states so far, next frontier 11351
+[  711.3s]   traversal round 22: 199106 states so far, next frontier 8169
+[  723.4s]   traversal round 23: 219215 states so far, next frontier 7171
+[  727.8s]   traversal round 24: 234338 states so far, next frontier 3085
+[  730.3s]   traversal round 25: 240264 states so far, next frontier 1812
+[  731.4s]   traversal round 26: 243922 states so far, next frontier 1108
+[  731.9s]   traversal round 27: 246110 states so far, next frontier 35
+[  732.0s]   traversal round 28: 246172 states so far, next frontier 33
+[  732.0s]   traversal round 29: 246238 states so far, next frontier 31
+[  732.0s]   traversal round 30: 246299 states so far, next frontier 0
+[  732.0s] part C: exhaustive phase (t <= 10): 246299 states in 30 rounds, 79 CPU-s
+[  732.9s] ok=True  errors=0  p_expanded=46412 q_checked=93164 children={'a': 46412, 'c': 143498, 'd': 28275, 'i': 93164, 'ii': 54482} void=151 leaves_recomputed=106723  CPU 339s
+
+real	12m14.864s
+user	5m38.118s
+sys	0m1.697s

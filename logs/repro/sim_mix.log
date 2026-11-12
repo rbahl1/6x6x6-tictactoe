@@ -1,0 +1,3 @@
+loaded 93164 table lines (93164 distinct, 0 duplicates, 0 conflicting), 106723 leaf lines (106723 distinct, 0 duplicates) in 0.1 s
+20000 games, 0 bug games (fp_lines 0, holes 0, pairing 0, admissibility 0, illegal 0, pairing_invariant 0, internal 0), look-ahead bugs 0, paranoid failures 0, file anomalies 0, leaf stress failures 0 of 54356 tests, 985.8 games/s
+coverage: table keys hit 22114 / 93164 (probed 31242), leaf keys hit 13286 / 106723 (probed 23102); threat events 16660, danger events 1886, leaves after two threats 2205

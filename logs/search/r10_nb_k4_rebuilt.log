@@ -1,0 +1,11 @@
+[search] rmax=10 maxcand=4 relcand=10 threads=4 order=1 nonbusy=1 tt=2^25 good8=2340 good9=83904 (setup 0.0 s)
+[83s] calls=729245 P=48953 Q=95567 relP=48676 relQ=96916 tt=930114 ttHit=350291 leafTests=653057(true 652895, screened 46715, 47.2 cpu-s) thr=146143 dng=28275 void=0 lostExact=4243 lostTrue=0 potCut=0 relCut=0 rmaxCut=35
+        P-expanded by t: [1,2,5,14,35,230,1967,7877,32683,6139,0]  leaves by t: [0,0,0,0,0,0,0,0,6620,526586,119689]  failed by t: [0,0,0,0,0,0,0,0,11,35,35]
+[search] root WON after 82.8 s
+[emit] P(expanded)=46412 Q=93164 leaves=106723 threat children=143498 danger children=28275 void=0 max t=10 errors=0
+[selfcheck] P=46412 Q=93164 leaves=106723 errors=0 (table 93164, leaf file 106723)
+[search] proved=1 seconds=82.8 peak_rss=601 MB
+
+real	1m55.998s
+user	1m5.752s
+sys	0m0.859s

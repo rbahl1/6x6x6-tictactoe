@@ -1,0 +1,64 @@
+% macros.tex -- shared notation for all sections (maintained by the editor)
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{fact}[theorem]{Computed Fact}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+% players and stones
+\newcommand{\Maker}{Maker}            % first player
+\newcommand{\Breaker}{Breaker}        % second player
+\newcommand{\Q}{Q}                    % the board {0,...,5}^3 (216 cells)
+\newcommand{\Lines}{\mathcal{L}}      % the 148 lines
+\newcommand{\live}[1]{\mathcal{L}(#1)}% live lines w.r.t. Breaker's stones #1
+\newcommand{\N}{N}                    % N(S) = union of the lines in S
+\newcommand{\sur}{\operatorname{sur}} % surplus  sur_F(S) = |N(S)\F| - 2|S|
+\newcommand{\dfc}{\operatorname{def}} % deficiency def_Y(S) = 2|S| - |N(S)\Y|
+\newcommand{\slack}{\operatorname{slack}}
+\newcommand{\G}{G}                    % symmetry group, |G| = 1152
+\newcommand{\canon}{\operatorname{canon}}
+\newcommand{\antip}[1]{\overline{#1}} % antipode
+\newcommand{\Busy}{\mathcal{K}}       % the 24 busy cells
+\newcommand{\CC}{\mathsf{C}}          % C(B,F,k): pairing certificate
+\newcommand{\CPhi}{\mathsf{C}_\Phi}   % C_Phi(B,F,k): surplus condition
+\newcommand{\LEAF}{\mathsf{LEAF}}     % LEAF(B,F,k)
+\newcommand{\WON}{\textup{\textsc{won}}}
+\newcommand{\VOID}{\textup{\textsc{void}}}
+\newcommand{\LOST}{\mathsf{LOST}}
+\newcommand{\Pst}{\mathsf{P}}         % P-state (Maker to move): \Pst(B,F,t)
+\newcommand{\Qst}{\mathsf{Q}}         % Q-state (Breaker to move): \Qst(B,F,t)
+\newcommand{\Rmax}{R_{\max}}
+\newcommand{\Tbl}{\mathrm{Tbl}}
+\newcommand{\Lv}{\mathrm{Lv}}
+\newcommand{\Tseven}{T_7}
+\newcommand{\Teight}{T_8}
+\newcommand{\computed}{\textup{\textsc{computed}}}
+\newcommand{\code}[1]{\texttt{#1}}
+% --- Section 5 (abstract game) ---
+\newcommand{\Etwo}{\mathrm{E2}}        % pattern E2 (a threat and a danger pair)
+\newcommand{\Ethree}{\mathrm{E3}}      % pattern E3 (two danger pairs)
+\newcommand{\TABLE}{\textup{\textsc{table}}}    % TABLE mode of sigma
+\newcommand{\PAIRING}{\textup{\textsc{pairing}}}% PAIRING mode of sigma
+\newcommand{\WONp}{\WON^{+}}           % WON in the eager variant
+\newcommand{\rk}{\operatorname{rk}}    % rank of a state (not \rho, which is the reversal i -> 5-i)
+% --- computational sections ---
+\DeclareRobustCommand{\fn}[1]{{\upshape\path{#1}}} % file names and command-line options (robust; always upright)
+% provenance paragraph of a Computed Fact: the statement is in italics, the provenance upright
+\newcommand{\established}{\upshape\emph{Established by:}\space}
+\newcommand{\accept}{\textup{\textsc{accept}}}
+\newcommand{\reject}{\textup{\textsc{reject}}}
+\newcommand{\worst}{\operatorname{worst}} % worst(B,F,k): largest violation of Hall's condition
+% --- Section 9 (the 7x7x7 board) ---
+\newcommand{\Qseven}{\Q_7}             % the board {0,...,6}^3
+% --- cross-reference names (cleveref) ---
+\crefname{fact}{Computed Fact}{Computed Facts}
+\Crefname{fact}{Computed Fact}{Computed Facts}
+\crefname{algocf}{Algorithm}{Algorithms}
+\Crefname{algocf}{Algorithm}{Algorithms}
+\crefname{appendix}{Appendix}{Appendices}
+\Crefname{appendix}{Appendix}{Appendices}
+

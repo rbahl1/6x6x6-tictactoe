@@ -1,0 +1,514 @@
+% refs.bib -- bibliography for "The 6x6x6 tic-tac-toe game is a draw"
+% Maintained by the literature agent.  Every entry carries a comment line saying how its
+% data were checked:
+%   [CR]   record retrieved from the Crossref API by DOI or title (2026-11-12)
+%   [SRC]  read in the source itself (PDF of the paper/thesis/chapter)
+%   [SEC]  taken from the reference list of a source that was read
+%   [MEM]  standard reference, data from memory, NOT re-checked online
+%   [WEB]  checked during the revision (2026-11-12) with a generic bibliographic web query
+%          (publisher's page, library catalogues, reference lists); the source itself was not read
+% Author names are given with initials throughout (journal referee, "References").
+% See logs/paper/related_work.md, section "Keys in refs.bib".
+
+% ---------------------------------------------------------------------------
+% The n^d game: foundations
+% ---------------------------------------------------------------------------
+
+% [CR] DOI 10.1090/S0002-9947-1963-0143712-1; full text not accessible (AMS returned 403);
+% content checked through Erdos-Selfridge 1973 and Krivelevich 2014.
+@article{HalesJewett1963,
+  author    = {Hales, A. W. and Jewett, R. I.},
+  title   = {Regularity and positional games},
+  journal = {Trans. Amer. Math. Soc.},
+  volume  = {106},
+  number  = {2},
+  pages   = {222--229},
+  year    = {1963},
+  doi     = {10.1090/S0002-9947-1963-0143712-1}
+}
+
+% [CR][SRC] full text read (author-hosted scan, users.renyi.hu/~p_erdos/1973-10.pdf)
+@article{ErdosSelfridge1973,
+  author    = {Erd{\H{o}}s, P. and Selfridge, J. L.},
+  title   = {On a combinatorial game},
+  journal = {J. Combin. Theory Ser. A},
+  volume  = {14},
+  number  = {3},
+  pages   = {298--301},
+  year    = {1973},
+  doi     = {10.1016/0097-3165(73)90005-8}
+}
+
+% [CR] book record; [SRC] publisher's sample of "A summary of the book in a nutshell"
+% (pp. 1--14) and the table of contents were read; Sections 3, 10, 12, 34 and the list of
+% open problems (pp. 716--723) were NOT accessible.
+@book{Beck2008,
+  author    = {Beck, J.},
+  title     = {Combinatorial Games: Tic-Tac-Toe Theory},
+  series    = {Encyclopedia of Mathematics and its Applications},
+  volume    = {114},
+  publisher = {Cambridge University Press},
+  address   = {Cambridge},
+  year      = {2008},
+  isbn      = {978-0-521-46100-9},
+  doi       = {10.1017/CBO9780511735202}
+}
+
+% [CR] DOI 10.1016/0097-3165(81)90001-7; cited by Golomb-Hales for draws at the pairing
+% threshold in high dimension.
+@article{Beck1981,
+  author    = {Beck, J.},
+  title   = {On positional games},
+  journal = {J. Combin. Theory Ser. A},
+  volume  = {30},
+  number  = {2},
+  pages   = {117--133},
+  year    = {1981},
+  doi     = {10.1016/0097-3165(81)90001-7}
+}
+
+% [SRC] full text read (library.slmath.org/books/Book42/files/golomb.pdf); [CR] pages 167--182.
+@incollection{GolombHales2002,
+  author    = {Golomb, S. W. and Hales, A. W.},
+  title     = {Hypercube tic-tac-toe},
+  booktitle = {More Games of No Chance},
+  editor    = {Nowakowski, R. J.},
+  series    = {Math. Sci. Res. Inst. Publ.},
+  volume    = {42},
+  publisher = {Cambridge University Press},
+  address   = {Cambridge},
+  year      = {2002},
+  pages     = {167--182},
+  url       = {https://library.slmath.org/books/Book42/files/golomb.pdf}
+}
+
+% [SEC][WEB] edition/volume/chapter from the publisher's listing (ISBN-13 978-1-56881-143-7; the
+% ISBN-10 is 1-56881-143-8; Chapter 22 "Lines and Squares" is the last chapter of Vol. 3 of the second
+% edition) and from Golomb-Hales, who cite the first edition (Academic Press, 1982), Vol. 2,
+% pp. 667--679.  Place of publication confirmed by library records.  Text of the chapter NOT read:
+% the paper therefore cites this book only as "see also" (referee_audit.md F11, referee_journal.md P4).
+@book{BerlekampConwayGuy2003,
+  author    = {Berlekamp, E. R. and Conway, J. H. and Guy, R. K.},
+  title     = {Winning Ways for Your Mathematical Plays. {V}ol. 3},
+  edition   = {2nd},
+  publisher = {A K Peters},
+  address   = {Natick, MA},
+  year      = {2003},
+  isbn      = {978-1-56881-143-7},
+  note      = {Chapter 22, ``Lines and squares''}
+}
+
+% [CR] DOI 10.1080/0025570X.1978.11976673; mentioned by Golomb-Hales.
+@article{Paul1978,
+  author    = {Paul, J. L.},
+  title   = {Tic-tac-toe in $n$-dimensions},
+  journal = {Math. Mag.},
+  volume  = {51},
+  number  = {1},
+  pages   = {45--49},
+  year    = {1978},
+  doi     = {10.1080/0025570X.1978.11976673}
+}
+
+% ---------------------------------------------------------------------------
+% d = 3: solved cases
+% ---------------------------------------------------------------------------
+
+% [CR] DOI 10.1080/0025570X.1980.11976855 (JSTOR: 10.2307/2689613); full text NOT read
+% (the only free copy returned 503); content via Allis 1994, Beck 2008, Cain et al. 2025.
+@article{Patashnik1980,
+  author    = {Patashnik, O.},
+  title   = {Qubic: $4\times 4\times 4$ tic-tac-toe},
+  journal = {Math. Mag.},
+  volume  = {53},
+  number  = {4},
+  pages   = {202--216},
+  year    = {1980},
+  doi     = {10.1080/0025570X.1980.11976855}
+}
+
+% [SRC] full text read (project.dke.maastrichtuniversity.nl/games/files/phd/SearchingForSolutions.pdf)
+@phdthesis{Allis1994,
+  author    = {Allis, L. V.},
+  title   = {Searching for Solutions in Games and Artificial Intelligence},
+  school  = {Rijksuniversiteit Limburg},
+  address = {Maastricht},
+  year    = {1994},
+  isbn    = {90-9007488-0},
+  url     = {https://project.dke.maastrichtuniversity.nl/games/files/phd/SearchingForSolutions.pdf}
+}
+
+% [SEC] from the bibliography of Allis 1994 (entry [2]).
+@incollection{AllisSchoo1992,
+  author    = {Allis, L. V. and Schoo, P. N. A.},
+  title     = {Qubic solved again},
+  booktitle = {Heuristic Programming in Artificial Intelligence 3: The Third Computer Olympiad},
+  editor    = {van den Herik, H. J. and Allis, L. V.},
+  publisher = {Ellis Horwood},
+  address   = {Chichester},
+  year      = {1992},
+  pages     = {192--204}
+}
+
+% [SRC] full text of arXiv v1 read; [CR]/arXiv API: still v1 only, no journal reference, on 2026-11-12.
+@misc{CainRaymondKallersjo2025,
+  author    = {Cain, J. W. and Raymond, I. M. and K{\"a}llersj{\"o}, N. C.},
+  title         = {Cubic tic-tac-toe: A matching-based approach},
+  year          = {2025},
+  howpublished  = {Preprint, arXiv:2509.21494v1 [math.CO]},
+  eprint        = {2509.21494},
+  archivePrefix = {arXiv},
+  primaryClass  = {math.CO},
+  doi           = {10.48550/arXiv.2509.21494},
+  url           = {https://arxiv.org/abs/2509.21494}
+}
+
+% ---------------------------------------------------------------------------
+% Automorphisms of the board
+% ---------------------------------------------------------------------------
+
+% [CR] DOI 10.1080/00029890.1967.11999948
+@article{Silver1967,
+  author    = {Silver, R.},
+  title   = {The group of automorphisms of the game of 3-dimensional ticktacktoe},
+  journal = {Amer. Math. Monthly},
+  volume  = {74},
+  number  = {3},
+  pages   = {247--254},
+  year    = {1967},
+  doi     = {10.1080/00029890.1967.11999948}
+}
+
+% [CR] DOI 10.1016/j.disc.2020.112234; [SRC] arXiv:1610.05498v2 read.
+@article{DvorakValla2021,
+  author    = {Dvo{\v{r}}{\'a}k, P. and Valla, T.},
+  title   = {Automorphisms of the cube $n^d$},
+  journal = {Discrete Math.},
+  volume  = {344},
+  number  = {3},
+  pages   = {112234},
+  year    = {2021},
+  doi     = {10.1016/j.disc.2020.112234}
+}
+
+% ---------------------------------------------------------------------------
+% Positional games: surveys and pairing strategies
+% ---------------------------------------------------------------------------
+
+% [CR] DOI 10.1007/978-3-0348-0825-5; series volume from the publisher's page. Text NOT read.
+@book{HefetzKrivelevichStojakovicSzabo2014,
+  author    = {Hefetz, D. and Krivelevich, M. and Stojakovi{\'c}, M. and Szab{\'o}, T.},
+  title     = {Positional Games},
+  series    = {Oberwolfach Seminars},
+  volume    = {44},
+  publisher = {Birkh{\"a}user/Springer},
+  address   = {Basel},
+  year      = {2014},
+  isbn      = {978-3-0348-0824-8},
+  doi       = {10.1007/978-3-0348-0825-5}
+}
+
+% [SRC] arXiv:1404.2731v1 read ("Submitted to Proceedings of the ICM 2014").
+% [WEB] published version: Proceedings of the ICM, Seoul 2014, Vol. IV, pp. 355--379, Kyung Moon Sa
+% (reference lists and a university repository record).  The proceedings version itself was NOT
+% read; whether its theorem numbers agree with those of the preprint was not checked, hence the note.
+@incollection{Krivelevich2014,
+  author    = {Krivelevich, M.},
+  title     = {Positional games},
+  booktitle = {Proceedings of the {I}nternational {C}ongress of {M}athematicians---{S}eoul 2014. {V}ol. {IV}},
+  publisher = {Kyung Moon Sa},
+  address   = {Seoul},
+  year      = {2014},
+  note      = {pp.~355--379. Theorem numbers quoted here are those of the preprint arXiv:1404.2731}
+}
+
+% [CR] DOI 10.37236/917; article number from the journal URL (v15i1n42).
+@article{KruczekSundberg2008,
+  author    = {Kruczek, K. and Sundberg, E.},
+  title   = {A pairing strategy for tic-tac-toe on the integer lattice with numerous directions},
+  journal = {Electron. J. Combin.},
+  volume  = {15},
+  number  = {1},
+  pages   = {Note 42},
+  year    = {2008},
+  doi     = {10.37236/917}
+}
+
+% [CR] DOI 10.37236/482; article number from the journal URL (v17i1n33).
+@article{MukkamalaPalvolgyi2010,
+  author    = {Mukkamala, P. and P{\'a}lv{\"o}lgyi, D.},
+  title   = {Asymptotically optimal pairing strategy for tic-tac-toe with numerous directions},
+  journal = {Electron. J. Combin.},
+  volume  = {17},
+  number  = {1},
+  pages   = {Note 33},
+  year    = {2010},
+  doi     = {10.37236/482}
+}
+
+% [CR] DOI 10.3233/ICG-180053 (Crossref gives publication year 2019 for vol. 40, no. 3);
+% [SRC] the conference version arXiv:1703.10678 was read.
+@article{Uiterwijk2019,
+  author    = {Uiterwijk, J. W. H. M.},
+  title   = {Set matching with applications: An enhancement of the {H}ales--{J}ewett pairing strategy},
+  journal = {ICGA J.},
+  volume  = {40},
+  number  = {3},
+  pages   = {129--148},
+  year    = {2019},
+  doi     = {10.3233/ICG-180053}
+}
+
+% ---------------------------------------------------------------------------
+% Computer-assisted solutions of other games (context)
+% ---------------------------------------------------------------------------
+
+% [CR] DOI 10.1016/S0004-3702(01)00152-7. Text NOT read.
+@article{vandenHerikUiterwijkvanRijswijck2002,
+  author    = {van den Herik, H. J. and Uiterwijk, J. W. H. M. and van Rijswijck, J.},
+  title   = {Games solved: Now and in the future},
+  journal = {Artificial Intelligence},
+  volume  = {134},
+  number  = {1--2},
+  pages   = {277--311},
+  year    = {2002},
+  doi     = {10.1016/S0004-3702(01)00152-7}
+}
+
+% [CR] DOI 10.1111/j.1467-8640.1996.tb00250.x
+@article{AllisvandenHerikHuntjens1996,
+  author    = {Allis, L. V. and van den Herik, H. J. and Huntjens, M. P. H.},
+  title   = {Go-{M}oku solved by new search techniques},
+  journal = {Comput. Intell.},
+  volume  = {12},
+  number  = {1},
+  pages   = {7--23},
+  year    = {1996},
+  doi     = {10.1111/j.1467-8640.1996.tb00250.x}
+}
+
+% [CR] DOI 10.1016/0004-3702(94)90004-3
+@article{AllisvanderMeulenvandenHerik1994,
+  author    = {Allis, L. V. and van der Meulen, M. and van den Herik, H. J.},
+  title   = {Proof-number search},
+  journal = {Artificial Intelligence},
+  volume  = {66},
+  number  = {1},
+  pages   = {91--124},
+  year    = {1994},
+  doi     = {10.1016/0004-3702(94)90004-3}
+}
+
+% [SEC] from the bibliography of Allis 1994 (entry [3]).
+@mastersthesis{Allis1988,
+  author    = {Allis, L. V.},
+  title   = {A Knowledge-Based Approach of {C}onnect-{F}our. {T}he Game is Solved: White Wins},
+  school  = {Faculty of Mathematics and Computer Science, Vrije Universiteit},
+  address = {Amsterdam},
+  year    = {1988}
+}
+
+% [SEC] from the bibliography of Allis 1994 (entry [1]).
+@incollection{Allen1989,
+  author    = {Allen, J. D.},
+  title     = {A note on the computer solution of {C}onnect-{F}our},
+  booktitle = {Heuristic Programming in Artificial Intelligence 1: The First Computer Olympiad},
+  editor    = {Levy, D. N. L. and Beal, D. F.},
+  publisher = {Ellis Horwood},
+  address   = {Chichester},
+  year      = {1989},
+  pages     = {134--135}
+}
+
+% [CR] DOI 10.1126/science.1144079
+@article{SchaefferEtAl2007,
+  author    = {Schaeffer, J. and Burch, N. and Bj{\"o}rnsson, Y. and Kishimoto, A. and M{\"u}ller, M. and Lake, R. and Lu, P. and Sutphen, S.},
+  title   = {Checkers is solved},
+  journal = {Science},
+  volume  = {317},
+  number  = {5844},
+  pages   = {1518--1522},
+  year    = {2007},
+  doi     = {10.1126/science.1144079}
+}
+
+% [CR] DOI 10.1016/S0020-0255(99)00095-X  (m,n,k-games)
+@article{UiterwijkvandenHerik2000,
+  author    = {Uiterwijk, J. W. H. M. and van den Herik, H. J.},
+  title   = {The advantage of the initiative},
+  journal = {Inform. Sci.},
+  volume  = {122},
+  number  = {1},
+  pages   = {43--58},
+  year    = {2000},
+  doi     = {10.1016/S0020-0255(99)00095-X}
+}
+
+% [CR] DOI 10.1016/j.tcs.2020.02.023  ((7,7,5)- and (8,8,5)-games are draws)
+@article{HsuEtAl2020,
+  author    = {Hsu, W.-Y. and Ko, C.-L. and Chen, J.-C. and Wei, T.-H. and Hsueh, C.-H. and Wu, I.-C.},
+  title   = {On solving the 7,7,5-game and the 8,8,5-game},
+  journal = {Theoret. Comput. Sci.},
+  volume  = {815},
+  pages   = {79--94},
+  year    = {2020},
+  doi     = {10.1016/j.tcs.2020.02.023}
+}
+
+% [CR] DOI 10.2307/2321433 (Crossref lists authors Guy, Selfridge, Zetters; title "S10");
+% [SEC] title and pages as cited by N. Do, Austral. Math. Soc. Gaz. 32 (2005), ref. [4].
+@article{GuySelfridgeZetters1980,
+  author    = {Guy, R. K. and Selfridge, J. L. and Zetters, T. G. L.},
+  title   = {Problem {S}10: 8 (or more) in a row},
+  journal = {Amer. Math. Monthly},
+  volume  = {87},
+  number  = {7},
+  pages   = {575--576},
+  year    = {1980},
+  doi     = {10.2307/2321433}
+}
+
+% ---------------------------------------------------------------------------
+% Matchings, flows, optimization software
+% ---------------------------------------------------------------------------
+
+% [CR] DOI 10.1112/jlms/s1-10.37.26 (Crossref: volume s1-10, issue 1)
+@article{Hall1935,
+  author    = {Hall, P.},
+  title   = {On representatives of subsets},
+  journal = {J. London Math. Soc.},
+  volume  = {10},
+  number  = {1},
+  pages   = {26--30},
+  year    = {1935},
+  doi     = {10.1112/jlms/s1-10.37.26}
+}
+
+% [MEM] standard citation of Koenig's theorem (as given e.g. in Schrijver 2003).
+@article{Konig1931,
+  author    = {K{\H{o}}nig, D.},
+  title    = {Gr{\'a}fok {\'e}s m{\'a}trixok},
+  journal  = {Mat. Fiz. Lapok},
+  volume   = {38},
+  pages    = {116--119},
+  year     = {1931},
+  note     = {In Hungarian}
+}
+
+% [CR] DOI 10.4153/CJM-1956-045-5 (the paper cited in PROOF.md as [FF])
+@article{FordFulkerson1956,
+  author    = {Ford, Jr., L. R. and Fulkerson, D. R.},
+  title   = {Maximal flow through a network},
+  journal = {Canad. J. Math.},
+  volume  = {8},
+  pages   = {399--404},
+  year    = {1956},
+  doi     = {10.4153/CJM-1956-045-5}
+}
+
+% [CR] existence and publisher confirmed (Crossref lists the e-book reissue, DOI 10.1515/9781400875184);
+% original year 1962 confirmed by a 1964 review record (ZAMM 44, p. 70: "XII + 194 S. ... 1962").
+@book{FordFulkerson1962,
+  author    = {Ford, Jr., L. R. and Fulkerson, D. R.},
+  title     = {Flows in Networks},
+  publisher = {Princeton University Press},
+  address   = {Princeton, NJ},
+  year      = {1962}
+}
+
+% [CR] DOI 10.1137/0202019
+@article{HopcroftKarp1973,
+  author    = {Hopcroft, J. E. and Karp, R. M.},
+  title   = {An $n^{5/2}$ algorithm for maximum matchings in bipartite graphs},
+  journal = {SIAM J. Comput.},
+  volume  = {2},
+  number  = {4},
+  pages   = {225--231},
+  year    = {1973},
+  doi     = {10.1137/0202019}
+}
+
+% [WEB] publisher's page and library catalogues: Springer, 2003, Algorithms and Combinatorics 24,
+% ISBN 978-3-540-44389-6 (three volumes).  Crossref lists Lovasz's review of it, Oper. Res. Lett. 33
+% (2005) 437--440.
+@book{Schrijver2003,
+  author    = {Schrijver, A.},
+  title     = {Combinatorial Optimization: Polyhedra and Efficiency},
+  series    = {Algorithms and Combinatorics},
+  volume    = {24},
+  publisher = {Springer-Verlag},
+  address   = {Berlin},
+  year      = {2003},
+  isbn      = {978-3-540-44389-6}
+}
+
+% [CR] 1986 North-Holland edition (ISBN 978-0-444-87916-5, North-Holland Mathematics Studies);
+% volume number from memory; AMS Chelsea reprint 2009, DOI 10.1090/chel/367.
+@book{LovaszPlummer1986,
+  author    = {Lov{\'a}sz, L. and Plummer, M. D.},
+  title     = {Matching Theory},
+  series    = {North-Holland Mathematics Studies},
+  volume    = {121},
+  publisher = {North-Holland},
+  address   = {Amsterdam},
+  year      = {1986},
+  note      = {Reprinted by AMS Chelsea Publishing, Providence, RI, 2009}
+}
+
+% [CR] DOI 10.1007/s12532-017-0130-5 (online 2017, volume 10 dated 2018). The HiGHS reference.
+@article{HuangfuHall2018,
+  author    = {Huangfu, Q. and Hall, J. A. J.},
+  title   = {Parallelizing the dual revised simplex method},
+  journal = {Math. Program. Comput.},
+  volume  = {10},
+  number  = {1},
+  pages   = {119--142},
+  year    = {2018},
+  doi     = {10.1007/s12532-017-0130-5}
+}
+
+% [WEB] title, proceedings, volume, publisher, year and pages confirmed by reference lists found with a
+% generic web query (the congress took place in 1912, the proceedings are dated 1913).  The paper itself
+% was not read; the text says "usually attributed to Zermelo" (referee_journal.md P9).
+@incollection{Zermelo1913,
+  author    = {Zermelo, E.},
+  title     = {{\"U}ber eine {A}nwendung der {M}engenlehre auf die {T}heorie des {S}chachspiels},
+  booktitle = {Proceedings of the Fifth International Congress of Mathematicians (Cambridge, 1912)},
+  volume    = {2},
+  publisher = {Cambridge University Press},
+  address   = {Cambridge},
+  year      = {1913},
+  pages     = {501--504}
+}
+
+% ---------------------------------------------------------------------------
+% Certificates and independent checkers (context; journal referee P7)
+% ---------------------------------------------------------------------------
+
+% [CR] DOI 10.1016/j.cosrev.2010.09.009 (record retrieved 2026-11-12). Text NOT read.
+@article{McConnellEtAl2011,
+  author  = {McConnell, R. M. and Mehlhorn, K. and N{\"a}her, S. and Schweitzer, P.},
+  title   = {Certifying algorithms},
+  journal = {Comput. Sci. Rev.},
+  volume  = {5},
+  number  = {2},
+  pages   = {119--161},
+  year    = {2011},
+  doi     = {10.1016/j.cosrev.2010.09.009}
+}
+
+% [CR] DOI 10.1007/978-3-319-40970-2_15 (record retrieved 2026-11-12; the record gives no volume
+% number of the series, so none is printed). Editors from the DOI record of the volume,
+% 10.1007/978-3-319-40970-2 (retrieved 2026-11-12). Text NOT read.
+@incollection{HeuleKullmannMarek2016,
+  author    = {Heule, M. J. H. and Kullmann, O. and Marek, V. W.},
+  title     = {Solving and verifying the {B}oolean {P}ythagorean triples problem via cube-and-conquer},
+  booktitle = {Theory and Applications of Satisfiability Testing -- {SAT} 2016},
+  editor    = {Creignou, N. and Le Berre, D.},
+  series    = {Lecture Notes in Computer Science},
+  publisher = {Springer},
+  address   = {Cham},
+  year      = {2016},
+  pages     = {228--245},
+  doi       = {10.1007/978-3-319-40970-2_15}
+}

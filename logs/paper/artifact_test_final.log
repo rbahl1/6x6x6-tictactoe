@@ -1,0 +1,135 @@
+# logs/paper/artifact_test_final.log
+# Test of the final build of the supplementary archive (ttt6-artifact.tar.gz) after the second round of
+# the internal refereeing.  The archive was unpacked into a fresh scratch directory, and the following was
+# run there, in this order, with no other job on the machine:
+#   sha256sum -c MANIFEST.sha256;  make bin/treecheck;  the certifying command of Section 8.3 of the paper;
+#   python3 verify/spotcheck.py --selftest;  the exhaustive run of verify/spotcheck.py of Section 8.3
+#   (--procs 4);  the verifier written from the paper alone (logs/paper/replication_from_paper/verify.cpp),
+#   compiled and run on the certificate;  python3 logs/paper/referee/b_expand.py from the archive root;
+#   logs/paper/lost_vectors/run.sh;  the three checks in logs/paper/round2_checks/;
+#   logs/paper/check_refs.py;  scripts/check_7cube_midplanes.py;  a byte comparison of paper/paper.pdf in
+#   the archive with paper/paper.pdf of the project;  a search of all text files of the archive and of
+#   the text and the metadata of the two PDFs for names of products, companies or models of AI tools.
+#
+# Notes.
+# (1) This log records the test of the build whose size and checksum are printed below.  The archive that
+#     contains this log was built afterwards and differs from the tested build in exactly two files:
+#     this log and MANIFEST.sha256.  The paper (sources and PDF), README.md, the programs, the
+#     certificate and all other files are the same.
+# (2) The reference running times of Section 8.3 and Appendix S6.2 of the paper and of README.md are taken
+#     from the lines "real" and "user" below and from the logs of two earlier builds,
+#     logs/paper/artifact_test.log and logs/paper/artifact_test_revision.log.  Running times vary by one
+#     or two seconds from run to run.
+# (3) The verifier written from the paper alone prints ACCEPT and reproduces all per-round counts, and
+#     ends with exit code 1 ("1 mismatches"): besides verifying the certificate it compares its own
+#     numbers of flows with two implementation statistics of the main verifier that were printed in the
+#     first version of the paper (77,268 flows for pairs, 7,391 for triples); see Section 8.5 and
+#     Appendix S4.1 of the paper.  Its full output is in logs/paper/replication_from_paper/run.log.
+# (4) In the output file of the exhaustive run of verify/spotcheck.py the field "void_examples" (a list
+#     of examples whose order depends on the scheduling of the processes) differs from
+#     results/final/spotcheck_full.json, besides the fields that record the command line, the number of
+#     processes and the times.  All counters agree.
+# (5) logs/paper/referee/b_expand.py is run from the root of the unpacked archive; the archived copy
+#     differs from the file in the project tree in the path of its output file, and b_sigma.py in the
+#     path of the certificate (scripts/make_artifact.sh, "runnable copies").
+#
+== test of the unpacked archive, 2026-11-12T20:40:27Z ==
+tarball: 6347259 bytes, sha256 ccc308bfefb3942af611be573087531a51439a3d66b9d15b9feeccf6ea59063b
+machine: 4 cores, load average 0.59 0.86 0.92; g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0; Python 3.13.18
+unpacked: 355 files, 38684 KB
+== sha256sum -c MANIFEST.sha256 ==
+MANIFEST OK (354 of 354 entries)
+== certificate checksums ==
+13629393fcdcee87a03f2c9c73f640d9584d2134a46f90dad9393dc92c9ce3fc  results/final/strategy.tbl
+3c14c7814e296e812b4fdf3cda2f446c6ce4865d15d351980e7fecc7690fd470  results/final/leaves.txt
+== make bin/treecheck ==
+g++ -O2 -std=c++17 -march=native -fopenmp -Wall -Wno-unused-result -o bin/treecheck verify/treecheck.cpp
+
+real	0m9.674s
+user	0m9.379s
+sys	0m0.196s
+== certifying treecheck run (Section 8.3 of the paper) ==
+
+real	0m2.461s
+user	0m8.898s
+sys	0m0.067s
+exit code of treecheck: 0
+lines on standard output: 1; on standard error: 1
+[treecheck] loaded 93164 table entries (0 bad lines, 0 not canonical, 0 duplicates, 0 conflicts) and 106723 leaves (0 bad lines) in 0.1 s
+{"ok":true,"p_states":153135,"q_states":93164,"leaves_checked":106723,"max_t":10,"errors":[],"error_count":0,"complete":true,"timed_out":false,"root_void":false,"rmax":10,"root":"0 - -","threads":4,"exact_visited_set":true,"paranoid_flows":true,"busy_only":fal
+keys differing from results/final/treecheck.json: ['load_seconds', 'seconds', 'states_per_second', 'states_per_thread', 'threads']
+{'ok': True, 'complete': True, 'root': '0 - -', 'root_void': False, 'rmax': 10, 'exact_visited_set': True, 'paranoid_flows': True, 'states_visited': 246299, 'p_states': 153135, 'q_states': 93164, 'leaves_checked': 106723, 'error_count': 0}
+== python3 verify/spotcheck.py --selftest ==
+selftest geometry         148 lines (108/36/4), 24 busy cells on 7 lines, |G| = 1152, lines -> lines
+selftest canon            250 random states: greedy canon == brute force over 1152 maps, invariant under G
+selftest spec8            slack(T7)=1, slack(T8)=8, LEAF(T7,-,7)=F, LEAF(T8,-,8)=T, LEAF(T8,-,9)=F; item 7 LEAF=True
+selftest leaf_vs_brute    6000 instances (<=14 live lines): holds 4870, not admissible 96, no pairing 48, C_Phi fails 986
+selftest lost_vs_literal  1200 instances: E2 128, E3 10, not lost 1062
+selftest OK
+
+real	0m10.273s
+user	0m10.193s
+sys	0m0.016s
+== python3 verify/spotcheck.py, exhaustive run of Section 8.3 (--procs 4) ==
+
+real	1m34.865s
+user	5m40.381s
+sys	0m1.500s
+exit code of spotcheck: 0
+[   93.9s] part C: exhaustive phase (t <= 10): 246299 states in 30 rounds, 73 CPU-s
+[   94.2s] ok=True  errors=0  p_expanded=46412 q_checked=93164 children={'a': 46412, 'c': 143498, 'd': 28275, 'i': 93164, 'ii': 54482} void=151 leaves_recomputed=106723  CPU 342s
+keys differing from results/final/spotcheck_full.json: ['argv', 'cpu_seconds', 'procs', 'void_examples', 'wall_seconds']
+== the verifier written from the paper alone (logs/paper/replication_from_paper/verify.cpp) ==
+
+real	0m44.202s
+user	0m43.844s
+sys	0m0.048s
+exit code of the replication verifier: 1
+table lines: 93164, leaf lines: 106723, malformed: 0, non-canonical: 0, repeated keys: 0
+ACCEPT (Rmax = 10)
+17:  [ok] all per-round numbers of Table 3 / Appendix A.5
+18:  [ok] totals: P 153135, leaves 106723, expanded 46412, Q 93164, visited 246299
+28:  [ok] Table 4 reproduced in every cell
+41:  [MISMATCH] pair flows = 77,268 and triple flows = 7,391 (implementation statistic)
+45:SOME CHECKS FAILED (1 mismatches)
+== python3 logs/paper/referee/b_expand.py (transcription of Algorithm 1, run from the archive root) ==
+
+real	3m10.834s
+user	3m9.517s
+sys	0m0.201s
+exit code of b_expand.py: 0
+expansion finished in 186.4 s
+P-states           [1, 2, 5, 14, 35, 181, 1718, 7227, 34801, 93124, 16027] 153135
+expanded           [1, 2, 5, 14, 35, 181, 1718, 7227, 31419, 5810, 0] 46412
+leaves             [0, 0, 0, 0, 0, 0, 0, 0, 3382, 87314, 16027] 106723
+Q-states           [0, 2, 5, 14, 35, 101, 446, 3487, 14362, 62381, 12331] 93164
+threat children    [0, 0, 0, 0, 0, 824, 4075, 14460, 47020, 72352, 4767] 143498
+danger children    [0, 0, 0, 0, 0, 0, 0, 0, 20416, 6060, 1799] 28275
+children (ii)      [0, 1, 3, 9, 24, 70, 282, 2033, 8476, 36813, 6771] 54482
+VOID children (ii) [0, 0, 0, 0, 0, 0, 1, 6, 54, 88, 2] 151
+VOID children (c)  0  VOID children (d) 0
+non-busy table moves [0, 0, 0, 0, 0, 0, 0, 16, 399, 11, 8] 434
+leaves by theta    [64841, 32703, 7267, 1434, 343, 105, 25, 4, 1]
+table entries used: 93164 of 93164; leaves used: 106723 of 106723
+all counts agree with Appendix A.5 / Table 3; (V2) t<Rmax and (V3) hold on the reachable set
+(L1) on all leaves and (L2) on a sample of 1500 leaves: OK   [LEAF (L3) not evaluated here]
+reachable set V (246299 canonical states) written for b_play6.py
+total 189.1 s
+== logs/paper/lost_vectors/run.sh (LOST test vectors, three implementations) ==
+12 5,11,79,86,92,93,94,121,123,154,186,210 26,70,77,194 LOST = false pattern None e2=0 e3=0
+10 54,55,127,131,133,142,143,157,164,214 0,12,18,90,108,120,144,150,180 LOST = true pattern E2 e2=1 e3=0
+all three implementations agree on 9 instances
+audit instances: 800 ; LOST true/false by t: t=9: 0/86, t=10: 15/114, t=11: 57/103, t=12: 125/96, t=13: 155/49 ; mismatches between treecheck --lostcheck and the literal test: 0
+== logs/paper/round2_checks (checks of the second round) ==
+ALL OK
+ALL OK
+r2_lost: output identical to r2_lost.log
+== python3 logs/paper/check_refs.py (cross-references of the paper) ==
+RESULT: all checks passed
+== python3 scripts/check_7cube_midplanes.py (Appendix B of the paper) ==
+RESULT: all checks passed
+== paper/paper.pdf in the archive against paper/paper.pdf of the project ==
+byte-identical (1134901 bytes, sha256 91dd89e202fd07e7f445f6a8de801498fc489d1a4e0630478ca7edef99e89839); Pages:           92
+== names of products, companies or models of AI tools in the text files of the archive and in the text of the PDFs ==
+text files with a hit: 0; hits in the text of the PDFs: 0; hits in the PDF metadata: 0
+== done ==

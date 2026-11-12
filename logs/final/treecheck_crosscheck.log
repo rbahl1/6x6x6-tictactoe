@@ -1,0 +1,37 @@
+[treecheck] loaded 93164 table entries (0 bad lines, 0 not canonical, 0 duplicates, 0 conflicts) and 106723 leaves (0 bad lines) in 0.6 s
+[treecheck] 30s: 7530 states expanded (250/s), 7549 known, shared stack 0, errors 0
+[treecheck] 60s: 14818 states expanded (242/s), 15362 known, shared stack 0, errors 0
+[treecheck] 90s: 21419 states expanded (220/s), 21448 known, shared stack 0, errors 0
+[treecheck] 120s: 27027 states expanded (186/s), 27071 known, shared stack 0, errors 0
+[treecheck] 150s: 35060 states expanded (267/s), 35172 known, shared stack 0, errors 0
+[treecheck] 181s: 44152 states expanded (302/s), 44745 known, shared stack 0, errors 0
+[treecheck] 211s: 53139 states expanded (298/s), 53640 known, shared stack 0, errors 0
+[treecheck] 241s: 60939 states expanded (259/s), 61179 known, shared stack 0, errors 0
+[treecheck] 271s: 68835 states expanded (262/s), 68870 known, shared stack 0, errors 0
+[treecheck] 301s: 76383 states expanded (250/s), 76400 known, shared stack 0, errors 0
+[treecheck] 331s: 85359 states expanded (298/s), 85550 known, shared stack 0, errors 0
+[treecheck] 361s: 93526 states expanded (271/s), 93549 known, shared stack 0, errors 0
+[treecheck] 392s: 100749 states expanded (240/s), 100959 known, shared stack 0, errors 0
+[treecheck] 422s: 109626 states expanded (295/s), 109900 known, shared stack 0, errors 0
+[treecheck] 452s: 118397 states expanded (292/s), 118553 known, shared stack 0, errors 0
+[treecheck] 482s: 126388 states expanded (265/s), 127090 known, shared stack 0, errors 0
+[treecheck] 512s: 134689 states expanded (276/s), 134906 known, shared stack 0, errors 0
+[treecheck] 542s: 141399 states expanded (223/s), 141697 known, shared stack 0, errors 0
+[treecheck] 572s: 150121 states expanded (290/s), 150620 known, shared stack 2, errors 0
+[treecheck] 602s: 157527 states expanded (246/s), 157779 known, shared stack 0, errors 0
+[treecheck] 632s: 163934 states expanded (213/s), 164306 known, shared stack 1, errors 0
+[treecheck] 662s: 170753 states expanded (226/s), 170894 known, shared stack 1, errors 0
+[treecheck] 693s: 178046 states expanded (242/s), 178116 known, shared stack 1, errors 0
+[treecheck] 723s: 184677 states expanded (220/s), 184970 known, shared stack 1, errors 0
+[treecheck] 753s: 192131 states expanded (248/s), 192336 known, shared stack 0, errors 0
+[treecheck] 783s: 199872 states expanded (256/s), 200160 known, shared stack 0, errors 0
+[treecheck] 813s: 209391 states expanded (317/s), 209559 known, shared stack 0, errors 0
+[treecheck] 843s: 216998 states expanded (252/s), 217043 known, shared stack 15, errors 0
+[treecheck] 873s: 226290 states expanded (308/s), 226475 known, shared stack 0, errors 0
+[treecheck] 904s: 234471 states expanded (272/s), 235445 known, shared stack 0, errors 0
+[treecheck] 934s: 243082 states expanded (286/s), 243281 known, shared stack 0, errors 0
+{"ok":true,"p_states":153135,"q_states":93164,"leaves_checked":106723,"max_t":10,"errors":[],"error_count":0,"complete":true,"timed_out":false,"root_void":false,"rmax":10,"root":"0 - -","threads":2,"exact_visited_set":true,"paranoid_flows":true,"busy_only":false,"crosscheck":true,"crosscheck_states_canon":246299,"crosscheck_expansions":46412,"crosscheck_leaves":2153,"states_visited":246299,"table_bytes":5376504,"table_fnv1a64":"68da06fa790d1228","leaf_bytes":6445022,"leaf_fnv1a64":"350f14ef656250bd","table_entries":93164,"table_lines":93164,"table_bad_lines":0,"table_noncanonical":0,"table_duplicates":0,"table_conflicts":0,"leaf_entries":106723,"leaf_lines":106723,"leaf_bad_lines":0,"leaf_noncanonical":0,"leaf_duplicates":0,"bad_lines":[],"nonbusy_moves":434,"threat_children":143498,"danger_children":28275,"children_new":246298,"void_skipped":151,"void_skipped_threat":0,"void_skipped_danger":0,"void_skipped_reveal":151,"by_t":{"note":"index = t of the state itself; children are counted at the t of the child; threat/danger children are the non-VOID children generated (with repetitions)","p_states":[1,2,5,14,35,181,1718,7227,34801,93124,16027],"q_states":[0,2,5,14,35,101,446,3487,14362,62381,12331],"leaves":[0,0,0,0,0,0,0,0,3382,87314,16027],"threat_children":[0,0,0,0,0,824,4075,14460,47020,72352,4767],"danger_children":[0,0,0,0,0,0,0,0,20416,6060,1799],"void_skipped":[0,0,0,0,0,0,1,6,54,88,2]},"states_per_thread":[123905,122394],"leaf_bfs":8549521,"leaf_triple_flows":7391,"load_seconds":0.627,"seconds":944.867,"states_per_second":260.7}
+
+real	15m45.680s
+user	7m17.489s
+sys	0m0.464s

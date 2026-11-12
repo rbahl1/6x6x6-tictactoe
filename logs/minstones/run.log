@@ -1,0 +1,51 @@
+== n=5: 125 cells, 109 lines (formula 109), max lines per cell 13, symmetry group order 192 (6 verified generators), 6 cell orbits
+   j=0: need >= 47 killed lines; nodes 1, matching tests 0, 0.00 s -> exhausted, no set has a pairing
+   j=1: need >= 47 killed lines; nodes 1, matching tests 0, 0.00 s -> exhausted, no set has a pairing
+   j=2: need >= 48 killed lines; nodes 1, matching tests 0, 0.00 s -> exhausted, no set has a pairing
+   j=3: need >= 48 killed lines; nodes 1, matching tests 0, 0.00 s -> exhausted, no set has a pairing
+   j=4: need >= 49 killed lines; nodes 1, matching tests 0, 0.00 s -> exhausted, no set has a pairing
+   j=5: need >= 49 killed lines; nodes 1, matching tests 0, 0.00 s -> exhausted, no set has a pairing
+   j=6: need >= 50 killed lines; nodes 1, matching tests 0, 0.00 s -> exhausted, no set has a pairing
+   j=7: need >= 50 killed lines; nodes 2, matching tests 0, 0.00 s -> exhausted, no set has a pairing
+   j=8: need >= 51 killed lines; nodes 944, matching tests 0, 0.00 s -> exhausted, no set has a pairing
+   j=9: need >= 51 killed lines; nodes 14, matching tests 1, 0.00 s -> PAIRING FOUND
+   LOWER: no set of fewer than 9 stones has a pairing (sizes 0..8 exhausted: 953 nodes, 0 sets passed the counting test and were refuted by exact matching with a re-counted Hall violator; 0.00 s)
+          8 stones kill at most 49 lines, the counting test needs 51
+   UPPER: B = [[0,0,0],[0,0,4],[0,4,0],[0,4,4],[1,1,1],[1,1,3],[2,2,2],[3,3,1],[3,3,3]] (9 stones), 58 live lines, pairing found and verified, 0 cells unassigned
+== n=6: 216 cells, 148 lines (formula 148), max lines per cell 7, symmetry group order 1152 (8 verified generators), 3 cell orbits
+   j=0: need >= 40 killed lines; nodes 1, matching tests 0, 0.00 s -> exhausted, no set has a pairing
+   j=1: need >= 41 killed lines; nodes 1, matching tests 0, 0.00 s -> exhausted, no set has a pairing
+   j=2: need >= 41 killed lines; nodes 1, matching tests 0, 0.00 s -> exhausted, no set has a pairing
+   j=3: need >= 42 killed lines; nodes 1, matching tests 0, 0.00 s -> exhausted, no set has a pairing
+   j=4: need >= 42 killed lines; nodes 1, matching tests 0, 0.00 s -> exhausted, no set has a pairing
+   j=5: need >= 43 killed lines; nodes 1, matching tests 0, 0.00 s -> exhausted, no set has a pairing
+   j=6: need >= 43 killed lines; nodes 1, matching tests 0, 0.00 s -> exhausted, no set has a pairing
+   j=7: need >= 44 killed lines; nodes 142, matching tests 1, 0.00 s -> PAIRING FOUND
+   LOWER: no set of fewer than 7 stones has a pairing (sizes 0..6 exhausted: 7 nodes, 0 sets passed the counting test and were refuted by exact matching with a re-counted Hall violator; 0.00 s)
+          6 stones kill at most 39 lines, the counting test needs 43
+   UPPER: B = [[0,0,0],[0,0,5],[1,4,1],[2,3,3],[3,2,2],[4,1,4],[5,5,0]] (7 stones), 104 live lines, pairing found and verified, 1 cells unassigned
+   n=6 T7 = [[0,0,0],[5,5,5],[1,1,4],[4,4,1],[2,3,2],[3,2,3],[5,0,0]]: pairing exists: yes (verified: yes), live lines 104, slack 1, unassigned cells 1 (expected: yes, 1) -> PASS
+== n=7: 343 cells, 193 lines (formula 193), max lines per cell 13, symmetry group order 1152 (8 verified generators), 7 cell orbits
+   j=0: need >= 22 killed lines; nodes 1, matching tests 0, 0.00 s -> exhausted, no set has a pairing
+   j=1: need >= 22 killed lines; nodes 1, matching tests 0, 0.00 s -> exhausted, no set has a pairing
+   j=2: need >= 23 killed lines; nodes 1, matching tests 0, 0.00 s -> exhausted, no set has a pairing
+   j=3: need >= 23 killed lines; nodes 4, matching tests 1, 0.00 s -> PAIRING FOUND
+   LOWER: no set of fewer than 3 stones has a pairing (sizes 0..2 exhausted: 3 nodes, 0 sets passed the counting test and were refuted by exact matching with a re-counted Hall violator; 0.00 s)
+          2 stones kill at most 19 lines, the counting test needs 23
+   UPPER: B = [[0,0,0],[0,0,6],[3,3,3]] (3 stones), 169 live lines, pairing found and verified, 2 cells unassigned
+== n=8: 512 cells, 244 lines (formula 244), max lines per cell 7, symmetry group order 9216 (10 verified generators), 3 cell orbits
+   j=0: need >= -12 killed lines; nodes 1, matching tests 1, 0.00 s -> PAIRING FOUND
+   LOWER: nothing to prove (minimum 0)
+   UPPER: B = [] (0 stones), 244 live lines, pairing found and verified, 24 cells unassigned
+
+  n  lines  expected  computed  lower-bound nodes  matching tests  cpu s   result
+  5    109         9         9                953               0    0.01   PASS
+  6    148         7         7                  7               0    0.01   PASS
+  7    193         3         3                  3               0    0.01   PASS
+  8    244         0         0                  0               0    0.20   PASS
+n=6 T7 = [[0,0,0],[5,5,5],[1,1,4],[4,4,1],[2,3,2],[3,2,3],[5,0,0]]: pairing exists: yes (verified: yes), live lines 104, slack 1, unassigned cells 1 (expected: yes, 1) -> PASS
+wrote results/regression/minstones.json and results/regression/minstones_pairings.json
+
+real	0m0.683s
+user	0m0.650s
+sys	0m0.032s

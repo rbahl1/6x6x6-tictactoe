@@ -1,0 +1,70 @@
+% supp_math.tex -- Appendices S1 and S2: results that the main theorem does not use
+% (Section 2.6, the end of Section 4.3, the end of Section 5.10 and Appendix C of the first revision).
+% S1.3 is app_extra_A.tex, S2 is app_extra_B.tex.
+\section{Supplements to Sections 2 and 4}\label{sec:extra}
+
+This appendix contains three supplements to \cref{sec:board,sec:leaf}: the Computed Fact that $\G$ is the
+full automorphism group of the board (\cref{ssec:aut}), a description in words of the test for $\LEAF$
+that \cref{alg:leaf} states as pseudocode (\cref{ssec:supp-leafwords}), and the monotonicity of the pairing
+condition $\CC$ in \Breaker's stones (\cref{sec:extra-monoC}). None of them is used in the proof of
+\cref{thm:main} or of \cref{cor:seven}.
+
+\subsection{The full automorphism group of the board}\label{ssec:aut}
+
+An \emph{automorphism} of the board is a bijection of $\Q$ that maps every line onto a line. By
+\cref{lem:group} every element of $\G$ is an automorphism. The proof of the main theorem uses nothing
+more, but it is natural to ask whether $\G$ misses any symmetry.
+
+\begin{fact}[The full automorphism group; not used in the proof of \cref{thm:main}]\label{fact:aut}
+The automorphism group of the incidence structure $(\Q,\Lines)$ has order $1{,}152$; hence it is equal
+to~$\G$.
+
+\established the program \fn{autgroup.cpp} in the directory \fn{logs/canon/} of the
+archive (output \fn{autgroup.log}; see \cref{ssec:artifact}), a
+search by individualization and color refinement on the incidence graph with $216+148$ vertices. It
+finds a base consisting of three lines and three cells; the orbit of each base point under the pointwise
+stabilizer of the preceding ones has $4$, $3$, $2$, $6$, $4$, $2$ elements, respectively, so that the
+group has order $4\cdot3\cdot2\cdot6\cdot4\cdot2=1{,}152$.
+\end{fact}
+
+For the $4\times4\times4$ board the automorphism group, which has order $192$, was determined by
+Silver~\cite{Silver1967}, and the automorphism groups of the boards $n^d$ in general were characterized
+by Dvo\v{r}\'ak and Valla~\cite{DvorakValla2021}. We did not rely on these results, and we have not
+compared the order $1{,}152$ with the general description in~\cite{DvorakValla2021}:
+\cref{fact:aut} is a direct computation for the present board.
+
+\subsection{The leaf test in words}\label{ssec:supp-leafwords}
+
+The results of \cref{ssec:deciding} (\cref{prop:triples,prop:maxflow,cor:pruning}) give the following procedure for deciding $\LEAF(B,F,k)$, where
+$\theta=k-|F|\ge 0$; \cref{alg:leaf} states it as pseudocode. All its steps are computations with small integers on a bipartite graph with at
+most $148+216$ vertices.
+\begin{enumerate}[label=\textup{\arabic*.}]
+\item Test whether $F$ is $B$-admissible (\cref{def:admissible}). If not, $\LEAF(B,F,k)$ is false.
+\item Compute a maximum assignment for $(B,F)$ by augmenting paths (\cref{lem:hall}). If some live line
+      receives fewer than two cells, there is no pairing and $\LEAF(B,F,k)$ is false. Otherwise a pairing
+      $\pi$ has been found.
+\item Optionally, apply the quick rejection of \cref{cor:pruning}\,(b) to the $F$-components of
+      $\live{B}$ with at least three lines.
+\item For every $F$-connected triple $T$ (a line together with two lines that are $F$-adjacent to it),
+      decide whether $\mu(T)\ge\theta$: starting from $\pi$, try to perform $\theta$ augmentations from
+      the lines of $T$ (\cref{prop:maxflow}\,(d) or (e)). A triple may be skipped if one of its lines or
+      pairs of lines is already known to satisfy $\mu\ge\theta$ (\cref{cor:pruning}\,(a)). If the
+      procedure stops after fewer than $\theta$ augmentations, then $R=R_\alpha(T)$ is an $F$-connected
+      set of at least three live lines with $\sur_F(R)=\mu(T)<\theta$ (\cref{prop:maxflow}\,(c)), and
+      $\LEAF(B,F,k)$ is false.
+\item If every triple passes, $\LEAF(B,F,k)$ is true (\cref{prop:triples}\,(b)).
+\end{enumerate}
+A negative answer in steps 3 and 4 comes with a set $S$ of lines whose surplus can be recomputed from
+the definition. What a positive answer comes with, and why only positive answers matter for the
+soundness of the main theorem, is said at the end of \cref{ssec:deciding} and in \cref{rem:true-cert}.
+
+\input{app_extra_A}
+
+\section{Supplements to Section 5}\label{sec:extra-game}
+
+This appendix contains two supplements to \cref{sec:game}: lazy monotonicity and its corollary for the
+eager variant of the abstract game, with proofs (\cref{sec:extra-lazy}), and the exact number of stones
+of the patterns $\Etwo$ and $\Ethree$ on the $6\times6\times6$ board (\cref{sec:extra-e23}). Neither is
+used in the proof of \cref{thm:main} or of \cref{cor:seven}.
+
+\input{app_extra_B}

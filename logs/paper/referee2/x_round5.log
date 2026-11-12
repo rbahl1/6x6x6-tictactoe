@@ -1,0 +1,8 @@
+P-states of round 4: 35
+threat children entering round 5: 824 (VOID children (c): 0 ); distinct canonical forms: 81
+Q-states of round 5: 101 ; P-states of round 5: 181 ; VOID children (ii) in round 5: 0
+= Table 3, row t=5: 181 P-states, 101 Q-states, 824 threat children, 0 VOID: ok
+
+real	0m2.391s
+user	0m2.349s
+sys	0m0.016s

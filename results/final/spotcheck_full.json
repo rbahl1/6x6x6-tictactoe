@@ -1,0 +1,201 @@
+{
+ "ok": true,
+ "table_lines": 93164,
+ "leaf_lines": 106723,
+ "canonical_checked": 199887,
+ "leaves_recomputed": 106723,
+ "p_expanded": 46412,
+ "q_checked": 93164,
+ "children_checked": {
+  "a": 46412,
+  "c": 143498,
+  "d": 28275,
+  "i": 93164,
+  "ii": 54482
+ },
+ "void_children": 151,
+ "errors": [],
+ "error_count": 0,
+ "rmax": 10,
+ "seed": 20261112,
+ "procs": 2,
+ "samples": 0,
+ "mode": "full traversal from the root",
+ "children_counting": "raw children generated from the canonical representative (not deduplicated by symmetry), VOID included",
+ "canonical_checked_table": 93164,
+ "canonical_checked_leaves": 106723,
+ "canonical_all_leaf_lines": true,
+ "table_nonbusy_moves": 434,
+ "table_void_keys": 0,
+ "leaves_recomputed_partB": 106723,
+ "leaves_theta_ge4_all": 478,
+ "leaves_theta_le3_sampled": 106245,
+ "leaves_theta_le3_total": 106245,
+ "leaves_recomputed_by_theta_partB": {
+  "0": 64841,
+  "1": 32703,
+  "2": 7267,
+  "3": 1434,
+  "4": 343,
+  "5": 105,
+  "6": 25,
+  "7": 4,
+  "8": 1
+ },
+ "leaves_recomputed_in_descents": 0,
+ "p_leaf_visited": 106723,
+ "distinct_leaves_reached": 106723,
+ "states_exhaustive_phase": 246299,
+ "states_visited_total": 246299,
+ "states_visited_by_t": {
+  "0": {
+   "P_expanded": 1,
+   "P_leaf": 0,
+   "Q": 0
+  },
+  "1": {
+   "P_expanded": 2,
+   "P_leaf": 0,
+   "Q": 2
+  },
+  "2": {
+   "P_expanded": 5,
+   "P_leaf": 0,
+   "Q": 5
+  },
+  "3": {
+   "P_expanded": 14,
+   "P_leaf": 0,
+   "Q": 14
+  },
+  "4": {
+   "P_expanded": 35,
+   "P_leaf": 0,
+   "Q": 35
+  },
+  "5": {
+   "P_expanded": 181,
+   "P_leaf": 0,
+   "Q": 101
+  },
+  "6": {
+   "P_expanded": 1718,
+   "P_leaf": 0,
+   "Q": 446
+  },
+  "7": {
+   "P_expanded": 7227,
+   "P_leaf": 0,
+   "Q": 3487
+  },
+  "8": {
+   "P_expanded": 31419,
+   "P_leaf": 3382,
+   "Q": 14362
+  },
+  "9": {
+   "P_expanded": 5810,
+   "P_leaf": 87314,
+   "Q": 62381
+  },
+  "10": {
+   "P_expanded": 0,
+   "P_leaf": 16027,
+   "Q": 12331
+  }
+ },
+ "q_visited_nonbusy_move": 434,
+ "p_states_where_LOST_enumeration_ran": 305,
+ "distinct_forced_children": 99949,
+ "children_that_are_leaves_distinct_per_parent": 87053,
+ "unreached": {
+  "table_entries_not_reached": 0,
+  "leaf_entries_not_reached": 0
+ },
+ "void_children_by_parent_kind_and_t": {
+  "Q6": 1,
+  "Q7": 6,
+  "Q9": 88,
+  "Q8": 54,
+  "Q10": 2
+ },
+ "void_examples": [
+  "child (ii) m=151 of Q 6 0,5,61,154,210 35,64,93,122,215 is VOID",
+  "child (ii) m=151 of Q 7 0,46,92,123,169,215 35,64,93,122 is VOID",
+  "child (ii) m=123 of Q 7 0,43,87,128,172,215 30,35,61,92,185 is VOID",
+  "child (ii) m=122 of Q 7 0,46,92,123,169,215 5,35,64,93,180 is VOID",
+  "child (ii) m=122 of Q 7 0,43,87,128,172,215 5,30,35,64,93,180 is VOID",
+  "child (ii) m=122 of Q 7 0,43,87,128,172,215 5,35,61,64,93,151 is VOID",
+  "child (ii) m=122 of Q 7 0,46,92,123,169,215 5,35,64,93,180,185 is VOID",
+  "child (ii) m=61 of Q 9 0,5,43,66,93,122,172,215 30,92,102,123,138,154,174,210 is VOID",
+  "child (ii) m=154 of Q 9 0,5,43,66,93,122,172,215 30,92,102,123,138,174,185,210 is VOID",
+  "child (ii) m=64 of Q 9 0,5,43,70,92,123,172,215 35,93,105,122,140,151,175,210 is VOID",
+  "child (ii) m=151 of Q 9 0,5,43,70,92,123,172,215 35,93,105,122,140,175,180,210 is VOID",
+  "child (ii) m=151 of Q 9 0,5,43,92,123,172,192,215 35,64,93,180,186,198,204,210 is VOID",
+  "child (ii) m=122 of Q 9 0,5,43,92,123,172,192,215 64,93,151,180,186,198,204,210 is VOID",
+  "child (ii) m=151 of Q 9 0,5,43,92,123,172,210,215 7,14,21,28,35,64,93,122 is VOID",
+  "child (ii) m=151 of Q 9 0,5,43,92,123,172,210,215 35,64,70,93,105,122,140,175 is VOID",
+  "child (ii) m=151 of Q 9 0,5,43,92,123,172,210,215 35,64,71,93,107,122,143,179 is VOID",
+  "child (ii) m=151 of Q 8 0,5,43,92,123,172,215 35,64,93,122,210 is VOID",
+  "child (ii) m=122 of Q 8 0,5,43,92,123,172,215 35,64,93,180,210 is VOID",
+  "child (ii) m=151 of Q 8 0,5,43,92,123,172,215 64,93,122,180,210 is VOID",
+  "child (ii) m=123 of Q 9 0,5,43,66,93,122,172,215 30,61,92,102,138,174,185,210 is VOID",
+  "child (ii) m=123 of Q 9 0,5,43,66,93,122,172,215 30,92,102,138,154,174,185,210 is VOID",
+  "child (ii) m=151 of Q 9 0,5,43,70,92,123,172,215 35,64,93,105,122,140,175,210 is VOID",
+  "child (ii) m=122 of Q 9 0,5,43,70,92,123,172,215 35,64,93,105,140,175,180,210 is VOID",
+  "child (ii) m=122 of Q 9 0,5,43,70,92,123,172,215 35,93,105,140,151,175,180,210 is VOID",
+  "child (ii) m=93 of Q 9 0,5,43,92,123,172,192,215 35,64,122,180,186,198,204,210 is VOID",
+  "child (ii) m=151 of Q 9 0,5,43,92,105,123,172,215 35,64,70,122,140,175,180,210 is VOID",
+  "child (ii) m=151 of Q 8 0,5,43,92,123,172,210 35,46,64,93,122,215 is VOID",
+  "child (ii) m=35 of Q 8 0,5,43,92,123,172,210 46,64,93,122,151,215 is VOID",
+  "child (ii) m=151 of Q 8 0,5,43,92,123,172,210 46,64,93,122,180,215 is VOID",
+  "child (ii) m=151 of Q 8 0,5,43,92,123,172,215 30,35,64,93,122,210 is VOID",
+  "child (ii) m=151 of Q 8 0,5,43,92,123,172,215 30,64,93,122,180,210 is VOID",
+  "child (ii) m=122 of Q 8 0,5,43,92,123,172,215 35,46,64,93,151,169 is VOID",
+  "child (ii) m=122 of Q 8 0,5,43,92,123,172,215 35,46,64,93,180,210 is VOID",
+  "child (ii) m=122 of Q 8 0,5,43,92,123,172,215 35,61,64,93,180,210 is VOID",
+  "child (ii) m=151 of Q 8 0,5,43,92,123,172,215 35,64,86,93,122,210 is VOID",
+  "child (ii) m=151 of Q 8 0,5,43,92,123,172,215 35,64,87,93,122,210 is VOID",
+  "child (ii) m=122 of Q 8 0,5,43,92,123,172,215 35,64,93,180,185,210 is VOID",
+  "child (ii) m=151 of Q 8 0,5,43,92,123,172,215 46,64,93,122,180,210 is VOID",
+  "child (ii) m=151 of Q 8 0,5,43,92,123,172,215 61,64,93,122,180,210 is VOID",
+  "child (ii) m=151 of Q 8 0,5,43,92,123,172,215 64,86,93,122,180,210 is VOID"
+ ],
+ "descent_steps": {
+  "n": 0,
+  "mean": 0,
+  "max": 0
+ },
+ "coverage": {
+  "q_checked_fraction_of_table": 1.0,
+  "leaves_recomputed_fraction": 1.0,
+  "leaves_reached_fraction": 1.0
+ },
+ "cpu_seconds": {
+  "total": 339.4,
+  "leaf_partB": 210.9,
+  "expand": 79.5,
+  "descents": 0.0
+ },
+ "wall_seconds": 732.9,
+ "notes": [],
+ "argv": [
+  "verify/spotcheck.py",
+  "--table",
+  "results/final/strategy.tbl",
+  "--leaves",
+  "results/final/leaves.txt",
+  "--rmax",
+  "10",
+  "--samples",
+  "0",
+  "--seed",
+  "20261112",
+  "--procs",
+  "2",
+  "--full",
+  "--all-leaves",
+  "--out",
+  "results/final/spotcheck_full.json"
+ ]
+}

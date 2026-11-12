@@ -1,0 +1,12 @@
+instances: 2000  evaluations by verdict (holds, failing condition): {'(True, 0)': 9781, '(False, 3)': 1586, '(False, 2)': 60, '(False, 1)': 6}
+live lines per instance: min 3 max 14 mean 7.8
+variant:  {'dele': 36984, 'T_checked': 87834, 'valid': 85978, 'quick': 482, 'pairflows': 19252, 'tripleflows': 31277, 'false_at_triple': 1104, 'true_lt3weak': 4623, 'true_after_triples': 3224}
+Algorithm 2 as printed == brute force; variant with deleted lines (S4.1 steps 1-4) == brute force: all agree
+Lemma 7.5 asserted at 87834 flows of the variant (36984 deletions, 85978 validated assignments); direct tests of 7.5(b): 21589; cases in which 7.5(b) fails when D contains a line that is not strong: 801
+bin/treecheck --leafcheck (default = paranoid) on the same 11433 evaluations: 0 mismatches in verdict or failing condition
+leafcheck: 11433 instances (0 malformed), 11433 LEAF evaluations in 0.426 s (37.3 us each), 428044 BFS, 23477 single / 19252 pair / 31250 triple flows
+time 26.6s
+
+real	0m27.455s
+user	0m27.150s
+sys	0m0.152s

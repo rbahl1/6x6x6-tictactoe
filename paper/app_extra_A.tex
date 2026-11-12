@@ -1,0 +1,181 @@
+% app_extra_A.tex -- Appendix S1.3 (input by supp_math.tex): supplement to Section 4, not used by the main theorem.
+
+\subsection{Monotonicity of \texorpdfstring{$\CC$}{C} in Breaker's stones}\label{sec:extra-monoC}
+
+The condition $\LEAF$ is monotone in the set of \Breaker's stones: $\LEAF(B,F,k)$ implies
+$\LEAF(B+b,F,k)$ for every cell $b\notin F$ (\cref{prop:leaf-monotone}\,(c)). In this subsection we settle
+the corresponding question for the pairing condition $\CC$ of \cref{def:C} itself. The result is not used in
+the proof of \cref{thm:main}, nor anywhere else in the paper; we include it because the question is
+natural and the answer is not what one might expect at first.
+
+One is tempted to regard the implication $\CC(B,F,k)\Rightarrow\CC(B+b,F,k)$ as obvious, since an
+additional stone of \Breaker{} only kills lines. The difficulty is that the family of sets $X$ over
+which $\CC$ quantifies grows when $B$ grows: a set that is $(B+b)$-admissible need not be $B$-admissible.
+The lines through $b$ are dead with respect to $B+b$, so $X$ may have five cells on such a line, or four
+cells on it and four cells on a live line that crosses it in an empty cell; both are forbidden with
+respect to $B$. The statement $\CC(B,F,k)$ says nothing about such sets $X$, and the implication does
+not follow by restriction. In fact it is false in general.
+
+\begin{proposition}[Monotonicity of $\CC$ in $B$]\label{prop:C-monotone}
+Let $B,F$ be disjoint sets of cells, $k\ge|F|$, and $b$ a cell with $b\notin B\cup F$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item If $F$ is $B$-admissible, then $\CC(B,F,k)$ implies $\CC(B+b,F,k)$.
+\item Without the hypothesis that $F$ is $B$-admissible the implication can fail: if $l$ is a line,
+      $b\in l$, $B=\emptyset$ and $F=l\setminus\{b\}$, then $\CC(\emptyset,F,5)$ holds and
+      $\CC(\{b\},F,5)$ does not.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[Proof of \textup{(b)}]
+With respect to $B=\emptyset$ the line $l$ is live and contains the five cells of $F$; so $F$ is not
+$\emptyset$-admissible, no set $X\supseteq F$ is (\cref{lem:adm-closed}\,(c)), and $\CC(\emptyset,F,5)$ holds
+vacuously. With respect to $\{b\}$ the line $l$ is dead. Every other line meets $l$ in at most one cell
+(\cref{lem:geometry}\,(c)) and thus contains at most one cell of $F$; so $F$ is $\{b\}$-admissible, and
+$X=F$ is one of the sets to which $\CC(\{b\},F,5)$ refers. There is, however, no pairing for $(\{b\},F)$: the cell
+$b$ lies on at most seven lines, so at least $141$ lines are live and need $282$ cells, while only
+$216-6=210$ cells lie outside $\{b\}\cup F$ (\cref{lem:slack-bound}).
+\end{proof}
+
+\begin{proof}[Proof of \textup{(a)}]
+Assume that $F$ is $B$-admissible and that $\CC(B,F,k)$ holds. Let $X\supseteq F$ be a
+$(B+b)$-admissible set with $|X|\le k$; in particular $b\notin X$ and $X\cap B=\emptyset$. We have to show
+that there is a pairing for $(B+b,X)$, that is, by \cref{lem:hall}\,(b), that $\dfc_X(S)\le 0$ for every
+set $S\subseteq\live{B+b}$. Fix such a set $S$. We shall construct a set $X^\circ$ of cells and a set
+$S'$ of lines such that
+\begin{equation}\label{eq:monoC-goal}
+  F\subseteq X^\circ\subseteq X,\qquad X^\circ\text{ is $B$-admissible},\qquad S'\subseteq\live{B},\qquad
+  \dfc_{X^\circ}(S')\ge\dfc_X(S).
+\end{equation}
+This suffices: since $|X^\circ|\le k$, the statement $\CC(B,F,k)$ provides a pairing for $(B,X^\circ)$, so
+$\dfc_{X^\circ}(S')\le 0$ by \cref{lem:hall}\,(b), and hence $\dfc_X(S)\le 0$.
+
+\smallskip\noindent\emph{Notation.}
+Let $D$ be the set of the lines through $b$ that are live with respect to $B$. Then $\live{B}$ is the
+disjoint union of $\live{B+b}$ and $D$, and any two lines of $D$ meet in $b$ only
+(\cref{lem:geometry}\,(c)). Every line $l\in D$ has at most five cells in $X$, because $b\in l\setminus X$.
+Put
+\[
+  D_5=\{l\in D : |l\cap X|=5\},\qquad D_4=\{l\in D : |l\cap X|=4\},
+\]
+and for $l\in D_4$ let $c_l$ denote the cell with $l\setminus X=\{b,c_l\}$. We shall use two facts.
+\begin{enumerate}
+\item[\textup{($\alpha$)}] Every line of $D$ has at most four cells in $F$, and at most one line of $D$ has exactly four.
+      Indeed, the lines of $D$ are live with respect to $B$ and $F$ is $B$-admissible; two lines of $D$
+      with four cells in $F$ each would be a danger pair of $F$ with common cell $b\notin F$.
+\item[\textup{($\beta$)}] For $l\in D_4$ there is at most one line $a\in\live{B+b}$ that passes through $c_l$ and has
+      $|a\cap X|=4$. Indeed, two such lines would be a danger pair of $X$ with respect to $B+b$, with
+      common cell $c_l\notin X$. If this line exists, we denote it by $a_l$.
+\end{enumerate}
+
+\smallskip\noindent\emph{The trivial case.}
+If $D_4\cup D_5=\emptyset$, we take $X^\circ=X$ and $S'=S$. The set $X$ is $B$-admissible: the lines of
+$\live{B+b}$ have at most four cells in $X$, the lines of $D$ at most three, and a danger pair of $X$
+with respect to $B$ would consist of two lines of $\live{B+b}$ and would be a danger pair with respect
+to $B+b$. So \eqref{eq:monoC-goal} holds.
+
+\smallskip\noindent\emph{Construction of $X^\circ$.}
+Now let $D_4\cup D_5\ne\emptyset$. We choose a line $l_0\in D_4\cup D_5$ as follows: if some line of $D$
+has four cells in $F$, let $l_0$ be this line (it belongs to $D_4\cup D_5$ because $F\subseteq X$);
+otherwise let $l_0$ be a line of $D_5$ if $D_5\ne\emptyset$, and any line of $D_4$ if $D_5=\emptyset$. By
+($\alpha$),
+\begin{equation}\label{eq:monoC-three}
+  |F\cap l|\le 3\quad\text{for every } l\in D\setminus\{l_0\},\qquad |F\cap l_0|\le 4 .
+\end{equation}
+Let $R\subseteq X\setminus F$ be a set consisting of the following cells:
+\begin{enumerate}[label=\textup{(C\arabic*)}]
+\item two cells of $(l\cap X)\setminus F$ for every $l\in D_5\setminus\{l_0\}$, and one cell of
+      $(l\cap X)\setminus F$ for every $l\in D_4\setminus\{l_0\}$;
+\item if $l_0\in D_5$: one cell $r_0$ of $(l_0\cap X)\setminus F$;
+\item if $l_0\in D_4$ and the line $a_0:=a_{l_0}$ of \textup{($\beta$)} exists: one cell $r^*$ of
+      $\bigl((l_0\cup a_0)\cap X\bigr)\setminus F$.
+\end{enumerate}
+These cells exist. For (C1) and (C2) this follows from \eqref{eq:monoC-three}. For (C3), suppose that
+$(l_0\cup a_0)\cap X\subseteq F$. Then $F$ contains the four cells of $l_0\cap X$ and the four cells of
+$a_0\cap X$, and no further cell of these lines, as $F\subseteq X$. Both lines are live with respect to
+$B$, and they share the cell $c_{l_0}\notin X$. So they form a danger pair of $F$ with respect to $B$,
+contradicting the hypothesis on $F$.
+
+Let $\varepsilon=1$ if case (C3) applies and $\varepsilon=0$ otherwise, and put $X^\circ=X\setminus R$. Then
+$F\subseteq X^\circ\subseteq X$, and in all cases
+\begin{equation}\label{eq:monoC-R}
+  |R|\le 2|D_5|+|D_4|-1+\varepsilon .
+\end{equation}
+(If $l_0\in D_5$, then $R$ has at most $2(|D_5|-1)+|D_4|+1$ cells and $\varepsilon=0$; if $l_0\in D_4$, it
+has at most $2|D_5|+(|D_4|-1)+\varepsilon$ cells.)
+
+\smallskip\noindent\emph{Claim 1: $X^\circ$ is $B$-admissible.}
+First, $X^\circ\cap B=\emptyset$. Next, every line that is live with respect to $B$ has at most four cells
+in $X^\circ$: the lines of $\live{B+b}$ have at most four cells in $X\supseteq X^\circ$; a line of
+$D\setminus\{l_0\}$ has at most three cells in $X^\circ$, by (C1) if it belongs to $D_4\cup D_5$ and
+because it has at most three cells in $X$ otherwise; and $l_0$ has at most four cells in $X^\circ$, by
+(C2) if $l_0\in D_5$. In particular
+\begin{equation}\label{eq:monoC-l0}
+  \text{$l_0$ is the only line of $D$ that can have four cells in $X^\circ$.}
+\end{equation}
+We first note a property of the lines of $\live{B+b}$: if $a\in\live{B+b}$ has exactly four cells in
+$X^\circ$, then it has at least four, hence exactly four cells in $X$, so that
+\begin{equation}\label{eq:monoC-m}
+  a\cap X=a\cap X^\circ,\qquad a\cap R=\emptyset,
+\end{equation}
+and a cell of $a$ that is not in $X^\circ$ is not in $X$.
+
+Suppose now that $m,m'$ is a danger pair of $X^\circ$ with respect to $B$, with common cell
+$c\notin X^\circ$. By \eqref{eq:monoC-l0} the lines $m,m'$ do not both belong to $D$. If both belong to
+$\live{B+b}$, then by \eqref{eq:monoC-m} each has exactly four cells in $X$, and $c\notin X$; so $m,m'$ is a
+danger pair of $X$ with respect to $B+b$, which is impossible. Hence, after renaming, $m=l_0$ and
+$m'\in\live{B+b}$; the line $l_0$ has exactly four cells in $X^\circ$, and \eqref{eq:monoC-m} holds for
+$a=m'$. Moreover $c\ne b$, because $b\notin m'$.
+\begin{itemize}
+\item If $l_0\in D_5$, then $l_0\setminus X^\circ=\{b,r_0\}$, since $r_0$ is the only cell of $R$ on $l_0$
+      (the cells chosen in (C1) lie on other lines of $D$, which meet $l_0$ in $b$ only). Hence
+      $c=r_0\in m'\cap R$, contradicting \eqref{eq:monoC-m}.
+\item If $l_0\in D_4$, then no cell of $l_0$ belongs to $R$, because $l_0$ has four cells in $X$ and four
+      in $X^\circ$. Hence $l_0\setminus X^\circ=\{b,c_{l_0}\}$ and $c=c_{l_0}$. The line $m'\in\live{B+b}$
+      passes through $c_{l_0}$ and has exactly four cells in $X$, so $m'=a_0$ by ($\beta$); in particular
+      $a_0$ exists and $\varepsilon=1$. Then, however, the cell $r^*\in R$ lies on $l_0$ or on $a_0=m'$,
+      contradicting either the first sentence of this item or \eqref{eq:monoC-m}.
+\end{itemize}
+This proves Claim 1.
+
+\smallskip\noindent\emph{Claim 2: the set
+$S'=S\cup D_4\cup D_5$, enlarged by the line $a_0$ if $\varepsilon=1$, satisfies
+$\dfc_{X^\circ}(S')\ge\dfc_X(S)$.}
+We have $S'\subseteq\live{B}$, since $\live{B}=\live{B+b}\cup D$. By the definition of the deficiency the
+claim is equivalent to
+\begin{equation}\label{eq:monoC-claim2}
+  |\N(S')\setminus X^\circ|-|\N(S)\setminus X|\ \le\ 2\,(|S'|-|S|) .
+\end{equation}
+A cell of $\N(S')\setminus X^\circ$ lies in $R$ or in $\N(S')\setminus X$, and
+\[
+  \N(S')\setminus X=(\N(S)\setminus X)\ \cup\ \bigl(\{b\}\cup\{c_l : l\in D_4\}\bigr)\ \cup\ (a_0\setminus X),
+\]
+where the last set is present only if $\varepsilon=1$; in this case $a_0\setminus X=\{c_{l_0},z_0\}$ for
+some cell $z_0$, because $|a_0\cap X|=4$. Recall that $S\cap D=\emptyset$, since $S\subseteq\live{B+b}$. We
+use \eqref{eq:monoC-R} and distinguish three cases.
+\begin{itemize}
+\item $\varepsilon=0$. Then $|S'|-|S|=|D_4|+|D_5|$, and the left side of \eqref{eq:monoC-claim2} is at most
+      $|R|+1+|D_4|\le(2|D_5|+|D_4|-1)+1+|D_4|=2\,(|D_4|+|D_5|)$.
+\item $\varepsilon=1$ and $a_0\notin S$. Then $|S'|-|S|=|D_4|+|D_5|+1$, and the left side is at most
+      $|R|+1+|D_4|+1\le(2|D_5|+|D_4|)+|D_4|+2=2\,(|D_4|+|D_5|+1)$; here the last summand $1$ accounts for
+      the cell $z_0$, the cell $c_{l_0}$ being counted among the cells $c_l$.
+\item $\varepsilon=1$ and $a_0\in S$. Then $|S'|-|S|=|D_4|+|D_5|$, and the cells $c_{l_0}$ and $z_0$ belong
+      to $\N(S)\setminus X$ already. So the left side is at most
+      $|R|+1+(|D_4|-1)\le(2|D_5|+|D_4|)+|D_4|=2\,(|D_4|+|D_5|)$.
+\end{itemize}
+In each case \eqref{eq:monoC-claim2} holds. Claims 1 and 2 give \eqref{eq:monoC-goal}, and the proof is
+complete.
+\end{proof}
+
+In a play in which \Maker's stones $X$ are admissible at the beginning of every round, the revealed set
+$F\subseteq X$ is always admissible with respect to the current set $B$ (\cref{lem:adm-closed}). So part
+(a) applies in every position that the strategy of \cref{sec:game} can meet, and along such a play the
+condition $\CC$, once it holds, continues to hold when \Breaker{} places further stones. The proofs of this
+paper never rely on this. The only monotonicity statements about leaf conditions that occur in them
+are those of \cref{prop:leaf-monotone} for $\LEAF$, whose proofs take a few lines.
+
+As a safeguard against an oversight in the case analysis, part (a) was also tested by brute force on
+small instances (boards $4^3$, $5^3$, $6^2$ and $6^3$ restricted to few live lines, with the definitions
+transferred to lines of length $n$): the script \fn{logs/proof/fuzz_cprime.py} of the archive examined $5{,}574$ triples
+$(B,F,k)$ for which $\CC(B,F,k)$ holds, together with $447{,}456$ sets $X$ that are $(B+b)$-admissible, of
+which $244{,}718$ are not $B$-admissible, and found a pairing for $(B+b,X)$ in every case. This
+computation is not part of any proof.

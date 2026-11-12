@@ -1,0 +1,6 @@
+selftest geometry         148 lines (108/36/4), 24 busy cells on 7 lines, |G| = 1152, lines -> lines
+selftest canon            250 random states: greedy canon == brute force over 1152 maps, invariant under G
+selftest spec8            slack(T7)=1, slack(T8)=8, LEAF(T7,-,7)=F, LEAF(T8,-,8)=T, LEAF(T8,-,9)=F; item 7 LEAF=True
+selftest leaf_vs_brute    6000 instances (<=14 live lines): holds 4870, not admissible 96, no pairing 48, C_Phi fails 986
+selftest lost_vs_literal  1200 instances: E2 128, E3 10, not lost 1062
+selftest OK

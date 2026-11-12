@@ -1,0 +1,7 @@
+(1) 4-sets of pairwise meeting lines: 984  non-concurrent: 0  [triangles (3 pairwise meeting, not concurrent): 1464 ]
+(2) max number of lines met by 7 busy cells: 44 (paper bound: 46; needed for slack >= 7: 47)
+    max number of lines met by 6 busy cells: 39 -> with a 7th non-busy cell at most 43
+(3) lines of 7^3 inside M: 45  others: 148
+    Table 13: 45 distinct lines = all lines inside M; 90 distinct cells, each on its line; unassigned cells of M: 37  centre unassigned: True
+    rule in the proof of Lemma 9.2 agrees with the table: OK
+ALL CHECKS PASSED

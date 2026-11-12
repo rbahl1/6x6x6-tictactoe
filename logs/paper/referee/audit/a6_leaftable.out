@@ -1,0 +1,8 @@
+Burnside orbit counts of busy k-sets, k=7..10: [527, 1057, 1669, 2468] exact division: True
+k=8 records 1057 distinct 1057 all busy k-sets True all canonical True slack fields correct True LEAF fields equal mine True | slack>=k: 6  LEAF (mine): 6  max slack 8
+   sets in the LEAF orbits: 2340
+   LEAF orbits all have slack>=k: True  slack values of LEAF orbits Counter({8: 6})
+k=9 records 1669 distinct 1669 all busy k-sets True all canonical True slack fields correct True LEAF fields equal mine True | slack>=k: 947  LEAF (mine): 172  max slack 15
+   sets in the LEAF orbits: 83904
+   LEAF orbits all have slack>=k: True  slack values of LEAF orbits Counter({13: 65, 11: 63, 9: 29, 15: 15})
+k=10 records 2468 distinct 2468 all busy k-sets True all canonical True slack fields correct True LEAF fields equal mine True | slack>=k: 2185  LEAF (mine): 0  max slack 22

@@ -1,0 +1,5 @@
+automorphisms fixing (0,0,0): 48  search nodes: 9348  (1.1 s)
+of these in G: 48  ; elements of G fixing (0,0,0): 48
+|Aut| = 24 * 48 = 1152  (paper: 1,152 = |G|)
+AUT OK
+exit 0

@@ -1,0 +1,60 @@
+lines of 7^3: 193 (two parametrizations each);  lines of 6^3: 148
+contained in M: 45  meeting A in a 6^3 line (each line of 6^3 exactly once): 148  cells of M: 127
+a pairing of the 45 lines inside M exists (bipartite matching): True
+  (one such pairing, not the one of the paper:)
+  line (0, 0, 3) .. (0, 6, 3)  cells [(0, 3, 3), (0, 5, 3)]
+  line (0, 0, 3) .. (6, 0, 3)  cells [(1, 0, 3), (2, 0, 3)]
+  line (0, 0, 3) .. (6, 6, 3)  cells [(0, 0, 3), (4, 4, 3)]
+  line (0, 1, 3) .. (6, 1, 3)  cells [(0, 1, 3), (1, 1, 3)]
+  line (0, 2, 3) .. (6, 2, 3)  cells [(0, 2, 3), (2, 2, 3)]
+  line (0, 3, 0) .. (0, 3, 6)  cells [(0, 3, 2), (0, 3, 4)]
+  line (0, 3, 0) .. (6, 3, 0)  cells [(0, 3, 0), (2, 3, 0)]
+  line (0, 3, 0) .. (6, 3, 6)  cells [(1, 3, 1), (4, 3, 4)]
+  line (0, 3, 1) .. (6, 3, 1)  cells [(0, 3, 1), (3, 3, 1)]
+  line (0, 3, 2) .. (6, 3, 2)  cells [(1, 3, 2), (2, 3, 2)]
+  line (0, 3, 3) .. (6, 3, 3)  cells [(1, 3, 3), (4, 3, 3)]
+  line (0, 3, 4) .. (6, 3, 4)  cells [(1, 3, 4), (3, 3, 4)]
+  line (0, 3, 5) .. (6, 3, 5)  cells [(0, 3, 5), (2, 3, 5)]
+  line (0, 3, 6) .. (6, 3, 0)  cells [(0, 3, 6), (2, 3, 4)]
+  line (0, 3, 6) .. (6, 3, 6)  cells [(1, 3, 6), (2, 3, 6)]
+  line (0, 4, 3) .. (6, 4, 3)  cells [(0, 4, 3), (3, 4, 3)]
+  line (0, 5, 3) .. (6, 5, 3)  cells [(1, 5, 3), (3, 5, 3)]
+  line (0, 6, 3) .. (6, 0, 3)  cells [(0, 6, 3), (2, 4, 3)]
+  line (0, 6, 3) .. (6, 6, 3)  cells [(1, 6, 3), (2, 6, 3)]
+  line (1, 0, 3) .. (1, 6, 3)  cells [(1, 2, 3), (1, 4, 3)]
+  line (1, 3, 0) .. (1, 3, 6)  cells [(1, 3, 0), (1, 3, 5)]
+  line (2, 0, 3) .. (2, 6, 3)  cells [(2, 1, 3), (2, 5, 3)]
+  line (2, 3, 0) .. (2, 3, 6)  cells [(2, 3, 1), (2, 3, 3)]
+  line (3, 0, 0) .. (3, 0, 6)  cells [(3, 0, 2), (3, 0, 4)]
+  line (3, 0, 0) .. (3, 6, 0)  cells [(3, 0, 0), (3, 1, 0)]
+  line (3, 0, 0) .. (3, 6, 6)  cells [(3, 3, 3), (3, 4, 4)]
+  line (3, 0, 1) .. (3, 6, 1)  cells [(3, 0, 1), (3, 2, 1)]
+  line (3, 0, 2) .. (3, 6, 2)  cells [(3, 1, 2), (3, 4, 2)]
+  line (3, 0, 3) .. (3, 6, 3)  cells [(3, 0, 3), (3, 2, 3)]
+  line (3, 0, 4) .. (3, 6, 4)  cells [(3, 1, 4), (3, 2, 4)]
+  line (3, 0, 5) .. (3, 6, 5)  cells [(3, 0, 5), (3, 2, 5)]
+  line (3, 0, 6) .. (3, 6, 0)  cells [(3, 0, 6), (3, 1, 5)]
+  line (3, 0, 6) .. (3, 6, 6)  cells [(3, 1, 6), (3, 2, 6)]
+  line (3, 1, 0) .. (3, 1, 6)  cells [(3, 1, 1), (3, 1, 3)]
+  line (3, 2, 0) .. (3, 2, 6)  cells [(3, 2, 0), (3, 2, 2)]
+  line (3, 3, 0) .. (3, 3, 6)  cells [(3, 3, 0), (3, 3, 2)]
+  line (3, 4, 0) .. (3, 4, 6)  cells [(3, 4, 0), (3, 4, 1)]
+  line (3, 5, 0) .. (3, 5, 6)  cells [(3, 5, 0), (3, 5, 1)]
+  line (3, 6, 0) .. (3, 6, 6)  cells [(3, 6, 0), (3, 6, 1)]
+  line (4, 0, 3) .. (4, 6, 3)  cells [(4, 0, 3), (4, 1, 3)]
+  line (4, 3, 0) .. (4, 3, 6)  cells [(4, 3, 0), (4, 3, 1)]
+  line (5, 0, 3) .. (5, 6, 3)  cells [(5, 0, 3), (5, 1, 3)]
+  line (5, 3, 0) .. (5, 3, 6)  cells [(5, 3, 0), (5, 3, 1)]
+  line (6, 0, 3) .. (6, 6, 3)  cells [(6, 0, 3), (6, 1, 3)]
+  line (6, 3, 0) .. (6, 3, 6)  cells [(6, 3, 0), (6, 3, 1)]
+table of Appendix B (paper/app_seven.tex): 45 entries parsed
+  45 entries                                                                     ok
+  every entry is a line of the 7^3 board                                         ok
+  the lines are pairwise different                                               ok
+  every line is contained in M                                                   ok
+  the lines are exactly the lines contained in M (Lemma 9.1 (d))                 ok
+  both cells of every entry lie on its line                                      ok
+  the 90 cells are pairwise different (Lemma 9.2)                                ok
+  37 cells of M are not assigned, among them the centre                          ok
+  the rule in the proof of Lemma 9.2 reproduces every entry                      ok
+RESULT: all checks passed

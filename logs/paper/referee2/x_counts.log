@@ -1,0 +1,9 @@
+leaves with theta>=1: 41882  live lines summed over them: 4063331
+leaves with theta>=2: 9179  live lines with at least theta+2 cells outside F, summed: 869185
+Q-states per round: [0, 2, 5, 14, 35, 101, 446, 3487, 14362, 62381, 12331] total 93164
+non-busy table moves per round: {7: 16, 8: 399, 9: 11, 10: 8} total 434 ; Q-states with |F|<t: 54482
+leaves per round: {8: 3382, 9: 87314, 10: 16027}
+  t=8 by theta: [1862, 940, 340, 119, 69, 36, 12, 3, 1]
+  t=9 by theta: [53397, 26291, 6102, 1189, 260, 63, 11, 1, 0]
+  t=10 by theta: [9582, 5472, 825, 126, 14, 6, 2, 0, 0]
+leaves by number of Breaker stones on non-busy cells: {0: 15794, 1: 84556, 2: 6343, 3: 30}

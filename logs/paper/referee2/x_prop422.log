@@ -1,0 +1,32 @@
+triangles: 1464 stars: 1464
+distinct busy-masks of triangles: 348 min popcount 2
+triangles by kinds of lines (1 axis,2 face diag,3 space diag): {(1, 1, 2): 1080, (1, 2, 3): 360, (2, 2, 2): 24}
+smallest busy set without a live triangle has 18 cells; number of such minimal sets: 4096
+  |B|= 0:        1 sets,       0 without a live triangle
+  |B|= 1:       24 sets,       0 without a live triangle
+  |B|= 2:      276 sets,       0 without a live triangle
+  |B|= 3:     2024 sets,       0 without a live triangle
+  |B|= 4:    10626 sets,       0 without a live triangle
+  |B|= 5:    42504 sets,       0 without a live triangle
+  |B|= 6:   134596 sets,       0 without a live triangle
+  |B|= 7:   346104 sets,       0 without a live triangle
+  |B|= 8:   735471 sets,       0 without a live triangle
+  |B|= 9:  1307504 sets,       0 without a live triangle
+  |B|=10:  1961256 sets,       0 without a live triangle
+  |B|=11:  2496144 sets,       0 without a live triangle
+  |B|=12:  2704156 sets,       0 without a live triangle
+  |B|=13:  2496144 sets,       0 without a live triangle
+  |B|=14:  1961256 sets,       0 without a live triangle
+  |B|=15:  1307504 sets,       0 without a live triangle
+  |B|=16:   735471 sets,       0 without a live triangle
+  |B|=17:   346104 sets,       0 without a live triangle
+  |B|=18:   134596 sets,    4096 without a live triangle
+  |B|=19:    42504 sets,    6144 without a live triangle
+  |B|=20:    10626 sets,    3840 without a live triangle
+  |B|=21:     2024 sets,    1280 without a live triangle
+  |B|=22:      276 sets,     240 without a live triangle
+  |B|=23:       24 sets,      24 without a live triangle
+  |B|=24:        1 sets,       1 without a live triangle
+the 18-set of the remark (3 cells of each class): live lines 75 live triangles 0
+Figure 2: d,a,b and the other diagonal: triangles, meeting cells as in the caption: ok
+time 2.0s

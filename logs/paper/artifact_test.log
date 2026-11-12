@@ -1,0 +1,40 @@
+== artifact test, 2026-11-12T16:00:56Z ==
+tarball: 3435037 bytes, sha256 40ffeca34b6d15efe57ac7b9b023e37a805e401ce0d623a335c538bee7317129
+unpacked: 83 files, 30600 KB
+== sha256sum -c MANIFEST.sha256 ==
+MANIFEST OK (82 entries)
+== certificate checksums ==
+13629393fcdcee87a03f2c9c73f640d9584d2134a46f90dad9393dc92c9ce3fc  results/final/strategy.tbl
+3c14c7814e296e812b4fdf3cda2f446c6ce4865d15d351980e7fecc7690fd470  results/final/leaves.txt
+== make bin/treecheck ==
+g++ -O2 -std=c++17 -march=native -fopenmp -Wall -Wno-unused-result -o bin/treecheck verify/treecheck.cpp
+real	0m12.217s
+user	0m11.743s
+sys	0m0.334s
+== certifying treecheck run ==
+[treecheck] loaded 93164 table entries (0 bad lines, 0 not canonical, 0 duplicates, 0 conflicts) and 106723 leaves (0 bad lines) in 0.2 s
+{"ok":true,"p_states":153135,"q_states":93164,"leaves_checked":106723,"max_t":10,"errors":[],"error_count":0,"complete":true,"timed_out":false,"root_void":false,"rmax":10,"root":"0 - -","threads":4,"exact_visited_set":true,"paranoid_flows":true,"busy_only":false,"crosscheck":false,"crosscheck_states_canon":0,"crosscheck_expansio
+real	0m2.862s
+user	0m10.626s
+sys	0m0.116s
+exit code of treecheck: 0
+keys differing from results/final/treecheck.json: ['load_seconds', 'seconds', 'states_per_second', 'states_per_thread', 'threads']
+{'ok': True, 'complete': True, 'root': '0 - -', 'root_void': False, 'rmax': 10, 'exact_visited_set': True, 'paranoid_flows': True, 'states_visited': 246299, 'p_states': 153135, 'q_states': 93164, 'leaves_checked': 106723, 'table_noncanonical': 0, 'leaf_noncanonical': 0, 'table_conflicts': 0, 'threat_children': 143498, 'danger_children': 28275, 'void_skipped': 151}
+== python3 verify/spotcheck.py --selftest ==
+selftest geometry         148 lines (108/36/4), 24 busy cells on 7 lines, |G| = 1152, lines -> lines
+selftest canon            250 random states: greedy canon == brute force over 1152 maps, invariant under G
+selftest spec8            slack(T7)=1, slack(T8)=8, LEAF(T7,-,7)=F, LEAF(T8,-,8)=T, LEAF(T8,-,9)=F; item 7 LEAF=True
+selftest leaf_vs_brute    6000 instances (<=14 live lines): holds 4870, not admissible 96, no pairing 48, C_Phi fails 986
+selftest lost_vs_literal  1200 instances: E2 128, E3 10, not lost 1062
+selftest OK
+real	0m11.997s
+user	0m11.912s
+sys	0m0.012s
+== python3 verify/spotcheck.py, exhaustive, 3 processes ==
+[  132.3s] part C: exhaustive phase (t <= 10): 246299 states in 30 rounds, 81 CPU-s
+[  132.7s] ok=True  errors=0  p_expanded=46412 q_checked=93164 children={'a': 46412, 'c': 143498, 'd': 28275, 'i': 93164, 'ii': 54482} void=151 leaves_recomputed=106723  CPU 380s
+real	2m13.732s
+user	6m19.146s
+sys	0m1.492s
+keys differing from results/final/spotcheck_full.json: ['argv', 'cpu_seconds', 'procs', 'wall_seconds']
+== done ==

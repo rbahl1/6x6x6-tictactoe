@@ -1,0 +1,8 @@
+108 candidates; 108 triples with |B|=t=10, F admissible, on which LOST is true only through patterns with x in F
+   10 54,55,127,131,133,142,143,157,164,214 0,12,18,90,108,120,144,150,180 : LOST=true  E2 fits=yes (8 patterns, 8 of them with x in F; smallest union 11)  E3 fits=no (0, 0 with x in F; smallest union 13)  t+1=11
+   10 28,29,43,54,86,126,151,171,175,192 0,12,18,90,108,120,144,150,180 : LOST=true  E2 fits=yes (8 patterns, 8 of them with x in F; smallest union 11)  E3 fits=no (0, 0 with x in F; smallest union 13)  t+1=11
+   10 13,47,112,127,166,171,176,181,182,204 0,12,18,90,108,120,144,150,180 : LOST=true  E2 fits=yes (8 patterns, 8 of them with x in F; smallest union 11)  E3 fits=no (0, 0 with x in F; smallest union 13)  t+1=11
+
+real	0m7.017s
+user	0m6.907s
+sys	0m0.012s

@@ -1,0 +1,220 @@
+% app_extra_B.tex -- Appendix C, part B (author B): supplements to Section 5, not used by the main theorem.
+
+\subsection{Lazy monotonicity and the eager variant}\label{sec:extra-lazy}
+
+This subsection contains the proofs of \cref{prop:lazy-monotone} and
+\cref{cor:eager}. The notation is that of \cref{sec:game}; the label \WON{} refers to a fixed
+$\Rmax$, and $\rk$ is the rank of \cref{lem:rank}. Neither statement is used in the proof of
+\cref{thm:main}.
+
+\begin{lemma}[$\LOST$ is antitone in $F$]\label{lem:lost-antitone}
+Let $F\subseteq F'$ be sets of cells disjoint from $B$. If $\LOST(B,F',t)$ holds, then $\LOST(B,F,t)$ holds.
+\end{lemma}
+
+\begin{proof}
+Let a pattern for $(B,F')$ fit $(B,F',t)$. The same lines, cells and stone sets form a pattern for $(B,F)$:
+the conditions (E2.1), (E2.2), (E3.1), (E3.2) of \cref{def:lost} do not involve the revealed set,
+and the conditions (E2.3), (E3.3), which are of the form ``$e\notin F'$'' or ``$F'\cap a\subseteq S_a$'', remain
+true when $F'$ is replaced by a subset. The union of $F$ and the stone sets is contained in the union of
+$F'$ and the stone sets, so it has at most $t+1$ cells.
+\end{proof}
+
+\begin{proof}[Proof of \cref{prop:lazy-monotone}]
+The set $F$ is $B$-admissible, because $F\subseteq F'$ and $F'$ is $B$-admissible
+(\cref{lem:adm-closed}\,(a)). Hence none of the four states that occur in (a) and (b) is \VOID. We prove (a)
+and (b) simultaneously by induction on the rank of the state with the smaller set $F$, that is, of
+$\Pst(B,F,t)$ in (a) and of $\Qst(B,F,t)$ in (b).
+
+(a) Let $\Pst(B,F,t)$ be \WON. If $\LEAF(B,F,t)$ holds, then $\LEAF(B,F',t)$ holds by the monotonicity of
+$\LEAF$ in the revealed set (\cref{prop:leaf-monotone}\,(a), which applies because $F'$ is
+$B$-admissible and $|F'|\le t$), and $\Pst(B,F',t)$ satisfies (P1). Otherwise $\Pst(B,F,t)$ satisfies (P2):
+$t<\Rmax$, $\LOST(B,F,t)$ is false, and every child of $\Pst(B,F,t)$ is \WON{} or \VOID. We verify (P2) for
+$\Pst(B,F',t)$. First, $\LOST(B,F',t)$ is false by \cref{lem:lost-antitone}.
+
+\emph{Child \textup{(a)}.} The child $\Qst(B,F,t+1)$ of $\Pst(B,F,t)$ is not \VOID, hence \WON. It has
+smaller rank than $\Pst(B,F,t)$, and $|F'|\le t+1$. By induction, part (b), $\Qst(B,F',t+1)$ is \WON.
+
+\emph{Children \textup{(c)}.} Let $l\in\live{B}$ and $e\in l\setminus F'$ with
+$|F'\cup(l\setminus\{e\})|\le t+1$ define a child \textup{(c)} of $\Pst(B,F',t)$, namely
+$\Pst(B+e,F_1',t+1)$ with $F_1'=F'\cup(l\setminus\{e\})$, and suppose that this child is not \VOID, that is,
+$F_1'$ is $(B+e)$-admissible. Since $e\notin F$ and
+$|F\cup(l\setminus\{e\})|\le|F'\cup(l\setminus\{e\})|\le t+1$, the same data define a child \textup{(c)}
+of $\Pst(B,F,t)$, namely $\Pst(B+e,F_1,t+1)$ with $F_1=F\cup(l\setminus\{e\})\subseteq F_1'$. This child is
+not \VOID{} (\cref{lem:adm-closed}\,(a)), hence it is \WON, and it has smaller rank than $\Pst(B,F,t)$. As
+$F_1\subseteq F_1'$, $F_1'$ is $(B+e)$-admissible and $|F_1'|\le t+1$, the state $\Pst(B+e,F_1',t+1)$ is \WON{}
+by induction, part (a).
+
+\emph{Children \textup{(d)}.} Let $a,b,c,Q_a,Q_b$ define a child \textup{(d)} of $\Pst(B,F',t)$ that is not
+\VOID. From $c\notin F'$, $F'\cap a\subseteq Q_a$, $F'\cap b\subseteq Q_b$ and $|F'\cup Q_a\cup Q_b|\le t+1$ we
+get the same four conditions for $F$. So the same data define a child \textup{(d)} of $\Pst(B,F,t)$, whose
+revealed set $F\cup Q_a\cup Q_b$ is contained in $F'\cup Q_a\cup Q_b$. The argument is completed as for
+\textup{(c)}.
+
+Thus every child of $\Pst(B,F',t)$ is \WON{} or \VOID, and $\Pst(B,F',t)$ satisfies (P2).
+
+(b) Let $\Qst(B,F,t)$ be \WON, and let $m\notin B\cup F$ be a table move for it.
+
+\emph{Case $m\in F'$.} Then $m\in F'\setminus F$, so $|F|<|F'|\le t$, and the child \textup{(ii)} of
+$\Qst(B,F,t)$ via $m$, the state $\Qst(B,F+m,t)$, exists. It is not \VOID, because $F+m\subseteq F'$; hence
+it is \WON{} by requirement (ii) of \cref{def:won}. Its rank is smaller than that of $\Qst(B,F,t)$,
+and $F+m\subseteq F'$. By induction, part (b), $\Qst(B,F',t)$ is \WON.
+
+\emph{Case $m\notin F'$.} We show that $m$ is a table move for $\Qst(B,F',t)$; note $m\notin B\cup F'$.
+Requirement (i): the state $\Pst(B+m,F,t)$ is \WON{} and has smaller rank than $\Qst(B,F,t)$; the set $F'$ is
+$(B+m)$-admissible because $m\notin F'$ (\cref{lem:adm-closed}\,(b)), and $|F'|\le t$. By induction, part
+(a), $\Pst(B+m,F',t)$ is \WON. Requirement (ii): suppose that $|F'|<t$ and that $\Qst(B,F'+m,t)$ is not
+\VOID, that is, $F'+m$ is $B$-admissible. Then $|F|<t$, so the child \textup{(ii)} of $\Qst(B,F,t)$ via $m$,
+the state $\Qst(B,F+m,t)$, exists; it is not \VOID, because $F+m\subseteq F'+m$; hence it is \WON, and its
+rank is smaller than that of $\Qst(B,F,t)$. As $F+m\subseteq F'+m$ and $|F'+m|\le t$, the state
+$\Qst(B,F'+m,t)$ is \WON{} by induction, part (b).
+\end{proof}
+
+\begin{proof}[Proof of \cref{cor:eager}]
+We show by induction on the rank that every state that is \WON{} is $\WONp$. Let $\Pst(B,F,t)$ be \WON. If
+it satisfies (P1), it is $\WONp$, since (P1) is the same for both labels. Otherwise it satisfies (P2); its
+children \textup{(a)}, \textup{(c)}, \textup{(d)} are \WON{} or \VOID, hence $\WONp$ or \VOID{} by induction.
+It remains to consider a child \textup{(b)}, that is, $\Qst(B,F+h,t+1)$ with $h\in H\setminus(B\cup F)$. If
+$F+h$ is not $B$-admissible, this state is \VOID. Otherwise observe that the child \textup{(a)},
+$\Qst(B,F,t+1)$, is \WON, and that $F\subseteq F+h$, where $F+h$ is $B$-admissible and $|F+h|\le t+1$. By
+\cref{prop:lazy-monotone}\,(b), $\Qst(B,F+h,t+1)$ is \WON. Its rank is smaller than that of
+$\Pst(B,F,t)$, so it is $\WONp$ by induction. Finally let $\Qst(B,F,t)$ be \WON, with table move $m$. Its
+child \textup{(i)} via $m$ is \WON, hence $\WONp$ by induction, and its child \textup{(ii)} via $m$, if it
+exists, is \WON{} or \VOID, hence $\WONp$ or \VOID. So $\Qst(B,F,t)$ is $\WONp$.
+\end{proof}
+
+\subsection{The patterns \texorpdfstring{$\Etwo$}{E2} and \texorpdfstring{$\Ethree$}{E3} on the
+\texorpdfstring{$6\times6\times6$}{6x6x6} board}\label{sec:extra-e23}
+
+\cref{prop:lost-stones} bounds the number of distinct stones of a pattern from below by $11$ for
+$\Etwo$ and by $12$ for $\Ethree$, using only that two lines share at most one cell. On the
+$6\times6\times6$ board the first bound is sharp and the second is not. Nothing in the paper depends on
+this.
+
+For the proof we regard cells as points of $\mathbb{R}^3$. Let
+$D=\{-1,0,1\}^3\setminus\{(0,0,0)\}$. Recall that a line is a set $\{(f_1(t),f_2(t),f_3(t)):0\le t\le 5\}$,
+where each $f_i$ is a constant, $t$, or $5-t$, and not all three are constant. Such a line lies on a real
+line with direction vector $d\in D$, where $d_i$ is $0$, $1$ or $-1$ according as $f_i$ is constant, $t$ or
+$5-t$; the vector $d$ is determined by the line up to sign. If $d_i=d_k\ne 0$, then all cells
+$q=(q_1,q_2,q_3)$ of the line satisfy $q_i=q_k$, and if $d_i=-d_k\ne 0$, they satisfy $q_i+q_k=5$. A real line
+with a direction vector in $D$ contains at most six cells of the board, so distinct lines of the board lie
+on distinct real lines.
+
+\begin{proposition}[Patterns on the $6\times6\times6$ board]\label{prop:e23-min}
+On the $6\times6\times6$ board:
+\begin{enumerate}[label=\textup{(\alph*)},leftmargin=2.4em]
+\item any four lines that meet pairwise pass through one common cell;
+\item every $\Ethree$ pattern has at least $13$ distinct stones, and there are $\Ethree$ patterns with
+  exactly $13$;
+\item there are $\Etwo$ patterns with exactly $11$ distinct stones.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a) Let $a_1,a_2,a_3,a_4$ be lines that meet pairwise, and suppose that they do not pass through a common
+cell. Distinct lines that meet lie on distinct real lines through a common point, so the direction vectors
+$d^1,\dots,d^4\in D$ of the four lines are pairwise non-proportional.
+
+We first show that the four lines lie in a plane. If no three of them pass through a common cell, then $a_1$
+and $a_2$ span a plane, and each of $a_3$, $a_4$ meets $a_1$ and $a_2$ in two different cells and therefore
+lies in this plane. If three of them, say $a_1,a_2,a_3$, pass through a common cell $p$, then $a_4$ does not
+contain $p$ and meets $a_1,a_2,a_3$ in three different cells, which are collinear; so $a_1,a_2,a_3$ lie in the
+plane spanned by $p$ and $a_4$. Hence $d^1,\dots,d^4$ lie in a two-dimensional subspace $W$ of $\mathbb{R}^3$.
+
+We claim that $W$ contains a vector with exactly one non-zero coordinate. Suppose not. The \emph{support}
+of a vector is the set of its non-zero coordinates. Let $u,v\in D\cap W$ be non-proportional vectors with
+the same support. In every coordinate of the support $u_i=\pm v_i$, so exactly one of $(u+v)_i$, $(u-v)_i$
+is non-zero, and it equals $\pm2$. Thus $u+v$ and $u-v$ are non-zero vectors of $W$ whose supports partition
+the common support of $u$ and $v$, which has at most three elements; one of them has a support of size one, a
+contradiction. So the supports of $d^1,\dots,d^4$ are four different sets of size two or three, that is, they
+are $\{1,2\}$, $\{1,3\}$, $\{2,3\}$ and $\{1,2,3\}$. Let $u,v,w$ be the three of these vectors with supports
+$\{1,2\}$, $\{1,3\}$, $\{1,2,3\}$. Then $w=\alpha u+\beta v$ with real $\alpha,\beta$; the second coordinate
+gives $\alpha=\pm1$, the third gives $\beta=\pm1$, and then the first coordinate
+$w_1=\alpha u_1+\beta v_1$ is even, a contradiction. This proves the claim.
+
+So $W$ contains a unit vector, say the one of coordinate $k$; let $i,j$ be the other two coordinates. The
+vectors of $W$ are then the vectors $z$ for which $(z_i,z_j)$ is a multiple of one fixed non-zero pair,
+which can be taken from one of the vectors $d^1,\dots,d^4$ and thus, up to sign, is $(1,0)$, $(0,1)$,
+$(1,1)$ or $(1,-1)$. In the first two cases $W$ is a coordinate plane, say $W=\{z: z_j=0\}$, and the vectors
+of $D\cap W$ are, up to sign, the two unit vectors of the coordinates $i$ and $k$ and two vectors $u,u'$
+with $u_i=u_k\ne0$ and $u'_i=-u'_k\ne0$. In the last two cases $W=\{z: z_i=\varepsilon z_j\}$ with
+$\varepsilon=\pm1$, and the vectors of $D\cap W$ are, up to sign, the unit vector of coordinate $k$, one
+vector with $z_k=0$, and two vectors $u,u'$ with $u_i=u_k\ne0$ and $u'_i=-u'_k\ne0$. In every case $D\cap W$
+consists of exactly four vectors up to sign, so two of the four lines have the direction vectors $u$ and
+$u'$. The cells $q$ of the first of them satisfy $q_i=q_k$, and those of the second satisfy $q_i+q_k=5$. A
+common cell would satisfy $2q_i=5$, which is impossible. So these two lines do not meet, contrary to the
+assumption.
+
+(b) Suppose an $\Ethree$ pattern has only $12$ distinct stones. By \cref{prop:lost-stones}\,(b) the
+sets $S_a\cap S_{b'}$, $S_{a'}\cap S_b$ and $S_b\cap S_{b'}$ are then non-empty, so $a$ meets $b'$, $a'$ meets
+$b$, and $b$ meets $b'$. By (E3.1), $a\cap a'=\{x\}$, $a\cap b=\{c\}$ and $a'\cap b'=\{c'\}$. So the four lines
+meet pairwise, and by (a) they pass through a common cell. This cell is $x$, the only common cell of $a$ and
+$a'$; but $x\notin b$ by (E3.1), a contradiction. An $\Ethree$ pattern with $13$ distinct stones is the
+following one, in the plane $z=0$; we write $(i,j)$ for the cell $(i,j,0)$. Lines:
+$a=\{(i,0)\}$, $a'=\{(0,j)\}$, $b=\{(i,5-i)\}$, $b'=\{(i,1)\}$; cells: $x=(0,0)$, $c=(5,0)$, $c'=(0,1)$;
+stone sets:
+\begin{align*}
+S_a&=\{(0,0),(1,0),(2,0),(3,0)\}, & S_{a'}&=\{(0,0),(0,2),(0,3),(0,5)\},\\
+S_b&=\{(0,5),(1,4),(2,3),(4,1)\}, & S_{b'}&=\{(1,1),(2,1),(3,1),(4,1)\}.
+\end{align*}
+The conditions (E3.1) and (E3.2) are checked directly, and (E3.3) holds for $F=\emptyset$. The stone sets
+meet only in $S_a\cap S_{a'}=\{(0,0)\}$, $S_{a'}\cap S_b=\{(0,5)\}$ and $S_b\cap S_{b'}=\{(4,1)\}$, so the
+pattern has $16-3=13$ distinct stones.
+
+(c) With the same notation let $l=\{(i,0)\}$, $a=\{(0,j)\}$, $b=\{(i,5-i)\}$, $x=(0,0)$, $e=(1,0)$,
+$c=(0,5)$, $S_a=\{(0,0),(0,1),(0,2),(0,3)\}$ and $S_b=\{(5,0),(4,1),(3,2),(2,3)\}$. The conditions (E2.1)
+and (E2.2) are checked directly, and (E2.3) holds for $F=\emptyset$. Here
+$S_l=l\setminus\{e\}$ meets $S_b$ in $(5,0)$, so the pattern has $12-1=11$ distinct stones by
+\cref{prop:lost-stones}\,(a).
+\end{proof}
+
+The exact distribution of the number of stones was determined by computer.
+
+\begin{fact}[Stones of the patterns on the empty board]\label{fact:e23}
+For $B=F=\emptyset$, when all $148$ lines are live, there are $5{,}152{,}320$ $\Etwo$ patterns, of which
+$562{,}176$ have $11$ and $4{,}590{,}144$ have $12$ distinct stones. There are $353{,}422{,}080$ $\Ethree$
+patterns, of which $10{,}948{,}608$ have $13$, $67{,}627{,}008$ have $14$, and $274{,}846{,}464$ have $15$ distinct
+stones; none has $12$. Here a pattern is the tuple of its lines, cells and stone sets as listed in
+\cref{def:lost}, so that an $\Ethree$ pattern and the pattern obtained from it by exchanging
+$(a,b,c,S_a,S_b)$ with $(a',b',c',S_{a'},S_{b'})$ are counted separately.
+
+\established the program \fn{e23min.cpp} in the directory \fn{logs/proof/} of the project
+repository (output \fn{e23min.log}; a few seconds of running time; see \cref{ssec:artifact}). The program is self-contained and constructs the
+lines itself; it enumerates all patterns literally from \cref{def:lost} and counts the cells in the
+union of the stone sets.
+\end{fact}
+
+Every pattern for an arbitrary pair $(B,F)$ is also a pattern for $(\emptyset,\emptyset)$, because a
+non-empty $B$ only removes live lines and a non-empty $F$ only restricts the stone sets. So \cref{fact:e23} covers all patterns; it agrees with \cref{prop:lost-stones} and with
+\cref{prop:e23-min}.
+
+\smallskip
+The last example of this subsection belongs to \cref{rem:conservative}(ii): it exhibits a position in
+which an $\Ethree$ pattern fits although \Breaker{} has a reply that restores admissibility.
+
+\begin{example}[A fitting pattern that does no harm]\label{ex:conservative}
+In the plane $z=0$ consider the lines
+\[ a=\{(i,0,0)\},\qquad a'=\{(0,j,0)\},\qquad b=\{(1,j,0)\},\qquad b'=\{(i,5-i,0)\}, \]
+where $i$ and $j$ run from $0$ to $5$, the cell $x=(0,0,0)$, and the set $X'$ of the $14$ cells $(i,j,0)$
+with
+\begin{align*}
+(i,j)\in\{&(0,0),(2,0),(3,0),(4,0),\ (0,1),(0,2),(0,3),\\
+          &(1,1),(1,2),(1,3),(1,4),\ (2,3),(3,2),(4,1)\}.
+\end{align*}
+Let $X=X'\setminus\{x\}$, let $B$ be any set of $13$ cells with $z\ne 0$, and let $F\subseteq X$ be arbitrary;
+then $\Pst(B,F,13)$ is a P-state. A line that is not contained in the plane $z=0$ has at most one cell in
+this plane. The $14$ lines in the plane are live. The six lines parallel to $a$ (given by $j=0,\dots,5$) have
+$4,3,3,3,1,0$ cells in $X'$, the six lines parallel to $a'$ (given by $i=0,\dots,5$) have $4,4,2,2,2,0$, the
+diagonal $\{(i,i,0)\}$ has two, and $b'$ has four. So $a$, $a'$, $b$, $b'$ have four cells in $X'$ each, and
+every other line has at most three. In $X$ the lines $a$ and $a'$ have three cells, and $b$, $b'$ have four
+cells and meet in $(1,4,0)\in X$. So $X$ is $B$-admissible, and $X'=X+x$ has no threat. The lines with four
+cells in $X'$ meet as follows: $a\cap a'=\{x\}$ and $b\cap b'=\{(1,4,0)\}$ are in $X'$,
+$a'\cap b=\emptyset$, and
+\[ a\cap b=\{(1,0,0)\},\qquad a\cap b'=\{(5,0,0)\},\qquad a'\cap b'=\{(0,5,0)\} \]
+are empty cells. So $X'$ has exactly the danger pairs $(a,b)$, $(a,b')$ and $(a',b')$. By
+\cref{lem:danger}, applied to $(a,b)$ and $(a',b')$, an $\Ethree$ pattern fits $(B,F,13)$, and indeed the
+replies $(1,0,0)$ and $(0,5,0)$ leave the danger pairs $(a',b')$ and $(a,b)$, respectively. But after the
+reply $(5,0,0)$ only $a'$ and $b$ are live lines with four cells in $X'$, and they are disjoint: $X'$ is
+$(B+(5,0,0))$-admissible. (Rule \ref{S:danger} of \cref{def:sigma} would choose $(0,5,0)$, the common
+cell with the smallest id. The choice of the danger pair can matter, but only at states with $\LOST$, which a
+play guided by a valid certificate never reaches.)
+\end{example}

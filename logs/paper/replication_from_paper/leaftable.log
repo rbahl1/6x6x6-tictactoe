@@ -1,0 +1,23 @@
+== orbits of busy k-sets ==
+  [ok] Burnside: orbits of busy 7-sets = 527
+  [ok] Burnside: orbits of busy 8-sets = 1057
+  [ok] Burnside: orbits of busy 9-sets = 1669
+  [ok] Burnside: orbits of busy 10-sets = 2468
+  [ok] enumeration: orbits of busy 7-sets = 527
+  [ok] enumeration: orbits of busy 8-sets = 1057
+  [ok] k=8: orbits with slack >= k: 6
+  [ok] k=8: orbits with LEAF(B,0,k): 6 (containing 2340 sets)
+  [ok] k=8: the six representatives O1..O6 and orbit sizes 288,576,288,576,576,36 (2,340 sets)
+  [ok] enumeration: orbits of busy 9-sets = 1669
+  [ok] k=9: orbits with slack >= k: 947
+  [ok] k=9: orbits with LEAF(B,0,k): 172 (containing 83904 sets)
+  [ok] k=9: the 172 orbits contain 83,904 sets
+  [ok] enumeration: orbits of busy 10-sets = 2468
+  [ok] k=10: orbits with slack >= k: 2185
+  [ok] k=10: orbits with LEAF(B,0,k): 0 (containing 0 sets)
+
+ALL CHECKS PASSED (0 mismatches)
+
+real	0m21.385s
+user	0m21.806s
+sys	0m0.018s

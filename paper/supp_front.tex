@@ -1,0 +1,66 @@
+% supp_front.tex -- heading of the supplementary material (second part of the same PDF) and
+% its numbering: appendices S1, S2, ..., statements S1.1, ..., tables S1, S2, ...; equations continue.
+\clearpage
+\makeatletter
+\setcounter{section}{0}
+\renewcommand{\thesection}{S\arabic{section}}
+\@ifundefined{theHsection}{}{\renewcommand{\theHsection}{S\arabic{section}}}
+\setcounter{table}{0}
+\renewcommand{\thetable}{S\arabic{table}}
+\@ifundefined{theHtable}{}{\renewcommand{\theHtable}{S\arabic{table}}}
+\makeatother
+\phantomsection\label{part:supp}
+\addcontentsline{toc}{part}{Supplementary material}
+\begin{center}
+{\Large\bfseries Supplementary material}\par\smallskip
+to ``The $6\times6\times6$ tic-tac-toe game is a draw''
+\end{center}
+\bigskip
+
+\noindent
+The appendices S1 to S7 belong to the same paper but not to its main line. (The programs and the data
+are not here but in the supplementary archive described in \cref{sec:repro}.) Nothing in them is used in the
+proof of \cref{thm:main} or of \cref{cor:seven}, and nothing in them is needed in order to replicate the
+verification of \cref{fact:H}: the definitions, the two verification algorithms with their correctness
+proofs, the file formats, the canonical form, the test vectors and the numbers of states in every round
+are contained in \cref{sec:board,sec:pairing,sec:leaf,sec:game,sec:certificate,sec:verification} and in
+\cref{sec:formats}. The supplementary appendices contain results that the main theorem does not use, the
+description of the search that found the certificate, the step-by-step description of the leaf test of
+the main verifier, the details of the audits and of the cross-checks, the integer program, the details of the archive and of the reproduction of the computation, and tables
+that repeat information of the main part in another arrangement; \cref{tab:supp-overview} gives an
+overview. The
+convention on Computed Facts of \cref{ssec:intro-nature} applies here as well: statements called Theorem,
+Proposition, Lemma or Corollary are proved, and statements established by running programs are called
+Computed Facts or are reported with their source.
+
+\begin{table}[ht]
+\centering\small
+\begin{tabular}{@{}l>{\raggedright\arraybackslash}p{0.56\textwidth}l@{}}
+\toprule
+appendix & content & supplements\\
+\midrule
+\ref{sec:extra} & the full automorphism group of the board (Computed Fact); the leaf test in words;
+   monotonicity of the pairing condition in \Breaker's stones & \cref{sec:board,sec:leaf}\\
+\addlinespace[2pt]
+\ref{sec:extra-game} & lazy monotonicity and the eager variant of the abstract game; the exact numbers of
+   stones of the patterns $\Etwo$ and $\Ethree$ & \cref{sec:game}\\
+\addlinespace[2pt]
+\ref{sec:supp-search} & how the search works; two observations made with the search program alone &
+   \cref{ssec:search,ssec:observations}\\
+\addlinespace[2pt]
+\ref{sec:supp-checks} & the leaf test of the main verifier step by step, with its statistics; mutation
+   experiments and comparisons with brute force; exact enumeration, integer program and simulated games;
+   known minor issues of the tools & \cref{ssec:algleaf,ssec:audits,ssec:cross,ssec:trust}\\
+\addlinespace[2pt]
+\ref{sec:ip} & the integer program used as a cross-check & \cref{ssec:cross}\\
+\addlinespace[2pt]
+\ref{sec:supp-repro} & contents of the archive; outputs and running times of the verifiers; the steps of
+   the reproduction script & \cref{sec:repro}\\
+\addlinespace[2pt]
+\ref{sec:supp-tables} & the geometry in terms of cell ids; the numbers of states in every round, by rows;
+   orbit counts; the minimum number of stones for a pairing & \cref{sec:formats}\\
+\bottomrule
+\end{tabular}
+\caption{The supplementary appendices.}
+\label{tab:supp-overview}
+\end{table}

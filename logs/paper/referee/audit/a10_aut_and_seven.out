@@ -1,0 +1,16 @@
+automorphisms of (Q, L) found by backtracking over collinearity-preserving bijections: 1152 (search nodes 533400)
+lines of 7^3: 193
+|M| = 127  lines inside M: 45  other lines: 148  each other line meets M in one cell: True
+images of the other lines are exactly the 148 lines of 6^3: True
+table entries parsed: 45
+all entries are lines inside M with two of their own cells: True  distinct lines: 45  = all lines inside M: True
+cells assigned: 90 distinct: 90  unassigned cells of M: 37  centre unassigned: True
+Erdos-Selfridge sum n=5: 109/32 3.40625
+Erdos-Selfridge sum n=6: 37/16 2.3125
+Erdos-Selfridge sum n=7: 193/128 1.5078125
+lines by formula ((n+2)^3-n^3)/2 and 3n^2+6n+4: [(3, 49, 49, 27, 98), (4, 76, 76, 64, 152), (5, 109, 109, 125, 218), (6, 148, 148, 216, 296), (7, 193, 193, 343, 386), (8, 244, 244, 512, 488), (9, 301, 301, 729, 602)]
+HJ bounds d=3: odd n >= 3^3-1 = 26 ; even n >= 2^4-2 = 14
+
+real	0m47.680s
+user	0m47.304s
+sys	0m0.050s

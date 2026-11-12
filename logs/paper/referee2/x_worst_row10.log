@@ -1,0 +1,2 @@
+threat row with T7: live lines 101 ; cells of N(L) outside F: 203 ; surplus of the set of all live lines: 1
+largest deficiency found over 40 random admissible X with |X|<=8: 2  (upper bound: 3 - surplus 1 = 2, because every connected set of >=3 lines has surplus >= Phi = 1 and LEAF(B,F,6) holds: (True, 0) )

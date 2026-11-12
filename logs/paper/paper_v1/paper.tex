@@ -1,0 +1,41 @@
+\documentclass[11pt,a4paper]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern,microtype}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,array,longtable,enumitem,xcolor,graphicx}
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+\usepackage{tikz}
+\usepackage{etoolbox}
+\usepackage[margin=1.15in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+\usepackage[capitalise,noabbrev]{cleveref}
+\hypersetup{pdftitle={The 6x6x6 tic-tac-toe game is a draw}}
+\input{macros}
+% amsart puts no space above the caption of a table, because it expects table captions on top;
+% all tables of this paper have their captions below.
+\makeatletter
+\patchcmd{\@makecaption}{\hbox to\hsize{\kern\captionindent\box\@ne\hss}\nobreak}%
+  {\addvspace{6pt}\hbox to\hsize{\kern\captionindent\box\@ne\hss}\nobreak}{}{\PackageWarning{paper}{caption patch failed}}
+\makeatother
+% many displays, tables and algorithms: do not stretch the pages to equal height
+\raggedbottom
+\begin{document}
+\input{sec_front}        % title, authors, abstract            (editor)
+\input{sec_intro}        % 1  Introduction                      (editor)
+\input{sec_board}        % 2  The board                         (author A)
+\input{sec_pairing}      % 3  Pairings and Hall's condition     (author A)
+\input{sec_leaf}         % 4  Leaf certificates                 (author A)
+\input{sec_game}         % 5  The abstract game and soundness   (author B)
+\input{sec_certificate}  % 6  The certificate                   (author C)
+\input{sec_verification} % 7  Verification                      (author C)
+\input{sec_repro}        % 8  Reproducibility                   (author C)
+\input{sec_discussion}   % 9  The 7x7x7 board, remarks and open problems; declarations (editor)
+\appendix
+\input{app_formats}      % A  File formats, canonical form, test vectors   (author C)
+\input{app_ip}           % B  The integer program used as a cross-check    (author C)
+\input{app_extra}        % C  Supplementary results not used by the main theorem (authors A, B)
+\input{app_seven}        % D  The pairing for the mid-planes of the 7x7x7 board  (editor)
+\bibliographystyle{amsplain}
+\bibliography{refs}
+\end{document}

@@ -1,0 +1,3 @@
+n=5 lines=109 stones=8 max_killed=49 needed=51 nodes=88876 -> counting condition fails for every set
+n=6 lines=148 stones=6 max_killed=39 needed=43 nodes=34026 -> counting condition fails for every set
+n=7 lines=193 stones=2 max_killed=19 needed=23 nodes=26 -> counting condition fails for every set

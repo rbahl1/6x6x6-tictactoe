@@ -1,0 +1,27 @@
+loaded 93164 table lines (93164 distinct, 0 duplicates, 0 conflicting), 106723 leaf lines (106723 distinct, 0 duplicates) in 0.3 s
+  50048 / 1000000 games, 165 s, table keys hit 35978 / 93164, leaf keys hit 25959 / 106723
+  100032 / 1000000 games, 331 s, table keys hit 48269 / 93164, leaf keys hit 39287 / 106723
+  150016 / 1000000 games, 504 s, table keys hit 55181 / 93164, leaf keys hit 47645 / 106723
+  200000 / 1000000 games, 637 s, table keys hit 59677 / 93164, leaf keys hit 53652 / 106723
+  250048 / 1000000 games, 777 s, table keys hit 63071 / 93164, leaf keys hit 58184 / 106723
+  300032 / 1000000 games, 925 s, table keys hit 65594 / 93164, leaf keys hit 61715 / 106723
+  350016 / 1000000 games, 1026 s, table keys hit 67658 / 93164, leaf keys hit 64634 / 106723
+  400000 / 1000000 games, 1094 s, table keys hit 69359 / 93164, leaf keys hit 67081 / 106723
+  450048 / 1000000 games, 1130 s, table keys hit 70751 / 93164, leaf keys hit 69179 / 106723
+  500032 / 1000000 games, 1165 s, table keys hit 71914 / 93164, leaf keys hit 70962 / 106723
+  550016 / 1000000 games, 1199 s, table keys hit 73042 / 93164, leaf keys hit 72561 / 106723
+  600000 / 1000000 games, 1239 s, table keys hit 73953 / 93164, leaf keys hit 73984 / 106723
+  650048 / 1000000 games, 1297 s, table keys hit 74759 / 93164, leaf keys hit 75239 / 106723
+  700032 / 1000000 games, 1345 s, table keys hit 75479 / 93164, leaf keys hit 76410 / 106723
+  750016 / 1000000 games, 1391 s, table keys hit 76194 / 93164, leaf keys hit 77511 / 106723
+  800000 / 1000000 games, 1437 s, table keys hit 76886 / 93164, leaf keys hit 78509 / 106723
+  850048 / 1000000 games, 1472 s, table keys hit 77465 / 93164, leaf keys hit 79409 / 106723
+  900032 / 1000000 games, 1494 s, table keys hit 78008 / 93164, leaf keys hit 80297 / 106723
+  950016 / 1000000 games, 1515 s, table keys hit 78512 / 93164, leaf keys hit 81152 / 106723
+  1000000 / 1000000 games, 1537 s, table keys hit 78957 / 93164, leaf keys hit 81907 / 106723
+1000000 games, 0 bug games (fp_lines 0, holes 0, pairing 0, admissibility 0, illegal 0, pairing_invariant 0, internal 0), look-ahead bugs 0, paranoid failures 0, file anomalies 0, leaf stress failures 0 of 1859012 tests, 650.6 games/s
+coverage: table keys hit 78957 / 93164 (probed 85050), leaf keys hit 81907 / 106723 (probed 88071); threat events 1121484, danger events 85806, leaves after two threats 375806
+
+real	25m37.414s
+user	31m29.005s
+sys	0m4.398s

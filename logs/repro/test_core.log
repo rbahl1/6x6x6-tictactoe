@@ -1,0 +1,60 @@
+== regression values (SPEC 8, slack / LEAF) ==
+item 2: slack(T7) = 1 (expect 1), pairing for (T7, empty): yes
+item 2: LEAF(T7,-,7) = 0 (expect 0; worst = 6)  reason 3, witness |S| = 104, sur = 1; phi_value(T7,-,12) = 1
+item 3: slack(T8) = 8 (expect 8); LEAF(T8,-,8) = 1 (expect 1; worst = 0); LEAF(T8,-,9) = 0 (expect 0; worst = 1), witness |S| = 100 sur = 8; phi_value(T8,-,12) = 8
+item 4: LEAF(T8,{h},8) true for 16 of 16 busy h not in T8 (expect 16 of 16; worst = 0)
+item 5: LEAF(T8-(5,5,5)+(1,1,1), {(5,5,5)}, 8) = 1 (worst = 0, so expected 1)  reason 0; phi_value(cap 12) = 7
+item 6: antipode stealing after 8 rounds (|F| = 7): LEAF = 0 (expect 0; worst = 6)  reason 2 sur -1 |S| 101  phi_value(cap 12) = -1
+item 6: antipode stealing after 9 rounds (|F| = 8): LEAF = 1 (expect 1; worst = 0)  reason 0 sur 1 |S| 0  phi_value(cap 12) = 1
+item 6: antipode stealing after 10 rounds (|F| = 9): LEAF = 1 (expect 1; worst = 0)  reason 0 sur 1 |S| 0  phi_value(cap 12) = 5
+item 7: threat branch LEAF(T8+(0,1,2), F, 9) = 1 (expect 1; worst = 0), phi_value(cap 12) = 7;  LEAF(T7+(0,1,2), F, 8) = 0 (expect 0; worst = 2) reason 3 sur 1 |S| 101
+item 7: enum_check(T7+(0,1,2), F, 8): status 0 (expect 0), nodes 3
+small k: C(T7,-,0) = 1 LEAF = 1 (nodes 1);  C(T8,-,0) = 1 LEAF = 1 (nodes 1)
+small k: C(T7,-,1) = 1 LEAF = 1 (nodes 209);  C(T8,-,1) = 1 LEAF = 1 (nodes 201)
+small k: C(T7,-,2) = 0 LEAF = 0 (nodes 3);  C(T8,-,2) = 1 LEAF = 1 (nodes 20939)
+small k: C(T7,-,3) = 0 LEAF = 0 (nodes 3);  C(T8,-,3) = 1 LEAF = 1 (nodes 1445503)
+== live_lines / slack / admissible / find_pairing against the naive reference ==
+3000 admissible comparisons (2465 admissible), 1000 find_pairing comparisons (675 with pairing)
+== consistency on 600 random instances (a) witnesses (b) LEAF => C (c) LEAF false => C false for F empty (e) monotonicity ==
+LEAF true 502, reason 1: 0, reason 2: 53, reason 3: 45; phi_value threshold checks on 547 instances
+(b) LEAF true => enum_check status 1: 394 instances (theta = 3: 12, 5.80 s)
+(c) F empty, LEAF false: 20 instances with explicit violator / Hall failure, 16 also confirmed by enum_check
+    F nonempty, LEAF false by reason 3, theta <= 2: C false in 6 cases, C true in 0 cases (LEAF is only sufficient)
+(e) 4332 monotonicity checks
+== targeted instances: inadmissible F (reason 1), F empty with k = 4..10 (c), random busy 8-sets (SPEC 8 item 9) ==
+reason 1: 199 inadmissible instances;  (c) F empty, k = 4..10: 400 instances, 171 LEAF false, all with explicit violator
+item 9: 11 of 2000 random busy 8-sets have LEAF(B,-,8) true; phi_value(B,-,10) histogram (no pairing, 0, 1, .., 10): 435 429 0 596 0 401 0 128 0 11 0 0
+== thread safety: 4 OpenMP threads against the serial results ==
+400 instances x 4 passes, 0 mismatches
+== (d) enum_check against the naive enumeration ==
+39 instances, 39 agree (33 hold); enum_check 0.056 s, naive 18.87 s
+== phi_value against a from-scratch matching per F-connected triple ==
+  |B| = 8 |F| = 0: phi_value = 8, naive = 8 (5652 triples)
+  |B| = 8 |F| = 7: phi_value = 1, naive = 1 (5248 triples)
+  |B| = 12 |F| = 8: phi_value = 5, naive = 5 (3673 triples)
+  |B| = 10 |F| = 7: phi_value = 5, naive = 5 (4331 triples)
+  |B| = 14 |F| = 2: phi_value = 8, naive = 8 (2899 triples)
+  |B| = 12 |F| = 1: phi_value = 8, naive = 8 (3930 triples)
+  |B| = 9 |F| = 1: phi_value = 8, naive = 8 (5365 triples)
+  |B| = 10 |F| = 6: phi_value = 6, naive = 6 (4428 triples)
+  |B| = 13 |F| = 4: phi_value = 7, naive = 7 (3916 triples)
+  |B| = 14 |F| = 8: phi_value = 6, naive = 6 (2888 triples)
+  |B| = 9 |F| = 8: phi_value = 7, naive = 7 (4542 triples)
+  |B| = 8 |F| = 5: phi_value = 3, naive = 3 (5336 triples)
+  |B| = 11 |F| = 4: phi_value = 8, naive = 8 (4172 triples)
+  |B| = 12 |F| = 8: phi_value = 6, naive = 6 (3919 triples)
+  |B| = 9 |F| = 4: phi_value = 7, naive = 7 (4632 triples)
+  |B| = 10 |F| = 4: phi_value = 7, naive = 7 (4609 triples)
+16 instances, 16 agree, 69540 triples, 14.95 s
+150 smaller boards, 150 agree, 67922 triples, 1.46 s; phi_value histogram (no pairing, 0..10): 0 0 0 0 0 3 12 31 32 37 30 5
+== micro-benchmark (thread CPU time, best of 3): leaf_holds on T8-like sets (B = image of T8 + 0..2 stones, |F| = 0..4) ==
+theta = 0:    3.14 us per call on average (true: 300 calls,     3.14 us avg;  false: 0 calls,    0.00 us avg;  max 4.7 us)
+theta = 2:   17.48 us per call on average (true: 300 calls,    17.48 us avg;  false: 0 calls,    0.00 us avg;  max 31.5 us)
+theta = 4:   40.01 us per call on average (true: 300 calls,    40.01 us avg;  false: 0 calls,    0.00 us avg;  max 108.7 us)
+theta = 6:  190.35 us per call on average (true: 259 calls,   220.35 us avg;  false: 41 calls,    0.82 us avg;  max 497.9 us)
+theta = 8:  409.99 us per call on average (true: 124 calls,   853.00 us avg;  false: 176 calls,   97.87 us avg;  max 1647.7 us)
+LEAF(T8,-,8) = 1: 854.7 us (100 live lines)
+LEAF(T8,-,9) = 0: 0.8 us (100 live lines)
+enum_check(T8,-,3): status 1, 1445503 nodes, 108.8 ms
+== 56082 checks, 0 failures, 51.4 s ==
+TEST_CORE OK

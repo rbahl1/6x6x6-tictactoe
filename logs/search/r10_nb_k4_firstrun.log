@@ -1,0 +1,14 @@
+[search] rmax=10 maxcand=4 relcand=10 threads=4 order=1 nonbusy=1 tt=2^25 good8=2340 good9=83904 (setup 0.0 s)
+[30s] calls=305216 P=17777 Q=34764 relP=20165 relQ=42312 tt=482553 ttHit=149369 leafTests=388164(true 387935, screened 17735, 47.9 cpu-s) thr=61924 dng=24894 void=0 lostExact=1395 lostTrue=0 potCut=0 relCut=0 rmaxCut=16
+        P-expanded by t: [1,1,1,2,6,149,884,3190,12696,847,0]  leaves by t: [0,0,0,0,0,0,0,0,3764,362940,21231]  failed by t: [0,0,0,0,0,0,0,0,4,16,16]
+[60s] calls=573566 P=37458 Q=71897 relP=39045 relQ=78404 tt=904719 ttHit=274022 leafTests=709896(true 709667, screened 35126, 98.2 cpu-s) thr=113675 dng=27872 void=0 lostExact=3313 lostTrue=0 potCut=0 relCut=0 rmaxCut=35
+        P-expanded by t: [1,1,3,8,19,186,1426,6275,24534,5005,0]  leaves by t: [0,0,0,0,0,0,0,0,5948,592386,111333]  failed by t: [0,0,0,0,0,0,0,0,12,37,35]
+[87s] calls=748982 P=50897 Q=97206 relP=51270 relQ=101378 tt=1197532 ttHit=356165 leafTests=936746(true 936517, screened 46545, 137.0 cpu-s) thr=148109 dng=28293 void=0 lostExact=4451 lostTrue=0 potCut=0 relCut=0 rmaxCut=35
+        P-expanded by t: [1,2,5,14,35,230,2034,8270,33961,6345,0]  leaves by t: [0,0,0,0,0,0,0,0,7602,788798,140117]  failed by t: [0,0,0,0,0,0,0,0,12,37,35]
+[search] root WON after 87.4 s
+[emit] P(expanded)=46219 Q=92775 leaves=106681 threat children=143551 danger children=28293 void=0 max t=10 errors=0
+[search] proved=1 seconds=87.4 peak_rss=535 MB
+
+real	1m28.913s
+user	1m26.081s
+sys	0m2.314s

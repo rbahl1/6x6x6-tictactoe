@@ -1,0 +1,187 @@
+% supp_checks.tex -- Appendix S4: the audits of the main verifier and the cross-checks in detail; known minor
+% issues of the tools (Sections 7.5, 7.6 and the end of Section 7.7 of the first revision)
+\section{The main verifier, audits and cross-checks: details}\label{sec:supp-checks}
+
+This appendix states the leaf test of the main verifier step by step, with its statistics
+(\cref{ssec:algleaf}); it gives the details of the audits of the main verifier and of the cross-checks,
+which \cref{ssec:audits,ssec:cross} summarize; and it lists the known minor issues of the tools mentioned
+in \cref{ssec:trust}. The description of the leaf test documents the program that is named first in
+\cref{fact:H}; the variant of \cref{alg:leaf} that this program uses is justified in the main part
+(\cref{lem:deleted}). None of the audits and cross-checks reported here is part of the proof of
+\cref{thm:main}.
+
+\subsection{The leaf test of the main verifier: steps and cost}\label{ssec:supp-mainleaf}
+
+For the record, and because \cref{ssec:trust} asks the reader to trust an implementation, we state what
+\fn{verify/treecheck.cpp} does after it has checked (L1) and computed a pairing, when $\theta\ge1$. All
+steps are justified by \cref{cor:pruning}, \cref{rem:true-cert} and \cref{lem:deleted}.
+\begin{enumerate}[label=(\arabic*),leftmargin=2.2em]
+\item \emph{Quick rejection.} If some $F$-connected component $S$ of the live lines has at least three
+  lines and $\sur_F(S)<\theta$, the verdict is false; this is a violation of (L3) by definition.
+\item \emph{Single lines.} One backward search from the unassigned cells finds the lines from which an
+  augmenting path exists with respect to the pairing; the other lines have gain $0$ and are weak. A line
+  $l$ with $|l\setminus F|-2<\theta$ is weak as well, because $\mu(\{l\})\le\sur_F(\{l\})$. For
+  $\theta=1$ every remaining line is strong (\cref{prop:maxflow}\,(d)); in the default mode of the
+  program (option \fn{--paranoid}, which the certifying run also gives explicitly) an assignment of excess $1$
+  is constructed and validated for each of them nevertheless. For $\theta\ge 2$ a single-line flow with
+  target $\theta$ is computed for each remaining line. Every line found strong is deleted at once.
+\item \emph{Pairs.} If fewer than three lines are weak, the verdict is true. Otherwise a flow is computed
+  for every $F$-adjacent pair $\{a,b\}$ of weak lines with $|(a\cup b)\setminus F|-4\ge\theta$; the other
+  pairs are treated as not strong, which is always safe.
+\item \emph{Triples.} A flow is computed for every $F$-connected triple of weak lines none of whose
+  $F$-adjacent pairs was found strong; a pairwise $F$-adjacent triple is tested once. The verdict is
+  false if one of these flows has gain less than $\theta$, and true otherwise.
+\end{enumerate}
+Every flow that is used for a true verdict is validated literally, in the form relative to the deleted
+lines stated after \cref{lem:deleted}. A false verdict is reported together with the set of lines reached by the failed
+search, whose surplus is recomputed from the definition. \fn{verify/spotcheck.py} implements
+\cref{alg:leaf} with both pruning rules and without deletion; for pairs and triples it augments from one
+line after the other, which gives the same gain by \cref{prop:maxflow}\,(e).
+
+\subsubsection*{Cost}
+Let $n=|L|$; at the leaves of the certificate $n$ is about $100$. One search for an augmenting path
+inspects each live line at most once and costs $O(n)$ operations. The pairing needs $2n$ searches and the
+single-line gains at most $n\theta$. A line is $F$-adjacent to at most $36$ others, so there are at most
+$n\binom{36}{2}$ candidate triples, but in the certificate almost all of them contain a strong line. The
+counters of the main verifier illustrate this. They are statistics of this one implementation; a verifier
+written from \cref{alg:leaf} will not reproduce them unless it follows the steps (1)--(4) above.
+Over the $9{,}179$ leaves with $\theta\ge2$ the main verifier computes $869{,}185$ single-line flows
+(step~(2): one for every live line with at least $\theta+2$ cells outside $F$; from all these lines an
+augmenting path exists), $77{,}268$ flows for pairs
+(step~(3)) and only $7{,}391$ flows for triples (step~(4)). For the $32{,}703$ leaves with $\theta=1$ one
+augmentation per line suffices, and these are not included in the counts. In all, the run makes
+$8{,}549{,}521$ searches for augmenting paths (\fn{results/final/treecheck.json},
+\fn{logs/repro/tc_all.log}). The three flow counts were recounted from the rules of steps (2)--(4) with
+the matching code of the replication verifier of \cref{tab:verifiers}, without deletion of lines, and
+came out the same (\fn{logs/paper/flow_counts/}); by \cref{lem:deleted}\,(b) the deletion does not change
+which lines, pairs and triples are strong. For comparison, \cref{alg:leaf} exactly as printed, with pruning by strong
+lines only, computes $4{,}063{,}331$ single-line gains (one for every live line at each of the $41{,}882$
+leaves with $\theta\ge1$) and tests $692{,}694$ triples, each of them once (\fn{logs/paper/referee_replication.md}). In our runs a leaf test takes about $0.1$ milliseconds in the C++
+verifier (with the literal validation of all flows) and about $2$ milliseconds in the Python verifier
+($211$ CPU-seconds for all leaves). For $60.8\%$ of the leaves $\theta=0$ and only the pairing is
+computed.
+
+\subsection{Audits of the main verifier}\label{ssec:supp-audits}
+
+This subsection gives the details of the three kinds of experiments of the audit of
+\fn{verify/treecheck.cpp} (\fn{logs/review/treecheck_audit.md}) that \cref{ssec:audits} summarizes.
+
+\subsubsection*{Mutations of the certificate}
+In all, $66$ seeded mutations of the two files or of the options were submitted to the verifier. Of
+these, $58$ were rejected: every deleted table entry (one for each round $1,\dots,10$), every replaced table move ($10$, half
+of them busy cells), every move placed on a stone ($4$), every deleted leaf ($6$), every bogus leaf ($5$,
+among them the root itself), Q-states listed as leaves ($2$), the bounds $\Rmax=9$ and $\Rmax=8$,
+duplicate keys with a smaller move ($3$), an entry rewritten in another frame without mapping its move, all
+truncated, empty, swapped or unreadable files ($9$), several damaged entries ($5$), and a run interrupted
+by a time limit. Eight were accepted: the weaker bound $\Rmax=11$; two duplicate keys with a larger move, of which the verifier uses the smaller,
+original one; entries rewritten in another frame \emph{with} the move mapped accordingly (three single
+entries, and all entries at once), which the verifier re-canonicalizes; and additional well-formed entries for
+unreachable states. None of the eight removes or changes an obligation: in each of them the visited
+states and all counters are those of the unmodified run.
+
+\subsubsection*{Mutations of the verifier}
+Twelve variants of the source with one seeded defect each (danger children omitted; child (ii) omitted or
+generated under a wrong condition; a listed leaf accepted without recomputation; wrong stone bounds;
+threats on face diagonals or on space diagonals ignored; $\LOST$ always false; two defects in the
+enumeration of triples in the leaf test; a too generous \VOID{} test) were compiled and run. The
+self-test of the verifier detects all $12$. On the real certificate one mutant changes the verdict and seven change the
+counters of \cref{tab:tree}; four change neither: the constant-false $\LOST$, which is harmless for
+$\Rmax=10$, and the three defects that concern the leaf test (listed leaves not recomputed, and the two
+defects in the enumeration of triples). The consequence of this last finding for the leaf test is drawn
+in \cref{ssec:audits}.
+
+\subsubsection*{Comparisons with brute force}
+The leaf test of \fn{treecheck} was compared with a direct evaluation of the definition (Hall's condition
+and the surplus condition over \emph{all} sets of live lines, for instances with at most $20$ live
+lines): $53{,}755$ evaluations, including $5{,}970$ instances with $\theta$ exactly one above the true
+minimum surplus, without a mismatch. The self-test of \fn{spotcheck.py} makes the same comparison on $6{,}000$
+instances. The two leaf tests of the archive that are written in C++ (\fn{treecheck} and the library used
+by the search) agree,
+in verdict and in the reason for a failure, on all leaves and on $20{,}000$ perturbed instances derived
+from the leaves, of which $13{,}688$ satisfy $\LEAF$ and $590$, $4{,}135$ and $1{,}587$ fail
+conditions (L1), (L2) and (L3), respectively. $\LOST$ was compared with a literal transcription of the
+patterns $\Etwo$ and $\Ethree$ on $800$ random admissible states with $t=9,\dots,13$, again without a mismatch.
+During the internal refereeing, the audit referee's implementation of \cref{alg:leaf} was compared with
+\fn{treecheck}, in verdict and in the failing condition, on the same $20{,}000$ perturbed instances, on all
+leaves, on the leaf table and on the cross-check instances of \cref{ssec:supp-cross} with $k\ge|F|$, and the
+replication verifier was compared with a direct evaluation of \cref{def:leaf} over all sets of live lines on
+$19{,}995$ random instances with at most $16$ live lines; neither comparison found a mismatch
+(\fn{logs/paper/referee_audit.md}, \fn{referee_replication.md}).
+
+\subsection{Cross-checks that are not part of the proof}\label{ssec:supp-cross}
+
+The following computations test the certificate and the programs from other directions. None of them is
+needed for \cref{thm:main}; their coverage is stated exactly.
+
+\subsubsection*{Exact enumeration of the pairing condition}
+$\LEAF$ is only sufficient for the pairing condition $\CC(B,F,k)$ (\cref{thm:leaf-implies-C}). For small
+$\theta$ the statement $\CC(B,F,t)$ itself can be decided by brute force: the program \fn{bin/enumcheck}
+enumerates, depth first and in ascending order of the cells, all $B$-admissible sets $X\supseteq F$ with
+$|X|\le t$, up to two reductions that do not change the answer (cells on no live line are skipped, and
+a set whose last stone lies on a cell that is unassigned in the current pairing is not examined); it
+maintains a pairing by augmenting paths and stops when some $X$ has none. It was run on all
+leaves with $\theta\le3$, that is on $64{,}841+32{,}703+7{,}267+1{,}434=106{,}245$ leaves ($99.55\%$): the
+pairing condition holds for every one of them (\fn{results/final/checks/enum_theta*.jsonl}). The
+largest single enumeration examines $1.39$ million sets. The programs \fn{bin/enumcheck} and
+\fn{bin/certify} (below) are built on the library of the search (\fn{src/match.hpp}, \fn{src/phi.hpp});
+they are cross-checks of the certificate and are not independent of the search program.
+
+\subsubsection*{The integer program}
+\Cref{sec:ip} describes a $0$--$1$ program whose optimal value is positive if and only if $\CC(B,F,k)$
+fails. It was solved with the floating-point solver HiGHS~\cite{HuangfuHall2018}
+\begin{itemize}[leftmargin=1.6em]
+\item on all $478$ leaves with $\theta\ge4$ and on a seeded random sample of $830$ leaves with
+  $\theta\le 3$: all $1{,}308$ answers are ``holds'';
+\item on the leaf table of \cref{ssec:leaftable}: for $k=8$ on all $6$ orbits with slack $8$ (all hold); for
+  $k=9$ on $262$ of the $947$ orbits with slack at least $9$ ($254$ fail, $8$ hold), in agreement with the
+  max-flow table in all $268$ cases; the remaining orbits for $k=9$ and all orbits for $k=10$ were not run;
+\item on $1{,}291$ random and structured instances, against an exact integer decision procedure for $\CC$
+  (\fn{bin/certify}: the leaf test, an explicit admissible violator, exact enumeration, or a complete branch
+  and bound). The exact procedure decides all of them: $656$ hold, $623$ fail, and $12$ are degenerate
+  (in $9$ of them $F$ is not $B$-admissible, in $3$ of them $|F|>k$; the integer program is infeasible in
+  both cases, \cref{prop:ip-exact}). The integer program decides $1{,}275$ of the $1{,}279$ non-degenerate
+  instances ($652$ hold,
+  $623$ fail) with no disagreement, reports the $12$ degenerate instances as infeasible, and runs into the time
+  limit of $300$ seconds on $4$ instances, all with $F=\emptyset$ and all holding by $\LEAF$. Each of the
+  $623$ violating positions found by one program was re-checked with the predicates of the other.
+\end{itemize}
+Among the $656$ instances that hold there are $160$ for which $\LEAF$ is false: $\LEAF$ is a strictly
+stronger condition than $\CC$ (it fails on instances on which $\CC$ holds), not only in the situation
+of \cref{ex:C-not-leaf}. No such state is needed by the certificate.
+
+\subsubsection*{Simulated games}
+The program \fn{sim/sim.cpp} ($4{,}383$ lines, written from the specification, sharing no code with the
+other programs) plays the real strategy $\sigma$ of \cref{def:sigma} on the real board: it looks up the two
+files, answers threats and danger pairs, reveals occupied cells, computes an actual pairing for the real
+position when a leaf is reached, and plays the pairing strategy to the full board. It reports a completed
+line of Maker, a missing table entry, a leaf whose real position has no pairing, a position that is not
+admissible after Breaker's move, and an illegal table move. In $10^6$ games against a mixture of nine
+adversaries (random; greedy line building; stealing the cells Breaker wants; making threats; a two-ply
+search against $\sigma$; building danger pairs; two successive threats; occupying the corners of a face;
+and an adversary that uses the table itself to steer into rarely visited states) none of these events
+occurred: $0$ lines of Maker, $0$ missing entries, $0$ missing pairings, $0$ inadmissible positions and $0$
+illegal moves in $10^6$ completed games with $1{,}121{,}484$ threat rounds, $85{,}806$ danger rounds and $2{,}254{,}365$ reveals
+(\fn{results/final/sim/sim_mix_1M.json}). The leaf was reached after round $8$, $9$, $10$ in
+$117{,}835$, $832{,}519$ and $49{,}646$ games.
+
+This is a sampling test and nothing more. The games met $78{,}957$ of the $93{,}164$ table entries
+($84.8\%$) and $81{,}907$ of the $106{,}723$ leaves ($76.7\%$); $14{,}207$ table entries and $24{,}816$
+leaves, more than nine tenths of them in rounds $9$ and $10$, were never played. Those states are
+covered by the verifiers of \cref{ssec:impl} only.
+
+\subsubsection*{Summary for the leaves}
+\Cref{tab:leaves} in \cref{ssec:cross} shows how each leaf is covered by the verifiers and by the cross-checks of
+this subsection.
+
+\subsection{Known minor issues of the tools}\label{ssec:supp-issues}
+
+The audits found no defect that affects a result, but the following properties of the tools should be
+known to anyone who reuses them. \fn{treecheck} accepts a table that contains two different moves for the
+same key (it uses the smaller move and counts the conflict), accepts entries written in a non-canonical
+frame (it re-canonicalizes them and counts them), leaves an older output file in place if it aborts,
+parses numeric options leniently, and reports success for a \VOID{} root given on the command line; hence
+the list of output fields to be checked in \cref{ssec:impl}. All these counters are zero in the certified
+run. The statistics file of the search counts only \VOID{} children of types (c) and (d) (there are none),
+not the $151$ \VOID{} children of type (ii). The $\LOST$ code of all programs is not exercised by a
+certificate with $\Rmax=10$; it would become load-bearing for $\Rmax\ge11$. The simulator does not count a
+missing table entry that is met only while an adversary predicts Breaker's next move.

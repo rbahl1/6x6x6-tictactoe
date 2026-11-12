@@ -1,0 +1,8 @@
+9 |B|=0 |F|=0 F is B-admissible: True ; is a P-state shape (|B|=t,|F|<=t): False
+10 |B|=0 |F|=0 F is B-admissible: True ; is a P-state shape (|B|=t,|F|<=t): False
+10 |B|=10 |F|=0 F is B-admissible: True ; is a P-state shape (|B|=t,|F|<=t): True
+10 |B|=10 |F|=3 F is B-admissible: True ; is a P-state shape (|B|=t,|F|<=t): True
+10 |B|=10 |F|=10 F is B-admissible: True ; is a P-state shape (|B|=t,|F|<=t): True
+11 |B|=11 |F|=3 F is B-admissible: True ; is a P-state shape (|B|=t,|F|<=t): True
+12 |B|=12 |F|=12 F is B-admissible: True ; is a P-state shape (|B|=t,|F|<=t): True
+12 |B|=12 |F|=4 F is B-admissible: True ; is a P-state shape (|B|=t,|F|<=t): True

@@ -1,0 +1,73 @@
+=== Theorem 1.1 (thm:main)
+  theorem      1.1    p.3   sec_intro          thm:main               uses: cor:draw, def:sigma, fact:H, thm:sigma
+  lemma        2.1    p.7   sec_board          lem:geometry           uses: 
+  corollary    2.2    p.8   sec_board          cor:collinear          uses: lem:geometry
+  lemma        2.3    p.8   sec_board          lem:degree             uses: lem:geometry
+  lemma        2.5    p.9   sec_board          lem:busy               uses: cor:collinear, lem:degree
+  lemma        2.6    p.10  sec_board          lem:group              uses: lem:busy
+  lemma        2.8    p.11  sec_board          lem:canon              uses: lem:group
+  lemma        3.2    p.12  sec_pairing        lem:pairing            uses: 
+  lemma        3.3    p.13  sec_pairing        lem:hall               uses: 
+  definition   4.1    p.16  sec_leaf           def:admissible         uses: lem:geometry
+  lemma        4.2    p.16  sec_leaf           lem:adm-closed         uses: def:admissible
+  lemma        4.3    p.16  sec_leaf           lem:one-two            uses: lem:geometry, lem:hall
+  lemma        4.8    p.18  sec_leaf           lem:additive           uses: 
+  theorem      4.9    p.18  sec_leaf           thm:leaf-implies-C     uses: lem:additive, lem:hall, lem:one-two
+  lemma        4.24   p.26  sec_leaf           lem:invariance         uses: lem:group
+  lemma        5.7    p.32  sec_game           lem:game-invariance    uses: lem:canon, lem:group, lem:invariance
+  definition   5.8    p.33  sec_game           def:certificate        uses: 
+  lemma        5.9    p.33  sec_game           lem:certificate        uses: lem:game-invariance
+  definition   5.10   p.34  sec_game           def:sigma              uses: 
+  lemma        5.12   p.35  sec_game           lem:one-move           uses: lem:geometry
+  lemma        5.14   p.36  sec_game           lem:danger             uses: lem:geometry, lem:one-move
+  lemma        5.13   p.36  sec_game           lem:threat             uses: lem:geometry, lem:one-move
+  theorem      5.16   p.38  sec_game           thm:soundness          uses: def:sigma, def:sigma, def:sigma, def:sigma, def:sigma, lem:adm-closed, lem:certificate, lem:danger, lem:game-invariance, lem:one-move, lem:pairing, lem:threat, thm:leaf-implies-C, thm:sigma
+  theorem      5.17   p.39  sec_game           thm:sigma              uses: def:sigma, def:sigma, def:sigma, lem:one-move, lem:pairing, thm:soundness, thm:soundness, thm:soundness, thm:soundness, thm:soundness
+  proposition  5.18   p.40  sec_game           prop:stealing          uses: 
+  corollary    5.19   p.41  sec_game           cor:draw               uses: prop:stealing, thm:sigma
+  fact         6.1    p.42  sec_certificate    fact:H                 uses: def:certificate, lem:certificate
+  statements in the closure: 27;  Computed Facts: ['fact:H'];  statements of the supplement in the closure: []
+  references from statements/proofs of the closure to labels of the supplement (pointers only?): []
+  max page of a statement in the closure: 42
+  cycles among the proofs (strongly connected components with more than one statement): [['thm:soundness', 'thm:sigma']]
+      thm:soundness ->  ['thm:sigma']
+      thm:sigma ->  ['thm:soundness']
+=== Corollary 9.3 (cor:seven)
+  theorem      1.1    p.3   sec_intro          thm:main               uses: cor:draw, def:sigma, fact:H, thm:sigma
+  lemma        2.1    p.7   sec_board          lem:geometry           uses: 
+  corollary    2.2    p.8   sec_board          cor:collinear          uses: lem:geometry
+  lemma        2.3    p.8   sec_board          lem:degree             uses: lem:geometry
+  lemma        2.5    p.9   sec_board          lem:busy               uses: cor:collinear, lem:degree
+  lemma        2.6    p.10  sec_board          lem:group              uses: lem:busy
+  lemma        2.8    p.11  sec_board          lem:canon              uses: lem:group
+  lemma        3.2    p.12  sec_pairing        lem:pairing            uses: 
+  lemma        3.3    p.13  sec_pairing        lem:hall               uses: 
+  definition   4.1    p.16  sec_leaf           def:admissible         uses: lem:geometry
+  lemma        4.2    p.16  sec_leaf           lem:adm-closed         uses: def:admissible
+  lemma        4.3    p.16  sec_leaf           lem:one-two            uses: lem:geometry, lem:hall
+  lemma        4.8    p.18  sec_leaf           lem:additive           uses: 
+  theorem      4.9    p.18  sec_leaf           thm:leaf-implies-C     uses: lem:additive, lem:hall, lem:one-two
+  lemma        4.24   p.26  sec_leaf           lem:invariance         uses: lem:group
+  lemma        5.7    p.32  sec_game           lem:game-invariance    uses: lem:canon, lem:group, lem:invariance
+  definition   5.8    p.33  sec_game           def:certificate        uses: 
+  lemma        5.9    p.33  sec_game           lem:certificate        uses: lem:game-invariance
+  definition   5.10   p.34  sec_game           def:sigma              uses: 
+  lemma        5.12   p.35  sec_game           lem:one-move           uses: lem:geometry
+  lemma        5.14   p.36  sec_game           lem:danger             uses: lem:geometry, lem:one-move
+  lemma        5.13   p.36  sec_game           lem:threat             uses: lem:geometry, lem:one-move
+  theorem      5.16   p.38  sec_game           thm:soundness          uses: def:sigma, def:sigma, def:sigma, def:sigma, def:sigma, lem:adm-closed, lem:certificate, lem:danger, lem:game-invariance, lem:one-move, lem:pairing, lem:threat, thm:leaf-implies-C, thm:sigma
+  theorem      5.17   p.39  sec_game           thm:sigma              uses: def:sigma, def:sigma, def:sigma, lem:one-move, lem:pairing, thm:soundness, thm:soundness, thm:soundness, thm:soundness, thm:soundness
+  proposition  5.18   p.40  sec_game           prop:stealing          uses: 
+  corollary    5.19   p.41  sec_game           cor:draw               uses: prop:stealing, thm:sigma
+  fact         6.1    p.42  sec_certificate    fact:H                 uses: def:certificate, lem:certificate
+  lemma        9.1    p.60  sec_discussion     lem:seven-decomp       uses: lem:geometry
+  corollary    9.3    p.61  sec_discussion     cor:seven              uses: cor:draw, lem:seven-decomp, lem:seven-pairing, prop:stealing, thm:main
+  lemma        9.2    p.61  sec_discussion     lem:seven-pairing      uses: 
+  statements in the closure: 30;  Computed Facts: ['fact:H'];  statements of the supplement in the closure: []
+  references from statements/proofs of the closure to labels of the supplement (pointers only?): []
+  max page of a statement in the closure: 61
+  cycles among the proofs (strongly connected components with more than one statement): [['thm:soundness', 'thm:sigma']]
+      thm:soundness ->  ['thm:sigma']
+      thm:sigma ->  ['thm:soundness']
+=== undefined or dangling: labels referenced but not defined:
+   ['ln:adm', 'ln:childa', 'ln:childd', 'ln:lost', 'ln:pair1', 'ln:pair2', 'ln:strong', 'ln:triples', 'ln:void']

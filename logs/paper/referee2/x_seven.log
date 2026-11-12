@@ -1,0 +1,28 @@
+  193 lines, each with exactly two parametrizations; (9^3-7^3)/2 = 193                                           ok
+  exactly one of the two parametrizations of a line is normalized                                                ok
+  the normalized parametrization is recovered from the line as in Section 9.1                                    ok
+  phi(6-i) = 5-phi(i) for i != 3                                                                                 ok
+  Lemma 9.1 (a),(b),(c): 45 lines inside M; the other 148 give every line of the 6^3 board exactly once          ok
+  |M| = 127, |A| = 216                                                                                           ok
+  45 entries parsed from paper/app_seven.tex                                                                     ok
+  the 45 entries are 45 different lines = the lines inside M  (Lemma 9.1 (d))                                    ok
+  both cells of an entry lie on its line                                                                         ok
+  the 90 cells are pairwise different  (Lemma 9.2)                                                               ok
+  the centre and 36 further cells of M are not assigned                                                          ok
+  every printed triple is a normalized parametrization                                                           ok
+  39 + 6 entries                                                                                                 ok
+  every entry stands in the column of a mid-plane that contains its line                                         ok
+  the rule in the proof of Lemma 9.2 reproduces every entry                                                      ok
+  residues of s-r mod 6: 1,2 / 5,4 / 0 / 3 for the four kinds of lines, as in the proof                          ok
+  scripts/check_7cube_midplanes.py on paper/app_seven.tex: exit code 0, all checks passed                        ok
+  mutation 0 (a cell moved off its line): exit code 1; failed checks: both cells of every entry lie on its lin; the rule in the proof of Lemma 9.2 repro ok
+  mutation 1 (a cell used twice (two lines share it)): exit code 1; failed checks: the 90 cells are pairwise different (Lem; 37 cells of M are not assigned, among th; the rule in the proof of Lemma 9.2 repro ok
+  mutation 2 (another cell of the same line, still a valid pairing, not the rule): exit code 1; failed checks: 37 cells of M are not assigned, among th; the rule in the proof of Lemma 9.2 repro ok
+  mutation 3 (a line replaced by another line of M (duplicate line)): exit code 1; failed checks: the lines are pairwise different; the lines are exactly the lines containe; both cells of every entry lie on its lin; the rule in the proof of Lemma 9.2 repro ok
+  mutation 4 (a line replaced by a line outside M): exit code 1; failed checks: every line is contained in M; the lines are exactly the lines containe; both cells of every entry lie on its lin; the rule in the proof of Lemma 9.2 repro ok
+  mutation 5 (reversal dropped: (t,3,6-t) -> (t,3,t), duplicate line): exit code 1; failed checks: the lines are pairwise different; the lines are exactly the lines containe; both cells of every entry lie on its lin; the rule in the proof of Lemma 9.2 repro ok
+  mutation 6 (one row deleted): exit code 1; failed checks: 45 entries; the lines are exactly the lines containe; the 90 cells are pairwise different (Lem; 37 cells of M are not assigned, among th ok
+  mutation 7 (a digit of a cell changed to a non-digit (entry not parseable)): exit code 1; failed checks: 45 entries; the lines are exactly the lines containe; the 90 cells are pairwise different (Lem; 37 cells of M are not assigned, among th ok
+  mutation 8 (two cells of one entry exchanged (same pairing; must still pass)): exit code 0; failed checks: none ok
+  mutation 9 (central line: cell of another central line): exit code 1; failed checks: both cells of every entry lie on its lin; the 90 cells are pairwise different (Lem; 37 cells of M are not assigned, among th; the rule in the proof of Lemma 9.2 repro ok
+RESULT: all checks passed

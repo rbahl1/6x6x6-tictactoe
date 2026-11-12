@@ -1,0 +1,54 @@
+\documentclass[11pt,a4paper]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern,microtype}
+% amsart typesets "M$^1$" in \footnotesize at \begin{document}, which loads the math fonts of that size;
+% microtype must be set up before that, otherwise pdfTeX reports "font should be expanded before its first
+% use" when one of these fonts is used again later (the rule needs the hook management of LaTeX 2020-10
+% or later; with an older LaTeX it is skipped and only that notice comes back)
+\ifdefined\DeclareHookRule \DeclareHookRule{begindocument}{microtype}{before}{amsart}\fi
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,array,longtable,enumitem,xcolor,graphicx,float}
+\usepackage{upquote}   % straight quotes in verbatim program output
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+\usepackage{tikz}
+\usepackage{etoolbox}
+\usepackage[margin=1.15in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+\usepackage[capitalise,noabbrev]{cleveref}
+\hypersetup{pdftitle={The 6x6x6 tic-tac-toe game is a draw}}
+\input{macros}
+% amsart puts no space above the caption of a table, because it expects table captions on top;
+% all tables of this paper have their captions below.
+\makeatletter
+\patchcmd{\@makecaption}{\hbox to\hsize{\kern\captionindent\box\@ne\hss}\nobreak}%
+  {\addvspace{6pt}\hbox to\hsize{\kern\captionindent\box\@ne\hss}\nobreak}{}{\PackageWarning{paper}{caption patch failed}}
+\makeatother
+% many displays, tables and algorithms: do not stretch the pages to equal height
+\raggedbottom
+\begin{document}
+\input{sec_front}        % title, authors, abstract
+\input{sec_intro}        % 1  Introduction
+\input{sec_board}        % 2  The board
+\input{sec_pairing}      % 3  Pairings and Hall's condition
+\input{sec_leaf}         % 4  Leaf conditions
+\input{sec_game}         % 5  The abstract game and soundness
+\input{sec_certificate}  % 6  The certificate
+\input{sec_verification} % 7  Verification
+\input{sec_repro}        % 8  Reproducibility
+\input{sec_discussion}   % 9  The 7x7x7 board, remarks and open problems; Declarations
+\appendix
+\input{app_formats}      % A  File formats, canonical form, test vectors
+\input{app_seven}        % B  The pairing for the mid-planes of the 7x7x7 board
+\bibliographystyle{amsplain}
+\bibliography{refs}
+% ----- Supplementary material: second part of the same PDF.  Not needed for Theorem 1.1 or Corollary 9.3
+% ----- and not needed to replicate the verification of Computed Fact 6.1.
+\input{supp_front}       %    heading, overview; numbering S1, S2, ...
+\input{supp_math}        % S1 Supplements to Sections 2 and 4;  S2 Supplements to Section 5
+\input{supp_search}      % S3 The search, and two observations about the search space
+\input{supp_checks}      % S4 Audits and cross-checks: details
+\input{app_ip}           % S5 The integer program used as a cross-check
+\input{supp_repro}       % S6 The archive and the reproduction of the computation: details
+\input{supp_tables}      % S7 Further tables and regression values
+\end{document}

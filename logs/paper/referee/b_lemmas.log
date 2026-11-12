@@ -1,0 +1,7 @@
+examples of Prop. C.3(b),(c) and Example C.5: OK
+E3_fits_but_all_replies_ok=3197 danger=8861 danger_choice_matters=25 danger_fail=1455 min_stones_multi=11 moves=46562 multi=7472 positions=6000 sizes={10: 291, 16: 509, 8: 220, 14: 703, 15: 693, 11: 839, 13: 807, 12: 800, 17: 190, 7: 233, 6: 229, 19: 126, 9: 209, 18: 150, 5: 1} threat=24280 threat_and_danger_ok=0 threat_fail=4061
+all assertions passed; 80.3 s
+
+real	1m20.322s
+user	1m14.241s
+sys	0m0.015s

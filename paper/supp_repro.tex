@@ -1,0 +1,184 @@
+% supp_repro.tex -- Appendix S6: the archive and the reproduction of the computation in detail
+% (moved from Section 8 of the first revision)
+\section{The archive and the reproduction of the computation: details}\label{sec:supp-repro}
+
+This appendix supplements \cref{sec:repro}: it lists the contents of the archive, gives the complete
+output and the measured running times of the two verifiers, and describes the steps of the reproduction
+script. The file \fn{README.md} of the archive contains the same commands.
+
+\subsection{Contents of the archive}\label{ssec:supp-archive}
+
+\Cref{tab:artifact} shows the contents of the archive of \cref{ssec:artifact}.
+
+{\footnotesize
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.39\textwidth}>{\raggedright\arraybackslash}p{0.57\textwidth}@{}}
+\toprule
+path & content\\
+\midrule
+\endfirsthead
+\toprule
+path & content\\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{@{}r@{}}{\emph{continued on the next page}}\\
+\endfoot
+\bottomrule
+\addlinespace[6pt]
+\caption{Main contents of the archive; the complete list is in \fn{README.md}. The programs of the
+referees are archived as they were run and contain the absolute path \fn{/home/user/ttt6/} of the project
+directory, at which the archive has to be unpacked or linked in order to run them. The two exceptions are
+\fn{b_expand.py} and \fn{b_sigma.py}, whose archived copies were changed in two lines so that
+\texttt{python3 logs/paper/referee/b\_expand.py} runs from the root of the unpacked archive.}
+\label{tab:artifact}\\
+\endlastfoot
+\fn{README.md}, \fn{MANIFEST.sha256} & quick start; checksums of all files\\
+\fn{paper/}, \fn{logs/paper/paper_v1/} & sources and PDF of this paper; its first version, to which the
+  referee reports refer\\
+\fn{PROOF.md}, \fn{SPEC.md} & the mathematics and the specification in their original form\\
+\fn{REPORT.md}, \fn{REVIEW.md}, \fn{PROGRESS.md} & results, internal review, project log\\
+\fn{logs/review/*.md}, \fn{logs/spec_issues.md} & audit reports; issues raised against the specification\\
+\fn{Makefile} & \texttt{make bin/}$\langle$\textit{name}$\rangle$ builds one program\\
+\fn{verify/treecheck.cpp} & verifier 1 (C++, self-contained)\\
+\fn{verify/spotcheck.py} & verifier 2 (Python, self-contained)\\
+\fn{src/geom.hpp}, \fn{canon.hpp}, \fn{match.hpp}, \fn{phi.hpp} & library of the search: geometry,
+  canonical forms, pairings and exact enumeration, the leaf test\\
+\fn{src/search.cpp} & the AND--OR search (\cref{ssec:search})\\
+\fn{src/leaftable.cpp}, \fn{phicheck.cpp}, \fn{enumcheck.cpp}, \fn{certify.cpp}, \fn{minstones.cpp} & leaf
+  table; leaf test and exact enumeration from the command line; exact decision of $\CC$; minimum number of
+  stones for a pairing\\
+\fn{src/geom_selftest.cpp}, \fn{test_canon.cpp}, \fn{test_core.cpp} & unit tests of the library\\
+\fn{sim/sim.cpp} & simulator of the real strategy (self-contained)\\
+\fn{py/ip_check.py}, \fn{geom.py}, \fn{regress.py}, \fn{crosscheck.py} & the integer program of
+  \cref{sec:ip} and its drivers\\
+\fn{scripts/reproduce.sh} and two helpers & one-command reproduction\\
+\fn{scripts/make_artifact.sh} & builds the archive and the manifest\\
+\midrule
+\fn{results/final/strategy.tbl}, \fn{leaves.txt} & the certificate\\
+\fn{results/final/stats.json} & statistics of the search run\\
+\fn{results/final/treecheck.json}, \fn{treecheck_crosscheck.json}, \fn{spotcheck_full.json} & outputs of
+  the verifiers (\cref{tab:verifiers})\\
+\fn{results/final/checks/enum_theta*.jsonl} & exact enumeration on the leaves with $\theta\le3$\\
+\fn{results/final/checks/ip_leaf_*} & integer program on the leaves (instances and results)\\
+\fn{results/final/sim/} & the $10^6$ simulated games; list of states not reached\\
+\fn{results/regression/} & regression values (\cref{ssec:fmt-minstones,ssec:ip-regression})\\
+\fn{results/leaftable/phi_k*.jsonl} & the leaf table (\cref{tab:leaftable})\\
+\fn{results/ip/leaftable_k*.jsonl} & integer program on the leaf table\\
+\fn{results/crosscheck/} & exact certifier versus integer program (instances, both sets of answers,
+  summary)\\
+\midrule
+\fn{logs/review/treecheck_mut/aexpand.cpp}, \fn{aleaf.cpp}, \fn{aexpand_final.json};
+\fn{logs/review/lead/lead_expand.cpp}, \fn{lead_leaf.cpp}, \fn{lead_expand.json} & the two re-expansions
+  written during the internal review, with their outputs (\cref{tab:verifiers})\\
+\fn{logs/paper/referee_*.md}, \fn{logs/paper/response_*.md} & the five referee reports on the first
+  version of this paper and the responses to them\\
+\fn{logs/paper/referee2_*.md}, \fn{logs/paper/referee2/}, \fn{logs/paper/round2_checks/} & the two
+  reports of the second round, on the revised version, with the programs of the two checkers; the
+  programs with which the changes of the second round were checked\\
+\fn{logs/paper/related_work.md}, \fn{logs/paper/issues.md}, \fn{logs/paper/revision_M_for_C.tex},
+\fn{logs/paper/revM_checks/}, \fn{logs/paper/check_refs.py} & the literature report; the list of issues
+  of the first version; corrected text and check scripts cited in the responses; the script that checks
+  the cross-references of this paper\\
+\fn{logs/paper/replication_from_paper/}, \fn{logs/paper/referee/} & the programs written by the referees,
+  with their outputs; among them the three programs of \cref{tab:verifiers} that were written from the
+  paper\\
+\fn{logs/paper/lost_vectors/}, \fn{logs/paper/flow_counts/} & the $\LOST$ test vectors of
+  \cref{ssec:fmt-lost} with their three-way comparison; the recount of the flow statistics of
+  \cref{ssec:supp-mainleaf}\\
+\fn{logs/canon/autgroup.cpp}, \fn{logs/proof/e23min.cpp}, \fn{logs/proof/fuzz_cprime.py},
+\fn{logs/paper/secA_check1.py}, \fn{scripts/check_7cube_midplanes.py}, with their outputs;
+\fn{logs/core/test_core.log}, \fn{logs/minstones/run.log} & the programs and logs named in
+  \cref{fact:aut,fact:T-pairings,fact:T8-leaf,fact:e23}, at the end of \cref{sec:extra-monoC} and in
+  \cref{rem:seven}\\
+\fn{logs/final/}, \fn{logs/repro/}, \fn{logs/search/}, \fn{logs/paper/artifact_test_final.log} & logs
+  of the runs from which running times and counters are quoted in
+  \cref{sec:certificate,sec:verification,sec:repro} and in
+  \cref{sec:supp-search,sec:supp-checks,sec:supp-repro}; the last one is the test of the present archive\\
+\fn{logs/paper/artifact_test.log}, \fn{logs/paper/artifact_test_revision.log} & the tests of two earlier
+  builds of the archive (first version of the paper; revision before the second round)\\
+\end{longtable}}
+
+Not included are files that the scripts regenerate: binaries, the instance files derived from the leaf
+file, and repeated or exploratory runs.
+
+\subsection{Verifying the certificate: output and running times}\label{ssec:supp-timing}
+
+The commands are those of \cref{ssec:certifying}.
+
+\emph{Reference timing.} The unpacked archive was tested three times on the machine described in
+\cref{ssec:requirements}: the archive of \cref{ssec:artifact}
+(\fn{logs/paper/artifact_test_final.log}) and two earlier builds, that of the first version of this paper
+(\fn{logs/paper/artifact_test.log}) and that of the revision
+(\fn{logs/paper/artifact_test_revision.log}). In these tests compilation took between $9$ and $12$
+seconds and the run between $2$ and $3$ seconds of wall-clock time with four threads (between $9$ and
+$11$ CPU-seconds), and the self-test of the second verifier between $9$ and $12$ seconds; the exact times
+are in the three logs. In these runs the four threads were evidently
+not delayed by other jobs, so these are the times to expect on a machine of this kind; when the test
+was repeated during the internal refereeing of this paper (\cref{ssec:impl}), compilation took $11$
+seconds and the run $10.6$ CPU-seconds. The run recorded in
+\fn{results/final/treecheck.json} was made with three threads and took $14.8$ seconds of wall-clock time
+for $8.2$ CPU-seconds, and the run on two threads within the reproduction script took $15$ seconds
+(\cref{tab:reproduce}); a wall-clock time above the CPU time indicates that the machine was occupied by
+other jobs at that time, as it was during many runs of the project (\fn{logs/search/NOTES.md}).
+
+The exhaustive run of the second verifier, \fn{verify/spotcheck.py}, expands the whole tree and recomputes
+every leaf; its last line of output reads, after a time stamp,
+{\small
+\begin{verbatim}
+ok=True  errors=0  p_expanded=46412 q_checked=93164 children={'a': 46412,
+ 'c': 143498, 'd': 28275, 'i': 93164, 'ii': 54482} void=151
+ leaves_recomputed=106723  CPU ...s
+\end{verbatim}
+}
+\noindent(one line). It took $2$ minutes $14$ seconds with three processes in the test of the archive of
+the first version and about one and a half minutes with four processes in the test of the present
+archive (between $5$ and $6.5$ CPU-minutes in both), and all counters in its output file agreed with those of
+\fn{results/final/spotcheck_full.json}.
+
+\subsection{Reproducing everything}\label{ssec:supp-reproduce}
+
+The script \fn{scripts/reproduce.sh} recomputes the whole pipeline from the sources into
+\fn{results/repro/}, with logs in \fn{logs/repro/}, prints \texttt{PASS} or \texttt{FAIL} for each step and
+ends with \texttt{ALL STEPS PASSED} if every step passed. \Cref{tab:reproduce} lists its steps. We validated
+the script end to end with $20{,}000$ simulated games and two threads, on the machine described in
+\cref{ssec:requirements} while it was running other jobs: all $26$ steps passed, in about $23$ minutes. With the default of
+$10^6$ simulated games, which took $26$ minutes on four threads in the run reported in \cref{ssec:supp-cross},
+the script should need somewhat less than an hour on four idle cores.
+
+\begin{table}[ht]
+\centering\footnotesize
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.72\textwidth}r@{}}
+\toprule
+step & time\\
+\midrule
+build of the eleven programs ($55$ s for a fresh build, measured in the unpacked archive) & ---\\
+self-tests: geometry; canonical forms; matching and leaf test of the library; the verifier
+  \fn{treecheck} (including small synthetic trees and deliberately broken certificates); the simulator;
+  the Python verifier; the $\LOST$ test of the search & $3.3$ min\\
+minimum number of stones for a pairing, $n=5,\dots,8$ (\cref{ssec:fmt-minstones}) & $1$ s\\
+leaf table of busy sets for $k=8,9,10$ (\cref{tab:leaftable}) & $4$ s\\
+the search with its self-check ($59$ s for the search proper); byte-for-byte comparison of the regenerated
+  certificate with \fn{results/final/} & $1.6$ min\\
+\fn{treecheck} with \fn{--exact} \fn{--paranoid} on the regenerated certificate & $15$ s\\
+\fn{spotcheck.py}, exhaustive, on the regenerated certificate ($5.5$ CPU-minutes) & $8.5$ min\\
+leaf test of the library against the leaf test of \fn{treecheck} on all leaves and on $20{,}000$
+  perturbed instances & $20$ s\\
+exact enumeration of $\CC$ on all leaves with $\theta\le 2$ & $40$ s\\
+exact enumeration of $\CC$ on the $1{,}434$ leaves with $\theta=3$ & $8$ min\\
+simulator: $2{,}000$ games with canonical forms verified, then $20{,}000$ games & $22$ s\\
+\bottomrule
+\end{tabular}
+\caption{The steps of \fn{scripts/reproduce.sh} and their wall-clock times in the validation run (two
+threads, loaded machine; from the time stamps of the logs of that run, in which the binaries were mostly
+up to date). The $26$ steps of the script are grouped into eleven rows.}
+\label{tab:reproduce}
+\end{table}
+
+In the validation run, which used two threads, the regenerated certificate was byte-identical to
+the one distributed, which had been produced with four threads; we have not proved that the search is
+deterministic (\cref{ssec:search}). The script does not depend on this: it verifies whatever certificate
+the search
+produces and only reports whether it differs. With the option \fn{--with-ip} the script also runs the
+integer-program checks of \cref{ssec:supp-cross} (regression values, comparison with the exact certifier, the
+leaves); these take several core-hours and were made separately, with the same commands, for the results
+reported here, as was the run of $10^6$ simulated games.

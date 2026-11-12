@@ -1,0 +1,95 @@
+% supp_tables.tex -- Appendix S7: summary of the geometry in ids, the per-round numbers by rows, orbit
+% counts, and the minimum number of stones for a pairing (moved from Appendix A of the first revision)
+\section{Further tables and regression values}\label{sec:supp-tables}
+
+This appendix supplements \cref{sec:formats}. It contains a summary of the geometry of the board in terms
+of cell ids, which allows \cref{sec:formats} to be used without \cref{sec:board}; the per-round numbers
+of \cref{tab:tree} in a second arrangement; and two sets of regression values that a verifier of
+\cref{fact:H} does not need.
+
+\subsection{Cells, lines, symmetries}\label{ssec:fmt-cells}
+
+The cell $(x,y,z)\in\{0,\dots,5\}^3$ has the \emph{id} $36x+6y+z\in\{0,\dots,215\}$. All files use ids. A
+\emph{line} is a set $\{(f_1(i),f_2(i),f_3(i)): i=0,\dots,5\}$ where each $f_j$ is a constant, $i$, or
+$5-i$, and not all three are constant; there are $148$ lines ($108$ parallel to an axis, $36$ face diagonals,
+$4$ space diagonals), and two cells lie on at most one common line (\cref{lem:geometry}). The $24$
+\emph{busy} cells are those with $\min(x,5-x)=\min(y,5-y)=\min(z,5-z)$; their ids are
+\begin{center}\small\ttfamily
+0 5 30 35 43 46 61 64 86 87 92 93 122 123 128 129 151 154 169 172 180 185 210 215
+\end{center}
+A busy cell lies on $7$ lines; of the other cells, $144$ lie on $4$ lines and $48$ on $3$ lines.
+
+The group $\G$ consists of the maps obtained by first permuting the three coordinates, then replacing
+$x_j$ by $5-x_j$ for the $j$ in some subset of the coordinates, and then applying one bijection $s$ of
+$\{0,\dots,5\}$ with $s(5-i)=5-s(i)$ to every coordinate. There are $6\cdot 8\cdot 48$ such descriptions and
+$1{,}152$ distinct maps (\cref{lem:group}). $\G$ has three orbits on the cells, namely the three classes just
+mentioned, with representatives $(0,0,0)$, $(0,0,1)$ and $(0,1,2)$.
+
+\subsection{The per-round numbers of the certificate, by rows}\label{ssec:supp-targets}
+
+The following table repeats the numbers of \cref{tab:tree} that a correct implementation of
+\cref{alg:verify} with $\Rmax=10$ reproduces (\cref{ssec:fmt-targets}), per round $t=0,\dots,10$:
+\begin{center}\footnotesize\setlength{\tabcolsep}{3.2pt}
+\begin{tabular}{@{}lrrrrrrrrrrr@{}}
+\toprule
+$t$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10\\
+\midrule
+P-states & 1 & 2 & 5 & 14 & 35 & 181 & 1{,}718 & 7{,}227 & 34{,}801 & 93{,}124 & 16{,}027\\
+leaves & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 3{,}382 & 87{,}314 & 16{,}027\\
+Q-states & 0 & 2 & 5 & 14 & 35 & 101 & 446 & 3{,}487 & 14{,}362 & 62{,}381 & 12{,}331\\
+threat children (c) & 0 & 0 & 0 & 0 & 0 & 824 & 4{,}075 & 14{,}460 & 47{,}020 & 72{,}352 & 4{,}767\\
+danger children (d) & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 20{,}416 & 6{,}060 & 1{,}799\\
+\VOID{} children (ii) & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 6 & 54 & 88 & 2\\
+\bottomrule
+\end{tabular}
+\end{center}
+The conventions of counting are those stated in \cref{ssec:fmt-targets}; the last row counts the \VOID{}
+children of type (ii) at the round of their parent Q-state.
+
+\subsection{Orbit counts and the leaf table}\label{ssec:fmt-orbits}
+
+The numbers of orbits of $k$-subsets of the $24$ busy cells under $\G$ are
+\[
+527,\quad 1{,}057,\quad 1{,}669,\quad 2{,}468\qquad\text{for } k=7,\,8,\,9,\,10 .
+\]
+All four were computed by Burnside's lemma and by enumeration of the canonical representatives
+(\fn{bin/test_canon}), and the first three also by a second program, in Python. The files
+\fn{results/leaftable/phi_k8.jsonl}, \fn{phi_k9.jsonl} and \fn{phi_k10.jsonl} contain one JSON record per
+orbit ($1{,}057$, $1{,}669$ and $2{,}468$ lines) with the canonical representative $B$, its slack, and the value of
+$\LEAF(B,\emptyset,k)$. The counts are those of \cref{tab:leaftable}:
+$6$, $947$, $2{,}185$ orbits have $\slack(B)\ge k$, and $6$, $172$, $0$ satisfy $\LEAF(B,\emptyset,k)$, for
+$k=8,9,10$. The six representatives for $k=8$ are listed in \cref{ssec:leaftable}; in ids they are
+\begin{center}\small\ttfamily
+\begin{tabular}{@{}ll@{}}
+0,5,43,61,93,122,154,210 & 0,5,43,92,93,122,172,210\\
+0,5,43,61,93,122,154,215 & 0,5,43,92,93,122,172,215\\
+0,5,43,61,93,122,172,215 & 0,5,61,93,122,154,210,215
+\end{tabular}
+\end{center}
+
+\subsection{The minimum number of stones admitting a pairing}\label{ssec:fmt-minstones}
+
+A last set of regression values concerns the $n\times n\times n$ board with its $((n+2)^3-n^3)/2$ lines:
+what is the smallest number of stones $B$ of Breaker such that a pairing for $(B,\emptyset)$ exists? The
+program \fn{src/minstones.cpp} gives
+\begin{center}\small
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+$n$ & 5 & 6 & 7 & 8\\
+\midrule
+lines & 109 & 148 & 193 & 244\\
+minimum number of stones & 9 & 7 & 3 & 0\\
+\bottomrule
+\end{tabular}
+\end{center}
+(\fn{results/regression/minstones.json}). What is established there is the following. \emph{Lower
+bounds:} a pairing needs two cells for every live line, so $2|\live{B}|\le n^3-|B|$; for every size $j$
+below the stated minimum the program searches all $j$-subsets (up to the symmetry of the first stone,
+and with a bound on the number of lines that the remaining stones can kill) and finds that none satisfies
+even this counting condition. For $n=6$, six stones kill at most $39$ lines, while $43$ would have to be
+killed. \emph{Upper bounds:} for each $n$ the program exhibits a set of the stated size together with an
+explicit pairing, which is checked against the definition by a separate routine
+(\fn{results/regression/minstones_pairings.json}); for $n=6$ the set is
+$\{(0,0,0),(0,0,5),(1,4,1),(2,3,3),(3,2,2),(4,1,4),(5,5,0)\}$, the canonical form of $\Tseven$, and for $n=8$
+the empty set: the $8\times8\times8$ board admits a pairing of its $244$ lines without any stone ($488$ of
+the $512$ cells are used).

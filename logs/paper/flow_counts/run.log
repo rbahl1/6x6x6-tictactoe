@@ -1,0 +1,4 @@
+leaves with theta >= 2: 9179
+single-line flows (lines with |l\F|-2 >= theta that are reaching): 869185 (lines with |l\F|-2 >= theta: 869185, of these not reaching: 0)
+pair flows: 77268
+triple flows: 7391

@@ -1,0 +1,232 @@
+% sec_intro.tex -- Section 1: Introduction (editor)
+\section{Introduction}\label{sec:intro}
+
+\subsection{The game}\label{ssec:intro-game}
+
+Tic-tac-toe on the board $n^d=\{0,\dots,n-1\}^d$ is played by two players who alternately occupy an
+empty cell. A \emph{line} is a set of $n$ cells of the form $\{(f_1(t),\dots,f_d(t)) : 0\le t\le n-1\}$,
+where each coordinate $f_i(t)$ is constant, equal to $t$, or equal to $n-1-t$, and not all coordinates
+are constant; there are $((n+2)^d-n^d)/2$ lines~\cite[Theorem~1]{GolombHales2002}. The player who first
+occupies all $n$ cells of a line wins, and if the board is filled without a winner, the game is a draw.
+The game is finite, so either one of the players has a winning strategy or both players can force a
+draw; by the strategy-stealing argument the second player never has a winning strategy
+(\cref{prop:stealing}). For each pair $(n,d)$ the question is therefore whether the first player wins
+or the game is a draw.
+
+A draw is usually proved by proving more. In the \emph{Maker--Breaker game} on the same board the
+players are called Maker and Breaker; Maker wins if he occupies all cells of some line, and Breaker wins
+otherwise, that is, if he occupies at least one cell of every line. If Breaker wins this game as the
+second player, then the same strategy prevents the first player of the ordinary game from winning, and
+the ordinary game is a draw; in the terminology of Beck~\cite{Beck2008} it is then even a \emph{Strong
+Draw}. See~\cite{Beck2008,HefetzKrivelevichStojakovicSzabo2014,Krivelevich2014} for background on
+positional games. The simplest strategies for Breaker are \emph{pairing strategies}: Breaker fixes two
+cells on every line such that the pairs of different lines are disjoint, and whenever Maker takes a
+cell of a pair, Breaker takes the other one. A pairing needs two cells for every line, so it can exist
+only if the number of cells is at least twice the number of lines.
+
+\subsection{Known results}\label{ssec:intro-known}
+
+Hales and Jewett~\cite{HalesJewett1963} proved that the $n^d$ game is a draw by a pairing strategy if
+$n\ge 3^d-1$ and $n$ is odd, or $n\ge 2^{d+1}-2$ and $n$ is even, and that for every fixed $n$ the first
+player wins if $d$ is large enough; see~\cite[p.~300]{ErdosSelfridge1973}
+and~\cite[Theorem~2.1 and Corollary~3.4]{Krivelevich2014}. For $d=3$ these bounds give a draw only for
+even $n\ge 14$ and odd $n\ge 27$, and much more is known (\cref{tab:known}).
+
+\begin{table}[ht]
+\centering\small
+\begin{tabular}{@{}cccl@{}}
+\toprule
+$n$ & lines & cells & outcome of the $n\times n\times n$ game\\
+\midrule
+$\le 3$ & & & first player wins (elementary)\\
+$4$ & $76$ & $64$ & first player wins \cite{Patashnik1980,AllisSchoo1992,Allis1994}\\
+$5$ & $109$ & $125$ & unknown; conjectured to be a draw \cite{Beck2008,GolombHales2002}\\
+$6$ & $148$ & $216$ & draw (\cref{thm:main})\\
+$7$ & $193$ & $343$ & draw (\cite{CainRaymondKallersjo2025}, preprint; \cref{cor:seven-intro})\\
+$\ge 8$ & $3n^2+6n+4$ & $n^3$ & draw by a pairing strategy \cite{GolombHales2002,BerlekampConwayGuy2003}\\
+\bottomrule
+\end{tabular}
+\caption{Tic-tac-toe on the board $n\times n\times n$.}
+\label{tab:known}
+\end{table}
+
+The first player wins for $n\le 4$: this is elementary for $n\le 3$, and for $n=4$, the game Qubic, it
+is a computer-assisted theorem of Patashnik~\cite{Patashnik1980}, which was later reproved with
+different search methods by Allis and Schoo~\cite{AllisSchoo1992,Allis1994}. For $n\ge 8$ the second
+player draws by an explicit pairing strategy, which goes back to
+Golomb~\cite{GolombHales2002,BerlekampConwayGuy2003}. For $n\le 7$ there is no pairing strategy on the
+empty board, because the $3n^2+6n+4$ lines would need more cells than there are: $218>125$ for $n=5$,
+$296>216$ for $n=6$, and $386>343$ for $n=7$. The cases $n=5,6,7$ have long been expected to be draws.
+Golomb and Hales~\cite[Table~1]{GolombHales2002} place them, marked as uncertain, in the region where
+the second player can force a draw but not by a pairing strategy, and Beck~\cite[p.~1]{Beck2008} calls
+$5\times5\times5$ tic-tac-toe ``a hopeless open problem (it is conjectured to be a draw game)''. The
+criterion of Erd\H{o}s and Selfridge~\cite{ErdosSelfridge1973} does not decide any of the three cases
+(\cref{ssec:remarks}).
+
+Recently Cain, Raymond and K\"allersj\"o~\cite{CainRaymondKallersjo2025} gave, in a preprint, a
+computer-assisted proof that Breaker wins the Maker--Breaker game on the $7\times7\times7$ board: after
+three or four prescribed moves of Breaker a pairing strategy exists against every continuation of
+Maker. They list $n=5$ and $n=6$ as the two remaining open cases and remark about the second one that
+``with sufficient care beyond the scope of what we are willing to attempt, it may be possible to
+resolve the $6^3$ game computationally''~\cite[Section~6.2]{CainRaymondKallersjo2025}. The present paper
+does this.
+
+\subsection{The result}\label{ssec:intro-result}
+
+From now on the board is $\Q=\{0,\dots,5\}^3$, with $216$ cells and $148$ lines, and Maker is the
+player who moves first.
+
+\begin{theorem}[computer-assisted]\label{thm:main}
+In the Maker--Breaker game on the $148$ lines of the $6\times6\times6$ board, \Breaker, moving second,
+has a winning strategy: a strategy that prescribes an empty cell whenever \Breaker{} is to move and under
+which \Maker{} never owns all six cells of a line. Consequently, ordinary $6\times6\times6$ tic-tac-toe
+is a draw: each of the two players has a strategy with which this player never loses.
+\end{theorem}
+
+The theorem is computer-assisted in the following precise sense. \Cref{sec:board,sec:pairing,sec:leaf,sec:game}
+define a finite \emph{abstract game}, whose states are labeled \WON{} by a recursion that depends on an
+integer parameter $\Rmax$, and prove by hand: \emph{if the root of the abstract game is \WON{} for some
+$\Rmax$, then both assertions of \cref{thm:main} hold} (\cref{lem:certificate}, \cref{thm:sigma} and
+\cref{cor:draw}; the formal proof of \cref{thm:main} is given in \cref{thm:main-proof}). That the root
+is \WON{} for $\Rmax=10$ is \cref{fact:H} in \cref{sec:certificate}. It is a finite statement about two
+explicit files, which was established by running programs, and it is the only computed statement on
+which \cref{thm:main} depends.
+
+To our knowledge, \cref{thm:main} is the first proof that the $6\times6\times6$ game is a draw; we
+found no earlier proof or claim in the literature. A consequence of \cref{thm:main} is a new proof of
+the result of~\cite{CainRaymondKallersjo2025} for the $7\times7\times7$ board.
+
+\begin{corollary}[computer-assisted, via \cref{thm:main}]\label{cor:seven-intro}
+In the Maker--Breaker game on the $193$ lines of the $7\times7\times7$ board, \Breaker, moving second,
+has a winning strategy. Consequently, ordinary $7\times7\times7$ tic-tac-toe is a draw.
+\end{corollary}
+
+This is \cref{cor:seven} in \cref{sec:discussion}. Its proof uses the decomposition of the
+$7\times7\times7$ board by its three mid-planes, after Golomb and Hales~\cite{GolombHales2002}: the
+cells outside the mid-planes form a $6\times6\times6$ board, on which Breaker plays the strategy of
+\cref{thm:main}, and the lines inside the mid-planes admit a pairing, which is given explicitly and can
+be checked by hand. The proof does not depend on the computation of~\cite{CainRaymondKallersjo2025}.
+Granting \cref{thm:main} and the result for $n=7$, the $5\times5\times5$ game is, to our knowledge, the
+only $n\times n\times n$ game whose outcome is unknown.
+
+\subsection{The method in outline}\label{ssec:intro-method}
+
+\emph{No pairing on the empty board.} The $148$ lines would need $296$ cells, and there are $216$. A
+stone of Breaker kills the lines through its cell, at most seven of them, and a count shows that no
+pairing of the surviving lines can exist before Breaker has placed seven stones (\cref{prop:seven}).
+Seven or eight well-chosen stones do admit a pairing on an otherwise empty board
+(\cref{ex:T7,ex:T8} and \cref{fact:T-pairings}). But when Breaker has placed them, Maker has placed as many stones, the pairing has
+to avoid these, and whether this is possible depends on where they are.
+
+\emph{Admissible positions and leaf certificates.} Two configurations leave Breaker no choice: a line
+without a stone of Breaker on which Maker has five stones (a \emph{threat}), and two such lines with four
+stones of Maker each that meet in an empty cell (a \emph{danger pair}). Breaker answers them at once, by
+taking the sixth cell of the threat or the common cell of the danger pair. A set of stones of Maker
+without such configurations is called \emph{admissible} (\cref{def:admissible}); admissibility is exactly
+Hall's condition for one and for two lines. A \emph{leaf certificate} is a condition on Breaker's
+stones $B$, on a known subset $F$ of Maker's stones and on the number $t$ of Maker's stones which
+guarantees that a pairing exists for \emph{every} admissible placement of Maker's remaining $t-|F|$
+stones. We use a sufficient condition, $\LEAF(B,F,t)$, which is derived from Hall's theorem and is
+decided by exact computations with augmenting paths (\cref{sec:leaf}).
+
+\emph{Forced replies and lazy revelation.} Before a leaf certificate holds, Breaker plays from a table.
+A table with an entry for every position would be far too large. The table used here is indexed by the
+triple $(B,F,t)$ alone, where $F$ is the set of \emph{revealed} stones of Maker. A stone of Maker is
+revealed in two situations only: when it takes part in a threat or in a danger pair, which Breaker has
+to answer by the forced reply, and when the table tells Breaker to occupy a cell that turns out to be
+occupied, in which case the stone found there is revealed and the table is consulted again. A move of
+Maker that creates neither a threat nor a danger pair thus leads to a single successor, wherever it was
+made. This is made precise by the abstract game of \cref{sec:game}. A \emph{certificate} consists of a
+table of moves and a list of leaves; it is \emph{valid} if every state that can be reached is a leaf
+with a leaf certificate or has all the entries it needs (\cref{def:certificate}). The soundness theorem
+(\cref{thm:soundness}) shows that a valid certificate yields a strategy for Breaker under which Maker's
+stones are admissible at the beginning of every round, until a leaf is reached and a pairing strategy
+takes over. One more point has to be taken care of: a single move of Maker might create a threat and a
+danger pair, or two danger pairs, which cannot be answered by one reply. This requires at least eleven
+stones of Maker (\cref{prop:lost-stones}) and therefore cannot happen during the first ten rounds.
+
+\emph{The certificate.} The certificate of this paper lets Breaker play from the table for at most ten
+rounds. It has $93{,}164$ table entries and $106{,}723$ leaves, up to the $1{,}152$ symmetries of the
+board, and Breaker switches to a pairing strategy after round $8$, $9$ or $10$ (\cref{sec:certificate}).
+It was found by a heuristic search in about one minute. The search is not part of the proof: the
+certificate was verified from scratch by programs that were written independently of the search and of
+each other (\cref{sec:verification}).
+
+\subsection{Comparison with the proof for the \texorpdfstring{$7\times7\times7$}{7x7x7} board}
+\label{ssec:intro-seven}
+
+The idea of letting Breaker place a few stones and then switch to a pairing found by bipartite matching
+is that of~\cite{CainRaymondKallersjo2025}. On the $7\times7\times7$ board three or four opening moves
+suffice. Maker has then placed so few stones that every line still has at least three empty cells, so
+no threat has to be answered before the pairing takes over, and the pairings are computed for every
+position that can have arisen~\cite{CainRaymondKallersjo2025}. On the $6\times6\times6$ board the
+situation is different in three respects. At least seven stones of Breaker are needed before any
+pairing can exist, so Maker has time to build threats and danger pairs, which must be answered on the
+way; the states of our certificate have $143{,}498$ successors that arise from a threat and $28{,}275$
+that arise from a danger pair (\cref{tab:tree}). The number of positions that Maker can reach in eight
+to ten rounds is far too large for an enumeration, which is why the table depends on Maker's stones only through the
+revealed ones and why the pairing has to be guaranteed by a certificate that covers all admissible placements
+of the others. And the pairing is reached only after eight to ten rounds, along a strategy tree whose
+validity is the computed part of the proof.
+
+\subsection{The nature of the proof}\label{ssec:intro-nature}
+
+We state plainly what is proved by hand, what is computed, and what has to be trusted.
+
+\emph{Proved by hand.} All statements called Theorem, Proposition, Lemma or Corollary are proved in the
+paper. Three of them are marked ``computer-assisted'': \cref{thm:main} and the two statements of its
+corollary for the $7\times7\times7$ board (\cref{cor:seven-intro,cor:seven}) depend, in addition to
+the written proofs, on \cref{fact:H}. The written proofs include
+the geometry of the board (\cref{lem:geometry,lem:group}), the pairing strategy, the implication from
+the leaf certificate to the existence of pairings (\cref{thm:leaf-implies-C}), the soundness of the
+abstract game (\cref{thm:soundness,thm:sigma}) and the strategy-stealing argument. The only results
+quoted from the literature in these proofs are Hall's theorem, in the form of the max-flow min-cut
+theorem with integrality, and, for the second assertion of \cref{thm:main}, the determinacy of finite
+games.
+
+\emph{Computed.} Statements established by running programs are called \emph{Computed Facts} and name
+the programs that established them. Exactly one of them, \cref{fact:H}, is used in the proof of
+\cref{thm:main}: it says that the two certificate files form a valid certificate. \Cref{sec:verification}
+states the two algorithms that check this, precisely enough to be implemented from the paper, and
+proves them correct (\cref{prop:verify-correct,prop:leaf-correct}). The check was carried out by two
+independent programs of the supplementary archive and by two further independent programs written
+during an internal review, all with the same result and the same counts of states in every round. All of them use integer
+arithmetic only; no floating-point computation and no random choice enters the proof. The other
+Computed Facts and the cross-checks reported in \cref{sec:verification}, among them an integer program
+solved in floating-point arithmetic and one million simulated games, are not used in the proof.
+
+\emph{Trusted.} A reader who accepts \cref{thm:main} trusts the written proofs and at least one
+implementation of the two verification algorithms, together with the compiler or interpreter, the
+operating system and the hardware on which it ran (\cref{ssec:trust}). The search that produced the
+certificate is not trusted. Nothing has been formally verified in a proof assistant; we come back to
+this in \cref{ssec:open}.
+
+\subsection{Availability}\label{ssec:intro-artifact}
+
+The certificate, the sources of all programs and the outputs of the runs reported here are collected
+in a supplementary archive (the \emph{artifact}), which is described in \cref{sec:repro}; it is
+available at [repository URL to be added]. The certificate consists of two text files, whose formats are specified in
+\cref{sec:formats}, with the SHA-256 checksums
+\begin{center}\small
+\begin{tabular}{@{}ll@{}}
+\fn{strategy.tbl} & \texttt{13629393fcdcee87a03f2c9c73f640d9584d2134a46f90dad9393dc92c9ce3fc}\\
+\fn{leaves.txt}   & \texttt{3c14c7814e296e812b4fdf3cda2f446c6ce4865d15d351980e7fecc7690fd470}
+\end{tabular}
+\end{center}
+Verifying the certificate with the supplied programs takes a few seconds with the main verifier and a
+few minutes with the second one (\cref{ssec:certifying}).
+
+\subsection{Organization of the paper}\label{ssec:intro-org}
+
+\Cref{sec:board} describes the board, its $148$ lines and its group of $1{,}152$ symmetries.
+\Cref{sec:pairing} treats pairings and Hall's condition, and \cref{sec:leaf} the admissible sets and the
+leaf certificates. \Cref{sec:game} defines the abstract game, certificates and Breaker's strategy, and
+proves the soundness theorem and, from it, \cref{thm:main}. \Cref{sec:certificate} states the computed
+fact and describes the certificate and the search that found it. \Cref{sec:verification} gives the
+verification algorithms and reports on the verifiers, their audits and further cross-checks, and
+\cref{sec:repro} describes the archive and how to reproduce the computation. \Cref{sec:discussion}
+contains the corollary on the $7\times7\times7$ board, remarks and open problems. \Cref{sec:formats}
+specifies the file formats and gives test vectors for an independent verifier, \cref{sec:ip} describes
+an integer program that was used as a cross-check, \cref{sec:extra} contains supplementary results that
+are not used in the proof of \cref{thm:main}, and \cref{sec:seven-pairing} gives the pairing used for
+the $7\times7\times7$ board.

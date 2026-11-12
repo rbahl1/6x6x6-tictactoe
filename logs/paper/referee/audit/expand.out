@@ -1,0 +1,26 @@
+table_lines 93164 leaf_lines 106723 malformed 0 dup_table 0 dup_leaf 0
+P-states               1 2 5 14 35 181 1718 7227 34801 93124 16027  total 153135
+leaves                 0 0 0 0 0 0 0 0 3382 87314 16027  total 106723
+expanded               1 2 5 14 35 181 1718 7227 31419 5810 0  total 46412
+Q-states               0 2 5 14 35 101 446 3487 14362 62381 12331  total 93164
+threat children        0 0 0 0 0 824 4075 14460 47020 72352 4767  total 143498
+danger children        0 0 0 0 0 0 0 0 20416 6060 1799  total 28275
+void (ii)              0 0 0 0 0 0 1 6 54 88 2  total 151
+void (c)               0 0 0 0 0 0 0 0 0 0 0  total 0
+void (d)               0 0 0 0 0 0 0 0 0 0 0  total 0
+Q with |F|<t           0 1 3 9 24 70 282 2033 8476 36813 6771  total 54482
+nonbusy moves          0 0 0 0 0 0 0 16 399 11 8  total 434
+children a 46412 i 93164 ii 54482
+states_visited 246299
+leaves by theta: 64841 32703 7267 1434 343 105 25 4 1 0 0
+leaves t=8 by theta: 1862 940 340 119 69 36 12 3 1
+leaves t=9 by theta: 53397 26291 6102 1189 260 63 11 1 0
+leaves t=10 by theta: 9582 5472 825 126 14 6 2 0 0
+unreached table entries 0, unreached leaves 0
+leaf failures 0; single-line gains 4063331; triple gains 812644
+errors 0
+RESULT accept
+
+real	1m3.259s
+user	1m2.616s
+sys	0m0.130s

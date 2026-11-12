@@ -1,0 +1,14 @@
+reachable set V loaded: 246299
+policy random  games=1000 leaf_round_8=999 leaf_round_9=1 leaf_theta_5=1 leaf_theta_6=7 leaf_theta_7=147 leaf_theta_8=845 quiet=8001 reveals_0=7838 reveals_1=161 reveals_2=2 switch_after_8=999 switch_after_9=1
+policy greedy  games=1000 leaf_round_10=69 leaf_round_8=365 leaf_round_9=566 leaf_theta_0=345 leaf_theta_1=78 leaf_theta_2=419 leaf_theta_3=122 leaf_theta_4=36 quiet=7295 reveals_0=5987 reveals_1=1231 reveals_2=72 reveals_3=5 switch_after_10=69 switch_after_8=365 switch_after_9=566 threat=1409
+policy busy    games=1000 leaf_round_10=6 leaf_round_8=823 leaf_round_9=171 leaf_theta_1=3 leaf_theta_2=14 leaf_theta_3=58 leaf_theta_4=110 leaf_theta_5=188 leaf_theta_6=291 leaf_theta_7=245 leaf_theta_8=91 quiet=8172 reveals_0=6380 reveals_1=1352 reveals_2=330 reveals_3=91 reveals_4=15 reveals_5=3 reveals_6=1 switch_after_10=6 switch_after_8=823 switch_after_9=171 threat=11
+policy peek    games=1000 leaf_round_9=1000 leaf_theta_0=1000 quiet=9000 reveals_1=9000 switch_after_9=1000
+policy peek2   games=1000 leaf_round_10=13 leaf_round_8=217 leaf_round_9=770 leaf_theta_0=29 leaf_theta_1=128 leaf_theta_2=216 leaf_theta_3=262 leaf_theta_4=203 leaf_theta_5=114 leaf_theta_6=42 leaf_theta_7=4 leaf_theta_8=2 quiet=8775 reveals_0=3723 reveals_1=4505 reveals_2=464 reveals_3=67 reveals_4=16 switch_after_10=13 switch_after_8=217 switch_after_9=770 threat=21
+policy mix     games=1000 leaf_round_10=21 leaf_round_8=333 leaf_round_9=646 leaf_theta_0=46 leaf_theta_1=150 leaf_theta_2=269 leaf_theta_3=187 leaf_theta_4=156 leaf_theta_5=102 leaf_theta_6=69 leaf_theta_7=20 leaf_theta_8=1 quiet=8085 reveals_0=5003 reveals_1=2817 reveals_2=246 reveals_3=17 reveals_4=2 switch_after_10=21 switch_after_8=333 switch_after_9=646 threat=603
+policy plane   games=1000 leaf_round_8=121 leaf_round_9=879 leaf_theta_0=507 leaf_theta_1=6 leaf_theta_2=136 leaf_theta_3=294 leaf_theta_4=56 leaf_theta_5=1 quiet=7373 reveals_0=6318 reveals_1=1036 reveals_2=19 switch_after_8=121 switch_after_9=879 threat=1506
+policy danger  danger=691 games=1000 leaf_round_8=331 leaf_round_9=669 leaf_theta_0=48 leaf_theta_1=643 leaf_theta_3=2 leaf_theta_4=18 leaf_theta_5=1 leaf_theta_6=12 leaf_theta_7=112 leaf_theta_8=164 quiet=7958 reveals_0=7789 reveals_1=168 reveals_3=1 switch_after_8=331 switch_after_9=669 threat=20
+all assertions passed; 139.7 s
+
+real	2m21.572s
+user	2m20.619s
+sys	0m0.107s

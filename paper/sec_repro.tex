@@ -1,0 +1,137 @@
+\section{Reproducibility}\label{sec:repro}
+
+
+The computation can be replicated at three levels: by verifying the certificate with the supplied
+verifiers (seconds to minutes), by regenerating the certificate and all checks from the sources (under an
+hour), or by writing a verifier from this paper alone. This section describes the supplementary archive
+and gives the commands and the expected outputs; the contents of the archive, the complete outputs and
+the running times that we measured are given in \cref{sec:supp-repro}.
+
+\subsection{The archive}\label{ssec:artifact}
+
+The supplementary archive is one file, \fn{ttt6-artifact.tar.gz} (\ArchiveSize; $\ArchiveFiles$ files,
+\ArchiveUnpacked{} unpacked), produced by
+\fn{scripts/make_artifact.sh}. It contains sources and results but no binaries. Its file
+\fn{MANIFEST.sha256} lists the SHA-256 checksum of every other file. The contents are listed in
+\cref{tab:artifact} in \cref{ssec:supp-archive}. Every file that is named in this paper is contained in
+the archive, under the path given in the paper. The documents \fn{SPEC.md}, \fn{PROOF.md}, \fn{REPORT.md} and \fn{REVIEW.md} and the comments in the
+sources predate this paper and call Maker and Breaker the first player (FP) and the second player (SP).
+Where and under which license the archive is available is stated under ``Data and code availability'' in
+the Declarations at the end of the paper.
+
+\subsection{Requirements}\label{ssec:requirements}
+
+The proof pipeline needs a C++17 compiler with OpenMP, \texttt{make}, and Python~3.10 or later, and no
+further libraries. We used g++~13.3 and CPython~3.13 under Linux on a machine with four cores (Intel Xeon,
+$2.1$\,GHz) and $15$\,GB of memory. The search needs about $600$\,MB of memory, the verifiers much less.
+The optional cross-checks with the integer program additionally need the Python package \texttt{highspy}
+(HiGHS~1.16 was used).
+
+\subsection{Verifying the certificate}\label{ssec:certifying}
+
+The following two commands, run in the unpacked archive, build the main verifier and run it; an
+accepting run establishes \cref{fact:H}.
+{\small
+\begin{verbatim}
+make bin/treecheck
+bin/treecheck --table results/final/strategy.tbl \
+    --leaves results/final/leaves.txt --rmax 10 --exact --paranoid \
+    --threads 4 --out treecheck.json
+\end{verbatim}
+}
+\noindent (The option \fn{--paranoid} is the default of the program and is given here only for
+emphasis; it is switched off by \fn{--fast}.) The program exits with code $0$ and prints one line of
+JSON on standard output, which begins
+{\small
+\begin{verbatim}
+{"ok":true,"p_states":153135,"q_states":93164,"leaves_checked":106723,
+ "max_t":10,"errors":[],"error_count":0,"complete":true,"timed_out":false,
+ "root_void":false,"rmax":10,"root":"0 - -", ...
+ "exact_visited_set":true,"paranoid_flows":true, ...
+\end{verbatim}
+}
+\noindent and continues with \texttt{"states\_visited":246299}, the counters of \cref{tab:tree}, and the byte counts
+and FNV checksums of the two input files. Except for the fields that record threads and timing, the output
+must be identical to \fn{results/final/treecheck.json}.
+
+On the machine described in \cref{ssec:requirements}, compilation takes about $10$ seconds and the
+run less than $3$ seconds of wall-clock time with four threads (about $10$ CPU-seconds) when the cores are
+not occupied by other jobs (\fn{logs/paper/artifact_test_final.log}, the test of the archive of
+\cref{ssec:artifact}; the times vary by one or two seconds from run to run). The other running times of this program that are
+quoted in this paper were measured on a loaded machine; they are compared in \cref{ssec:supp-timing}.
+
+The second, independent verifier is run by
+{\small
+\begin{verbatim}
+python3 verify/spotcheck.py --selftest
+python3 verify/spotcheck.py --table results/final/strategy.tbl \
+    --leaves results/final/leaves.txt --rmax 10 --samples 0 --seed 20261112 \
+    --procs 4 --full --all-leaves --out spotcheck_full.json
+\end{verbatim}
+}
+\noindent The first command (about $10$ seconds) tests the geometry, the canonical form, the leaf test and $\LOST$ against
+brute force and ends with \texttt{selftest OK}. The second expands the whole tree and recomputes every leaf
+(about $6$ CPU-minutes). Its last line of output must report \texttt{ok=True}, \texttt{errors=0},
+\texttt{p\_expanded=46412}, \texttt{q\_checked=93164}, \texttt{void=151} and
+\texttt{leaves\_recomputed=106723}, together with the numbers of children of each type given in
+\cref{tab:verifiers}; the line is reproduced in full in \cref{ssec:supp-timing}. All counters in its output
+file must agree with those of \fn{results/final/spotcheck_full.json}.
+
+The command \texttt{sha256sum -c MANIFEST.sha256} checks all files of the archive. The SHA-256
+checksums of the two certificate files are given in \cref{ssec:intro-artifact}.
+
+\subsection{Reproducing everything}\label{ssec:reproduce}
+
+The script \fn{scripts/reproduce.sh} recomputes the whole pipeline from the sources into
+\fn{results/repro/}, with logs in \fn{logs/repro/}. It builds the eleven programs and runs their
+self-tests, recomputes the minimum number of stones for a pairing and the leaf table of busy sets, runs
+the search with its self-check and compares the regenerated certificate byte for byte with the one
+distributed, runs both verifiers on the regenerated certificate, compares the leaf test of the library
+with that of \fn{treecheck} on all leaves and on $20{,}000$ perturbed instances, repeats the exact
+enumeration of $\CC$ on the leaves with $\theta\le 3$, and plays simulated games. It prints \texttt{PASS}
+or \texttt{FAIL} for each step and ends with \texttt{ALL STEPS PASSED} if every step passed. We validated
+the script end to end with $20{,}000$ simulated games and two threads: all $26$ steps passed, in about
+$23$ minutes. In this run the regenerated certificate was byte-identical to the one distributed
+(on determinism see \cref{ssec:search}; the script does not depend on it). The steps and their running times
+(\cref{tab:reproduce}), the expected duration of a complete run and the optional checks with the integer
+program are described in \cref{ssec:supp-reproduce}.
+
+\subsection{Writing your own verifier}\label{ssec:own}
+
+Readers who do not wish to trust our programs can verify \cref{fact:H} with a program of
+their own. Everything needed is in this paper: the board and the group (\cref{sec:board}), admissibility and
+the leaf condition (\cref{def:admissible,def:leaf}), the states and their children (\cref{def:states}), the
+two algorithms (\cref{alg:verify,alg:leaf}), and the file formats, the canonical form and test vectors
+(\cref{sec:formats}). The task is small. The two re-expansions written during the internal review have
+about $700$
+lines of C++ each, compute canonical forms by brute force over the $1{,}152$ maps, and run in $1.5$ to
+$5$ CPU-minutes (the unpruned leaf test of the first accounts for most of the difference). For
+$\Rmax=10$ the predicate $\LOST$ need not be implemented at all
+(\cref{prop:lost-stones}); it is enough to check $t<10$ at every expanded P-state.
+
+That the paper suffices was tested during the internal refereeing of its first version
+(\cref{tab:verifiers}; on the nature of this refereeing see \cref{ssec:impl} and the Declarations). One
+referee, who was
+given only the PDF of the first version of this paper and the two certificate files, wrote a verifier of
+$706$ lines of C++ (\fn{logs/paper/replication_from_paper/verify.cpp}). According to the report
+(\fn{logs/paper/referee_replication.md}), the first implementation written from the text passed every
+test vector and reproduced every count without a correction, except two statistics of the main verifier
+that were printed in the first version without the rules behind them (the numbers of flows for pairs and
+for triples, \cref{ssec:supp-mainleaf}). The program prints \texttt{ACCEPT}, visits $246{,}299$ states,
+reproduces every entry of \cref{tab:tree,tab:leaf-theta}, and runs in $42$ CPU-seconds on one thread.
+Its exit code is nevertheless $1$, and its log (\fn{logs/paper/replication_from_paper/run.log}) ends with
+one reported mismatch: besides verifying the certificate, the program compares its own numbers of flows
+with these two implementation statistics. A second referee wrote an implementation of \cref{alg:verify,alg:leaf} for an
+audit of the numbers of this paper (\fn{logs/paper/referee/audit/ref_audit.cpp}; $63$ CPU-seconds), with
+the same result, and a third transcribed \cref{alg:verify} from the printed pseudocode
+(\fn{logs/paper/referee/b_expand.py}; no leaf test) and reproduced every number of
+\cref{ssec:fmt-targets,ssec:supp-targets}. The ambiguities that the first of these referees met are listed in the report;
+they have been removed in the present version
+(\cref{ssec:what,ssec:algverify,sec:formats,ssec:supp-mainleaf}).
+
+An independent verifier should reproduce the following numbers (\cref{ssec:fmt-targets}): $246{,}299$
+reachable states, namely $153{,}135$ P-states ($46{,}412$ expanded, $106{,}723$ leaves) and $93{,}164$
+Q-states; $143{,}498$ threat children and $28{,}275$ danger children; $151$ \VOID{} children, all of type
+(ii); the counts per round of \cref{tab:tree}; and $\LEAF(B,F,t)$ true for each of the $106{,}723$ entries of
+the leaf file. Agreement in all these numbers is strong evidence that two programs have expanded the
+same tree; a defect that drops children shows up in them (\cref{ssec:audits}).

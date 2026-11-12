@@ -1,0 +1,402 @@
+\section{The certificate}\label{sec:certificate}
+
+
+This section states the one computed ingredient of the main theorem, describes how the certificate was
+found and what it looks like, and records some observations about the search space. Everything in this
+section except the statement of \cref{fact:H} is descriptive: the proof of \cref{thm:main}
+uses the two certificate files and nothing else from this section. How the certificate is verified is the
+subject of \cref{sec:verification}.
+
+\subsection{The computed fact}\label{ssec:fact}
+
+Recall the abstract game of \cref{def:states}, the predicate \WON{} of \cref{def:won}, and the notion of a
+valid certificate $(\Tbl,\Lv,\Rmax)$ of \cref{def:certificate}: $\Tbl$ assigns a cell (the \emph{table move})
+to canonical Q-states, $\Lv$ is a set of canonical P-states (the \emph{leaves}), and validity means that every
+state reachable from the root through the rules of the game is either a listed leaf satisfying
+$\LEAF$, or an expanded P-state of round $t<\Rmax$ at which $\LOST$ is false, or a Q-state with a legal table
+move.
+
+\begin{fact}[The root is \WON]\label{fact:H}
+Let $\Rmax=10$. The root $\Pst(\emptyset,\emptyset,0)$ of the abstract game is \WON. More precisely, let
+$\Tbl$ be the table of $93{,}164$ canonical Q-states with one move each contained in the file
+\fn{results/final/strategy.tbl}, and let $\Lv$ be the set of $106{,}723$ canonical P-states listed in the file
+\fn{results/final/leaves.txt}. Then $(\Tbl,\Lv,10)$ is a valid certificate in the sense of
+\cref{def:certificate}. Its reachable set consists of $153{,}135$ P-states, of which $46{,}412$ are expanded
+and $106{,}723$ are leaves, and of $93{,}164$ Q-states; every line of both files is reachable.
+
+\established the program \fn{verify/treecheck.cpp} (run with the options \fn{--exact} and
+\fn{--paranoid}; output \fn{results/final/treecheck.json}) and, independently, the program
+\fn{verify/spotcheck.py} in its exhaustive mode (output \fn{results/final/spotcheck_full.json}). Two further
+independent re-expansions written during the internal review of the project give the same result and the
+same state counts in every round, and the self-check of the program that produced the files gives the same
+totals; see \cref{sec:verification} and \cref{tab:verifiers}.
+\end{fact}
+
+The two files are identified by their SHA-256 checksums:
+\begin{center}\small
+\begin{tabular}{@{}ll@{}}
+\fn{strategy.tbl} & \texttt{13629393fcdcee87a03f2c9c73f640d9584d2134a46f90dad9393dc92c9ce3fc}\\
+\fn{leaves.txt}   & \texttt{3c14c7814e296e812b4fdf3cda2f446c6ce4865d15d351980e7fecc7690fd470}
+\end{tabular}
+\end{center}
+They have $5{,}376{,}504$ and $6{,}445{,}022$ bytes; their formats are specified in \cref{sec:formats}.
+
+\cref{fact:H} is the only statement on which \cref{thm:main} depends that is not proved in
+this paper. It is a finite statement about two explicit files, and \cref{sec:verification} describes
+precisely what a program has to do in order to check it. Since $\Rmax=10$, every expanded P-state has
+$t\le 9$, and by \cref{prop:lost-stones} the predicate $\LOST$ is false at such a state; so for this
+certificate the condition ``$\LOST$ is false'' is automatically satisfied. The verifiers evaluate it
+nevertheless.
+
+\subsection{How the certificate was found}\label{ssec:search}
+
+The certificate was produced by an AND--OR search (\fn{src/search.cpp}). \emph{The search is a heuristic
+device and is not part of the proof.} None of its internals is trusted: its move ordering, its cut-offs, its
+hash tables and its parallelism could all be wrong without affecting the theorem, because only its output is
+used, and the output is verified from scratch by programs that share no code with it. We describe the
+search because a reader who wants to reproduce or extend the computation will need to know how a tree of
+this size was found.
+
+\subsubsection*{The basic recursion}
+The search is a depth-first evaluation of the definition of \WON{} (\cref{def:won}). A P-state is an AND
+node: it is proved when it satisfies $\LEAF(B,F,t)$, or when $t<\Rmax$, $\LOST$ is false, and its child~(a)
+and all its non-\VOID{} threat children~(c) and danger children~(d) are proved. A Q-state is an OR node over
+the table move $m$; for a given $m$ both the child~(i) (the cell is empty and Breaker takes it) and, if
+unrevealed stones exist and the child is not \VOID, the child~(ii) (the cell turns out to be occupied and is
+revealed) have to be proved. Every state is replaced by its canonical form (\cref{lem:canon}) when it is
+entered, and results are stored in a transposition table keyed by the canonical state, so that each
+symmetry class is treated once. At a P-state the leaf test comes first; it is preceded by a cheap
+screen (the total surplus of all live lines is compared with $\theta=t-|F|$) and is performed with the
+max-flow procedure of \cref{alg:leaf}.
+
+\subsubsection*{Candidate moves at Q-states}
+For the Q-state $\Qst(B,F,t)$ the candidate table moves are ordered as follows. Let
+$\Busy$ denote the set of busy cells (\cref{def:busy}). Call a set $B'\subseteq\Busy$ of size $k\in\{8,9\}$
+\emph{good} if $\LEAF(B',\emptyset,k)$ holds; the good sets are known in advance (\cref{ssec:leaftable}).
+\begin{enumerate}[label=(\arabic*),leftmargin=2.2em]
+\item Busy cells $m\notin B\cup F$ are sorted by: first, whether $\Pst(B\cup\{m\},F,t)$ is immediately a
+  leaf; second, whether $m$ is the antipode of a stone of $B$; third, the number of good $8$-sets that
+  contain $(B\cap\Busy)\cup\{m\}$ and avoid $F$, then the same number for good $9$-sets; fourth, the slack
+  of $B\cup\{m\}$ (\cref{def:slack}); ties are broken by the cell id.
+\item A second list contains cells that need not be busy. When the leaf test for $(B,F,t)$ fails, the
+  max-flow procedure returns a witness: a set $S$ of live lines that violates Hall's condition, or an
+  $F$-connected set $S$ with $\sur_F(S)<\theta$. The cells outside $B\cup F$ are ranked by the number of
+  lines of $S$ through them (then by the number of live lines through them), and the first six are kept.
+\item The final order is: immediate leaves first, then the two lists interleaved.
+\end{enumerate}
+Only the first $10$ candidates of this order are considered at all, and at most $4$ of them are examined in
+full (see below). These limits make the search incomplete: a failure of the search does not show that a
+state is not \WON.
+
+\subsubsection*{The relaxed pre-pass}
+The decisive device for speed is a \emph{relaxed game}: the same game without $\LOST$ and without the
+forced children (c) and (d), i.e.\ with the single child (a) at P-states. With the same candidate lists, a
+state that is \WON{} is also \WON{} in the relaxed game. The search therefore evaluates the relaxed game
+first (with its own entries in the transposition table) and uses it only to fail fast: a P-state whose
+relaxed version fails is abandoned, and a candidate move whose children (i) or (ii) fail in the relaxed
+game is skipped; at most $4$ candidates that survive this filter are tried in the real game. Inside the
+relaxed game a simple bound prunes further: a stone on a cell with $d$ live lines can raise the difference
+between the total surplus and $\theta$ by at most $2d-2$, so a deficit that the best $\Rmax-t$ remaining
+stones cannot close is hopeless. Relaxed results are never written out and can only produce failures.
+
+\subsubsection*{Other details}
+At an expanded P-state the forced children are searched before the child (a). The forced children of
+P-states on the main trunk are distributed over threads; the transposition table is shared and lock-free
+and stores $112$ hash bits per state. When the root has been proved, the proof tree is walked once more
+from the root and the Q-states with their moves and the leaves that occur in it are written to the two
+files. With the option \fn{--selfcheck} the program then reads the files back and re-expands the tree with
+a deliberately naive child generator.
+
+\subsubsection*{The run}
+The certificate was produced by
+\begin{verbatim}
+bin/search --rmax 10 --maxcand 4 --relcand 10 --nonbusy --threads 4 \
+           --out results/final --selfcheck
+\end{verbatim}
+in $57.9$ seconds of wall-clock time on a four-core machine (\cref{sec:repro}), with a peak memory of
+$601$\,MB, most of which is the fixed-size transposition table. The search expanded $49{,}397$ P-states
+and $96{,}487$ Q-states of the real game and $48{,}937$ and $97{,}478$ of the relaxed game, made
+$655{,}010$ leaf tests ($25.7$ CPU-seconds) and created $930{,}120$ table entries
+(\fn{results/final/stats.json}). Since $46{,}412$ of the $49{,}397$ expanded P-states belong to the final
+tree, the search does very little backtracking with this move ordering. The output is a deterministic
+function of the source code (library included) and of the options; a later run from scratch reproduced
+both files byte for byte (\cref{sec:repro}).
+
+\subsection{Size and shape of the tree}\label{ssec:shape}
+
+\Cref{tab:tree} lists the reachable states of the certificate by round. States are counted up to the
+$1{,}152$ symmetries, i.e.\ as canonical forms. A P-state of round $t$ is a position after $t$ complete
+rounds, with Maker to move; a Q-state of round $t$ is a position in which Maker has made his $t$-th
+move and Breaker is to choose a table move.
+
+\begin{table}[ht]
+\centering\small
+\begin{tabular}{@{}rrrrrrrr@{}}
+\toprule
+ & \multicolumn{3}{c}{P-states} & & \multicolumn{3}{c}{children entering round $t$}\\
+\cmidrule(lr){2-4}\cmidrule(l){6-8}
+$t$ & all & leaves & expanded & Q-states & threat (c) & danger (d) & \VOID{} (ii)\\
+\midrule
+ 0 & 1 & 0 & 1 & 0 & 0 & 0 & 0\\
+ 1 & 2 & 0 & 2 & 2 & 0 & 0 & 0\\
+ 2 & 5 & 0 & 5 & 5 & 0 & 0 & 0\\
+ 3 & 14 & 0 & 14 & 14 & 0 & 0 & 0\\
+ 4 & 35 & 0 & 35 & 35 & 0 & 0 & 0\\
+ 5 & 181 & 0 & 181 & 101 & 824 & 0 & 0\\
+ 6 & 1{,}718 & 0 & 1{,}718 & 446 & 4{,}075 & 0 & 1\\
+ 7 & 7{,}227 & 0 & 7{,}227 & 3{,}487 & 14{,}460 & 0 & 6\\
+ 8 & 34{,}801 & 3{,}382 & 31{,}419 & 14{,}362 & 47{,}020 & 20{,}416 & 54\\
+ 9 & 93{,}124 & 87{,}314 & 5{,}810 & 62{,}381 & 72{,}352 & 6{,}060 & 88\\
+10 & 16{,}027 & 16{,}027 & 0 & 12{,}331 & 4{,}767 & 1{,}799 & 2\\
+\midrule
+total & 153{,}135 & 106{,}723 & 46{,}412 & 93{,}164 & 143{,}498 & 28{,}275 & 151\\
+\bottomrule
+\end{tabular}
+\caption{The reachable set of the certificate by round $t$ (\fn{results/final/treecheck.json}; identical
+numbers from every verifier of \cref{tab:verifiers}). States are counted up to symmetry. The columns
+``threat'' and ``danger'' count the non-\VOID{} children of type (c) and (d) that are generated from the
+expanded P-states of round $t-1$, with repetitions (a child is counted every time it is generated, also when
+it is symmetric to a state reached in another way). The last column counts the children of type (ii) of
+Q-states of round $t$ that are \VOID{} and are therefore dropped.}
+\label{tab:tree}
+\end{table}
+
+In all, the reachable set has $246{,}299$ states. The following features can be read off.
+
+\begin{itemize}[leftmargin=1.6em]
+\item \emph{Depth.} All leaves occur after rounds $8$, $9$ and $10$: $3{,}382$, $87{,}314$ and $16{,}027$
+  of them. No P-state of round $10$ is expanded, as $\Rmax=10$ requires.
+\item \emph{Forced events.} A threat needs five Maker stones on a live line, so the first threat children
+  enter in round $5$; a danger pair needs eight stones, so the first danger children enter in round $8$.
+  Up to round $4$ the tree is tiny ($57$ P-states), and its growth afterwards is caused almost entirely by
+  the forced children: $143{,}498$ threat children and $28{,}275$ danger children are generated, against
+  $46{,}412$ children of type (a).
+\item \emph{\VOID{} children.} Exactly $151$ generated children are \VOID. All of them are children of type
+  (ii): the table move $m$ of a Q-state $\Qst(B,F,t)$ lies on a live line that already contains four
+  cells of $F$, so that $F\cup\{m\}$ is not $B$-admissible. (In real play this means that $m$ cannot be
+  occupied by an unrevealed stone, because Maker would then have had five stones on a live line and the
+  round would have been a threat round.) No child of type (c) or (d) is \VOID. Of the $93{,}164$ Q-states,
+  $54{,}482$ have $|F|<t$ and hence a child of type (ii).
+\item \emph{Unrevealed stones at the leaves.} \Cref{tab:leaf-theta} splits the leaves by
+  $\theta=t-|F|$, the number of Maker stones whose position the abstract state does not know and which the
+  leaf predicate must therefore withstand in every admissible position. For $60.8\%$ of the leaves
+  all Maker stones are revealed ($\theta=0$), and then $\LEAF(B,F,t)$ only asks for a pairing for $(B,F)$.
+  At the other extreme there is exactly one leaf with $\theta=8$: the state $\Pst(B,\emptyset,8)$ with $B$
+  in the orbit of the set $\Teight$ of \cref{ssec:leaftable}.
+\item \emph{Non-busy cells.} $434$ of the $93{,}164$ table moves are cells that are not busy: $16$, $399$,
+  $11$ and $8$ of them in rounds $7$, $8$, $9$ and $10$. All table moves of rounds $1$ to $6$ are busy
+  cells. (Breaker's stones on non-busy cells also arise from forced replies, which can be any cell: only
+  $15{,}794$ of the leaves have all Breaker stones on busy cells; $84{,}556$ have one stone on a non-busy
+  cell, $6{,}343$ have two, and $30$ have three.) \Cref{ssec:observations} explains why non-busy table moves
+  cannot be avoided.
+\end{itemize}
+
+\begin{table}[tbp]
+\centering\small
+\begin{tabular}{@{}rrrrrrrrrrr@{}}
+\toprule
+ & \multicolumn{9}{c}{$\theta=t-|F|$} & \\
+\cmidrule(lr){2-10}
+$t$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & total\\
+\midrule
+ 8 & 1{,}862 & 940 & 340 & 119 & 69 & 36 & 12 & 3 & 1 & 3{,}382\\
+ 9 & 53{,}397 & 26{,}291 & 6{,}102 & 1{,}189 & 260 & 63 & 11 & 1 & 0 & 87{,}314\\
+10 & 9{,}582 & 5{,}472 & 825 & 126 & 14 & 6 & 2 & 0 & 0 & 16{,}027\\
+\midrule
+total & 64{,}841 & 32{,}703 & 7{,}267 & 1{,}434 & 343 & 105 & 25 & 4 & 1 & 106{,}723\\
+\bottomrule
+\end{tabular}
+\caption{The leaves of the certificate by round $t$ and by the number $\theta$ of unrevealed Maker stones
+(recounted from \fn{results/final/leaves.txt}).}
+\label{tab:leaf-theta}
+\end{table}
+
+\subsection{The leaf table of busy sets}\label{ssec:leaftable}
+
+Before the search, the predicate $\LEAF(B,\emptyset,k)$ was evaluated for every set $B$ of $k$ busy
+cells, $k=8,9,10$, up to symmetry (\fn{src/leaftable.cpp}; results in
+\fn{results/leaftable/phi_k8.jsonl}, \fn{phi_k9.jsonl}, \fn{phi_k10.jsonl}). The value answers the
+question: if Breaker owns exactly the stones $B$ after round $k$ and nothing is known about Maker's $k$
+stones except that the position is admissible, can Breaker switch to a pairing strategy? Since $F=\emptyset$
+and $k\le 10$, \cref{prop:leaf-equals-C} shows that $\LEAF$ is here equivalent to the pairing certificate
+$\CC(B,\emptyset,k)$ itself, so the table is exact for that question. The result is in \cref{tab:leaftable}.
+
+\begin{table}[tbp]
+\centering\small
+\begin{tabular}{@{}rrrr@{}}
+\toprule
+$k$ & orbits of busy $k$-sets & of which $\slack(B)\ge k$ & of which $\LEAF(B,\emptyset,k)$\\
+\midrule
+ 8 & 1{,}057 & 6 & 6\\
+ 9 & 1{,}669 & 947 & 172\\
+10 & 2{,}468 & 2{,}185 & 0\\
+\bottomrule
+\end{tabular}
+\caption{The leaf table of busy sets (computed; exact integer max-flow). By \cref{cor:slack-necessary}
+the condition $\slack(B)\ge k$ is necessary for $\LEAF(B,\emptyset,k)$.}
+\label{tab:leaftable}
+\end{table}
+
+For $k=8$ the six orbits with $\LEAF$ are exactly the six orbits of slack $8$, which is the largest slack
+of a busy $8$-set. Their canonical representatives are
+\begin{align*}
+O_1&=\{(0,0,0),(0,0,5),(1,1,1),(1,4,1),(2,3,3),(3,2,2),(4,1,4),(5,5,0)\}, & |\G O_1|&=288,\\
+O_2&=\{(0,0,0),(0,0,5),(1,1,1),(1,4,1),(2,3,3),(3,2,2),(4,1,4),(5,5,5)\}, & |\G O_2|&=576,\\
+O_3&=\{(0,0,0),(0,0,5),(1,1,1),(1,4,1),(2,3,3),(3,2,2),(4,4,4),(5,5,5)\}, & |\G O_3|&=288,\\
+O_4&=\{(0,0,0),(0,0,5),(1,1,1),(2,3,2),(2,3,3),(3,2,2),(4,4,4),(5,5,0)\}, & |\G O_4|&=576,\\
+O_5&=\{(0,0,0),(0,0,5),(1,1,1),(2,3,2),(2,3,3),(3,2,2),(4,4,4),(5,5,5)\}, & |\G O_5|&=576,\\
+O_6&=\{(0,0,0),(0,0,5),(1,4,1),(2,3,3),(3,2,2),(4,1,4),(5,5,0),(5,5,5)\}, & |\G O_6|&=36,
+\end{align*}
+where $|\G O_i|$ is the size of the orbit; together the six orbits contain $2{,}340$ sets. Each $O_i$
+leaves exactly $100$ of the $148$ lines alive. The set $O_6$ is the canonical form of
+\[
+\Teight=\{(0,0,0),(5,5,5),\,(1,1,4),(4,4,1),\,(2,3,2),(3,2,3),\,(5,0,0),(0,5,5)\}
+\]
+of \cref{ex:T8}; it is the only one of the six that consists of four antipodal pairs (one pair on each
+space diagonal), the other five contain three antipodal pairs. For $k=9$ the $172$ orbits with $\LEAF$
+contain $83{,}904$ sets. For $k=10$ no busy set qualifies. This is proved in \cref{prop:busy10}: every
+set of ten busy cells leaves a triangle of live lines, which can absorb $4+3+3=10$ admissible Maker
+stones; the computation confirms it ($0$ of the $2{,}468$ orbits satisfy $\LEAF$).
+
+The leaf table is not used by the proof. It guides the move ordering of the search (the ``good'' sets
+of \cref{ssec:search}), it explains the shape of the tree --- Breaker steers toward one of the six orbits
+when he can, and the earliest leaves appear after round $8$ --- and its values serve as test vectors
+(\cref{sec:formats}). The numbers of orbits ($527$ for $k=7$ and the three values in the table) were
+obtained both by Burnside's lemma and by direct enumeration.
+
+\subsection{Computed observations about the search space}\label{ssec:observations}
+
+The following two observations were obtained with the search program alone. They are \emph{not} verified
+by an independent program, they are not used anywhere in the proof, and we record them only because they
+explain two features of the certificate.
+
+\subsubsection*{Busy cells alone do not suffice for $\Rmax\le 10$}
+It is natural to restrict Breaker's table moves to the $24$ busy cells, each of which lies on seven
+lines. With this restriction the root is not \WON{} for $\Rmax=10$, and hence for no smaller $\Rmax$ (a
+valid certificate for $\Rmax$ is valid for every larger value). In fact already the relaxed game of
+\cref{ssec:search}, in which Maker never forces, fails; for this run the search tried \emph{all} busy cells
+outside $B\cup F$ at every Q-state, so within the relaxed game with busy table moves the result is
+exhaustive:
+\begin{verbatim}
+bin/search --rmax 10 --maxcand 4 --relcand 24      (no --nonbusy)
+\end{verbatim}
+reports failure after visiting $12{,}437$ relaxed P-states and $14{,}196$ relaxed Q-states ($14$ to $22$
+seconds; we repeated the run for this paper and obtained the same counts).
+
+The obstruction is easy to describe. In the failing branch Maker's revealed stones are the four corners
+of a face, for instance $F=\{(5,0,0),(5,0,5),(5,5,0),(5,5,5)\}$ in the face $x=5$. The $14$ lines that lie
+inside a face ($6$ rows, $6$ columns and $2$ diagonals) can only be killed by a Breaker stone inside that
+face, and the only busy cells of a face are its four corners. As long as Breaker plays busy cells, the set
+$S$ of these $14$ lines therefore stays alive; it is $F$-connected, and
+\[
+\sur_F(S)=|\N(S)\setminus F|-2|S| = (36-4)-28 = 4 .
+\]
+By the definition of $\LEAF$ (\cref{def:leaf}), a leaf with these revealed stones needs
+$\sur_F(S)\ge\theta=t-4$, i.e.\ $t\le 8$; and by round $8$ Breaker has not reached a leaf in this branch
+either. (In the final position of the failing branch, after round $10$, the max-flow procedure indeed
+returns exactly these $14$ lines as its witness, with surplus $4<\theta=6$.) This is why the search was run
+with the option \fn{--nonbusy} and why $434$ table moves of the certificate are non-busy cells. For
+$\Rmax=11$ the search with busy cells also failed, but with only $8$ candidates per state, which is not
+exhaustive. Whether busy table moves suffice for some larger $\Rmax$ is open.
+
+\subsubsection*{$\Rmax=9$ was not achieved}
+With non-busy moves allowed and $\Rmax=9$ the search fails, both with the candidate limits of the
+certified run and with up to $6$ candidates per state (options \texttt{-{}-rmax 9 -{}-maxcand 6 -{}-relcand 16 -{}-nbextra 10 -{}-nonbusy};
+$128$ seconds). The failing branch is a double threat: Maker makes a first threat that is answered in round
+$5$ and a second one, through a stone of the first line, that is answered in round $9$; the resulting P-state
+of round $9$ is not a leaf. Since the candidate lists are truncated, this does not show that the root is not
+\WON{} for $\Rmax=9$. Whether $\Rmax=9$ suffices is open; the theorem does not depend on it.
+
+\subsection{The first rounds of the strategy}\label{ssec:walk}
+
+To give an impression of what the certified strategy does, \cref{tab:opening} lists all table entries of
+rounds $1$ to $3$, translated from cell ids to coordinates. Each entry is written in the canonical frame of
+its own state, so the frame changes from line to line; in real play the move is translated back with the
+symmetry that carries the real position to its canonical form (\cref{def:sigma}).
+
+\begin{table}[ht]
+\centering\footnotesize
+\begin{tabular}[t]{@{}clll@{}}
+\toprule
+$t$ & $B$ & $F$ & move\\
+\midrule
+1 & $\emptyset$ & $\emptyset$ & $(0,0,0)$\\
+1 & $\emptyset$ & $(0,0,0)$ & $(1,1,1)$\\
+\midrule
+2 & $(0,0,0)$ & $\emptyset$ & $(5,5,5)$\\
+2 & $(0,0,0)$ & $(1,1,1)$ & $(5,5,5)$\\
+2 & $(0,0,0)$ & $(5,5,5)$ & $(1,1,4)$\\
+2 & $(0,0,0)$ & $(1,1,1),(5,5,5)$ & $(1,1,4)$\\
+2 & $(0,0,0)$ & $(1,1,4),(5,5,5)$ & $(1,4,4)$\\
+\midrule
+3 & $(0,0,0),(5,5,5)$ & $\emptyset$ & $(1,1,4)$\\
+3 & $(0,0,0),(5,5,5)$ & $(1,1,1)$ & $(1,1,4)$\\
+3 & $(0,0,0),(5,5,5)$ & $(1,1,4)$ & $(2,2,3)$\\
+3 & $(0,0,0),(5,5,5)$ & $(1,1,1),(1,1,4)$ & $(1,4,1)$\\
+\bottomrule
+\end{tabular}\hfill
+\begin{tabular}[t]{@{}clll@{}}
+\toprule
+$t$ & $B$ & $F$ & move\\
+\midrule
+3 & $(0,0,0),(5,5,5)$ & $(1,1,4),(2,2,3)$ & $(1,4,4)$\\
+3 & $(0,0,0),(5,5,5)$ & $(1,1,1),(1,1,4),(1,4,1)$ & $(1,4,4)$\\
+3 & $(0,0,0),(5,5,5)$ & $(1,1,4),(1,4,4),(2,2,3)$ & $(1,4,1)$\\
+3 & $(0,0,0),(1,1,4)$ & $(4,4,1)$ & $(5,5,5)$\\
+3 & $(0,0,0),(1,1,4)$ & $(0,0,5),(4,4,1)$ & $(5,5,5)$\\
+3 & $(0,0,0),(1,1,4)$ & $(0,5,0),(4,4,1)$ & $(5,5,5)$\\
+3 & $(0,0,0),(1,1,4)$ & $(4,4,1),(5,5,5)$ & $(0,5,5)$\\
+3 & $(0,0,0),(1,1,4)$ & $(0,0,5),(4,4,1),(5,5,5)$ & $(0,5,5)$\\
+3 & $(0,0,0),(1,1,4)$ & $(0,5,0),(4,4,1),(5,5,5)$ & $(0,5,5)$\\
+3 & $(0,0,0),(1,1,4)$ & $(0,5,5),(4,4,1),(5,5,5)$ & $(5,0,5)$\\
+\bottomrule
+\end{tabular}
+\caption{All $2+5+14$ entries of the strategy table for rounds $t=1,2,3$, in coordinates: Breaker's stones
+$B$, the revealed Maker stones $F$, and the table move. All these table moves are busy cells.}
+\label{tab:opening}
+\end{table}
+
+The pattern in these lines is simple. Breaker opens in a corner. As long as nothing is revealed he
+completes antipodal pairs of busy cells: the answer to $B=\{(0,0,0)\}$ is the antipode $(5,5,5)$, and in
+round $4$ the entry for $B=\{(0,0,0),(1,1,4),(4,4,1)\}$, $F=\emptyset$ is again $(5,5,5)$. When the wanted
+cell is occupied, the stone found there is revealed and Breaker turns to another busy cell: the entry
+for $B=\{(0,0,0)\}$, $F=\{(5,5,5)\}$ is $(1,1,4)$, and if that cell is occupied as well, the entry for
+$F=\{(1,1,4),(5,5,5)\}$ is $(1,4,4)$. The $35$ entries of round $4$ continue in the same way; for instance,
+for $B=\{(0,0,0),(1,1,4),(4,4,1)\}$ the moves for $F=\{(5,5,5)\}$, $F=\{(2,3,2),(5,5,5)\}$ and
+$F=\{(0,5,5),(2,3,2),(5,0,5),(5,5,5)\}$ are $(2,3,2)$, $(5,0,5)$ and $(0,0,5)$.
+
+\subsubsection*{Two complete lines of play}
+We followed the table from the root in two extreme scenarios, translating every move back to one fixed
+frame. (The choice of the symmetry is not unique when the position has a non-trivial stabilizer; other
+choices give symmetric lines.)
+
+\emph{Line A: nothing is ever revealed.} Suppose that no threat and no danger pair occurs and that every
+cell Breaker wants is empty, so that the play always follows child (i). Then Breaker plays, in rounds $1$
+to $8$,
+\[
+(0,0,0),\ (5,5,5),\ (1,1,4),\ (4,4,1),\ (2,3,2),\ (3,2,3),\ (0,5,5),\ (5,0,0),
+\]
+i.e.\ four antipodal pairs, one on each space diagonal. After round $8$ his stones are exactly the set
+$\Teight$, and the P-state $\Pst(\Teight,\emptyset,8)$ is the unique leaf with $\theta=8$; in canonical
+form it is the line ``\texttt{8 0,5,61,93,122,154,210,215 -}'' of the leaf file. From round $9$ on
+Breaker plays a pairing strategy; $\LEAF(\Teight,\emptyset,8)$ guarantees that a pairing exists whatever
+admissible position Maker's eight unrevealed stones occupy (\cref{thm:leaf-implies-C}).
+
+\emph{Line B: every wanted cell is occupied.} Suppose instead that, in every round, the first cell Breaker
+wants is occupied by an unrevealed Maker stone (child (ii)), after which all Maker stones are revealed and
+the second cell is free. Then Breaker first tries $(0,0,0)$, finds it occupied and plays $(1,1,1)$; in
+each of the rounds $2$ to $9$ he first tries the antipode of the stone he placed in the round before, finds
+it occupied, and plays elsewhere. His stones are, in order,
+\[
+(1,1,1),\ (5,0,0),\ (0,0,5),\ (0,5,0),\ (1,4,4),\ (4,4,1),\ (3,3,2),\ (2,3,3),\ (2,2,2),
+\]
+and the revealed Maker stones are $(0,0,0)$ and the antipodes of the first eight of them. After round $9$
+the state is a leaf with $\theta=0$ (it is the last line of the leaf file); Breaker's nine stones have
+slack $9$, and since all nine Maker stones are revealed, the leaf condition only requires a pairing for this
+one position. So even when Maker ``steals'' every cell that Breaker wants, the strategy reaches a pairing
+position one round later than in Line A.
+
+Between these extremes lie the branches with forced events. A threat reveals the five Maker stones of the
+threatening line and a danger pair the eight stones of its two lines, and either costs Breaker a move on a
+cell he did not choose; the certificate then continues from the corresponding child of type (c) or (d).
+All these branches end in a leaf after round $10$ at the latest.

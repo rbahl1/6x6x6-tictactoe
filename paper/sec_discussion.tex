@@ -1,0 +1,375 @@
+% sec_discussion.tex -- Section 9: the 7x7x7 board, remarks and open problems
+\section{The \texorpdfstring{$7\times7\times7$}{7x7x7} board, remarks and open
+problems}\label{sec:discussion}
+
+\subsection{The \texorpdfstring{$7\times7\times7$}{7x7x7} board}\label{ssec:seven}
+
+\Cref{thm:main} implies the corresponding statement for the board of side~$7$. This statement was first
+proved, in a preprint, by Cain, Raymond and K\"allersj\"o~\cite{CainRaymondKallersjo2025}, by a direct computation on
+the $7\times7\times7$ board in which pairings are computed for about $3.5\cdot 10^7$ positions. The
+proof given here derives it from \cref{thm:main} by an argument that can be checked without a computer. It rests
+on the decomposition of a board of odd side by its mid-planes, which Golomb and Hales use in the proof
+of~\cite[Theorem~3]{GolombHales2002}.
+
+The $7\times7\times7$ board is $\Qseven=\{0,\dots,6\}^3$. Its lines are defined as in \cref{ssec:lines}:
+a \emph{parametrization} is a triple $f=(f_1,f_2,f_3)$ of maps $\{0,\dots,6\}\to\{0,\dots,6\}$, each of
+which is constant, the identity or the reversal $\rho_7\colon i\mapsto 6-i$, and which are not all
+constant; a component that is not constant is called \emph{active}; and the line of $f$ is
+$\ell(f)=\{f(t):0\le t\le 6\}$. It consists of seven distinct cells, because an active component is
+injective, and $\ell(f\circ\rho_7)=\ell(f)$. Exactly one of the parametrizations $f$ and $f\circ\rho_7$
+has the identity as its first active component; we call it \emph{normalized}. A line determines its
+normalized parametrization $f$: the constant components of $f$ and their values are given by the
+coordinates in which all cells of the line agree, and $f(t)$ is the cell of the line whose coordinate in
+the position of the first active component is $t$. Hence every line has exactly two parametrizations, and
+the number of lines is $(9^3-7^3)/2=193$, in accordance with~\cite[Theorem~1]{GolombHales2002}; this number
+is not used below.
+Let
+\[
+  M=\{c\in\Qseven : c_i=3 \text{ for some } i\},\qquad A=\Qseven\setminus M=\{0,1,2,4,5,6\}^3 .
+\]
+Thus $M$ is the union of the three mid-planes, $|A|=216$ and $|M|=343-216=127$. Let $\varphi$ be the
+increasing bijection from $\{0,1,2,4,5,6\}$ onto $\{0,\dots,5\}$, that is, $\varphi(i)=i$ for $i\le 2$
+and $\varphi(i)=i-1$ for $i\ge 4$, and let
+\[
+  \iota\colon A\to\Q,\qquad \iota(c)=(\varphi(c_1),\varphi(c_2),\varphi(c_3)).
+\]
+Note that $\varphi(6-i)=5-\varphi(i)$ for all $i\ne 3$.
+
+\begin{lemma}[Mid-plane decomposition]\label{lem:seven-decomp}
+Let $f$ be a parametrization of a line of $\Qseven$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item If some component of $f$ is the constant map with value $3$, then $\ell(f)\subseteq M$.
+\item Otherwise $\ell(f)\cap M=\{f(3)\}$, and $\iota(\ell(f)\cap A)$ is a line of the $6\times6\times6$
+      board~$\Q$.
+\item Every line of $\Q$ is equal to $\iota(l\cap A)$ for exactly one line $l$ of $\Qseven$.
+\item The lines of $\Qseven$ that are contained in $M$ are the lines listed in
+      \cref{tab:seven-pairing}, and the $45$ entries of the table are $45$ different lines.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) is clear. (b) Suppose that no component of $f$ is the constant $3$. An active component takes the
+value $3$ for $t=3$ and for no other $t$, and at least one component is active. Hence $f(t)\in M$ if and
+only if $t=3$. For $t\ne 3$ put $t'=\varphi(t)$, which runs through $\{0,\dots,5\}$. The $i$-th
+coordinate of $\iota(f(t))$ is $\varphi(v)$ if $f_i$ is the constant $v$, it is $\varphi(t)=t'$ if $f_i$ is
+the identity, and it is $\varphi(6-t)=5-t'$ if $f_i=\rho_7$. So $\iota(\ell(f)\cap A)=\ell(f')$, where $f'$
+is the parametrization, in the sense of \cref{ssec:lines}, that arises from $f$ by replacing every
+constant $v$ by $\varphi(v)$, the identity by the identity, and $\rho_7$ by $\rho$.
+
+(c) The map $f\mapsto f'$ is a bijection from the parametrizations of $\Qseven$ without a constant
+component $3$ onto the parametrizations of $\Q$, and $(f\circ\rho_7)'=f'\circ\rho$. So every line of
+$\Q$ arises as in (b). If $\ell(f')=\ell(g')$, then $g'\in\{f',f'\circ\rho\}$ by
+\cref{lem:geometry}\,(a); hence $g\in\{f,f\circ\rho_7\}$ and $\ell(g)=\ell(f)$. A line $\ell(g)$ as in
+(a) does not occur here, because $\ell(g)\cap A=\emptyset$.
+
+(d) By (a) and (b) a line is contained in $M$ if and only if it has a parametrization with a constant
+component $3$. Since $\ell(f)=\ell(f\circ\rho_7)$, we may assume that the first active component of $f$
+is the identity. If exactly one component is active, the other two are constants $v,w$ with $v=3$ or
+$w=3$, which gives $13$ triples for each of the three positions of the active component. If two
+components are active, the third is the constant $3$ and the second active component is the identity
+or $\rho_7$, which gives two triples for each of the three positions of the constant. These are the
+$39+6=45$ triples in the first, third and fifth column of \cref{tab:seven-pairing}, where a triple is
+written as its value at $t$. They are normalized parametrizations, so different triples give different
+lines.
+\end{proof}
+
+By (b), (c) and (d), $148$ lines of $\Qseven$ meet $A$ in a line of the $6\times6\times6$ board and $45$
+lines lie in $M$; this agrees with the number $148+45=193$ of all lines.
+
+\begin{lemma}[A pairing for the mid-planes]\label{lem:seven-pairing}
+\Cref{tab:seven-pairing} assigns to every line $l\subseteq M$ a set $\pi(l)$ of two cells of
+$l$, and the $45$ sets $\pi(l)$ are pairwise disjoint.
+\end{lemma}
+
+\begin{proof}
+This can be checked directly in the table; the following description makes the check short. Let
+$\psi=\varphi^{-1}$, and read the indices $r,s\in\{0,\dots,5\}$ modulo $6$. In the mid-plane $z=3$ the
+table assigns
+\begin{itemize}
+\item to the line $\{(\psi(r),t,3)\}$ the cells $(\psi(r),\psi(r+1),3)$ and $(\psi(r),\psi(r+2),3)$;
+\item to the line $\{(t,\psi(s),3)\}$ the cells $(\psi(s+1),\psi(s),3)$ and $(\psi(s+2),\psi(s),3)$;
+\item to the diagonal $\{(t,t,3)\}$ the cells $(0,0,3)$ and $(6,6,3)$, and to the diagonal
+      $\{(t,6-t,3)\}$ the cells $(1,5,3)=(\psi(1),\psi(4),3)$ and $(5,1,3)=(\psi(4),\psi(1),3)$.
+\end{itemize}
+Each of these cells lies on the line to which it is assigned. For a cell $(\psi(r),\psi(s),3)$ consider
+the residue of $s-r$ modulo $6$: it is $1$ or $2$ for the cells of the first kind, $5$ or $4$ for those
+of the second kind, $0$ for the two cells of the first diagonal and $3$ for the two cells of the second
+one. So cells assigned to lines of different kinds are different. The two cells of a line of the first
+kind differ, and cells of different lines of the first kind have different values of $r$; likewise for
+the second kind. The four cells assigned to the diagonals are distinct. Hence the $28$ cells assigned
+in the plane $z=3$ are distinct. The assignments in the planes $y=3$ and $x=3$ are obtained from this
+one by moving the coordinate $3$ to the second and to the first position, respectively. All cells
+assigned so far have exactly one coordinate equal to $3$, so cells assigned in different mid-planes are
+different. Finally the three lines $\{(t,3,3)\}$, $\{(3,t,3)\}$, $\{(3,3,t)\}$ receive the cells with
+$t=0$ and $t=1$; these six cells are distinct and have two coordinates equal to $3$.
+\end{proof}
+
+\begin{corollary}[computer-assisted, via \cref{thm:main}]\label{cor:seven}
+In the Maker--Breaker game on the $193$ lines of the $7\times7\times7$ board, \Breaker, moving second,
+has a winning strategy: a strategy that prescribes an empty cell whenever \Breaker{} is to move and the
+board is not full, and under which \Maker{} never owns all seven cells of a line. Consequently, ordinary
+$7\times7\times7$ tic-tac-toe is a draw: each of the two players has a strategy with which this player
+never loses.
+\end{corollary}
+
+\begin{proof}
+By \cref{thm:main} there is a strategy $\sigma$ for \Breaker{} as the second player of the Maker--Breaker
+game on $\Q$ that prescribes an empty cell whenever \Breaker{} is to move and under which \Maker{} never
+owns all six cells of a line of $\Q$. We identify $A$ with $\Q$ by means of $\iota$, and we use the
+pairing $\pi$ of \cref{lem:seven-pairing}; the two cells of $\pi(l)$ are \emph{partners} of each
+other.
+
+\smallskip\noindent\emph{The strategy.} While playing on $\Qseven$, \Breaker{} keeps track of a
+\emph{virtual play} of the game on $A$, in which the virtual \Breaker{} follows $\sigma$. Initially no
+move has been made in the virtual play. Suppose that \Maker{} has just occupied a cell $x$ of $\Qseven$.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item If $x\in A$, the virtual \Maker{} occupies $x$, and the virtual \Breaker{} occupies the cell $w\in A$
+      that $\sigma$ prescribes. (After the move of the virtual \Maker{} an odd number of cells of $A$, hence
+      at most $215$, are occupied in the virtual position; so the virtual \Breaker{} is to move on a board
+      that is not full.) If $w$ is empty on the real board, \Breaker{} occupies $w$; otherwise \Breaker{}
+      makes a free move.
+\item If $x\in M$, the virtual play is not continued. If $x\in\pi(l)$ for a line $l\subseteq M$ and
+      the partner of $x$ is empty, \Breaker{} occupies the partner of $x$; otherwise \Breaker{} makes a free
+      move.
+\end{enumerate}
+A \emph{free move} is an arbitrary empty cell of $\Qseven$. If there is none, the board is full and the
+game is over.
+
+\smallskip\noindent\emph{The invariant.} We claim that the following holds whenever \Maker{} is to move.
+\begin{enumerate}[label=\textup{(J\arabic*)}]
+\item The virtual play is a play of the game on $A$ in which \Breaker{} has followed $\sigma$ and
+      \Maker{} is to move. The stones of the virtual \Maker{} are exactly the stones of \Maker{} in $A$,
+      and every stone of the virtual \Breaker{} is a stone of \Breaker.
+\item Every line $l\subseteq M$ contains a stone of \Breaker, or both cells of $\pi(l)$ are empty.
+\end{enumerate}
+Both statements hold at the beginning. Assume that they hold, and let \Maker{} occupy the cell $x$.
+
+Let $x\in A$. By (J1) every cell of $A$ that is occupied in the virtual position is occupied on the
+real board; so $x$ is empty in the virtual position, and the move of the virtual \Maker{} is legal. By
+\cref{thm:main} the cell $w$ prescribed by $\sigma$ is empty in the virtual position. In particular $w$
+is not a stone of \Maker: the stones of \Maker{} in $A$, including $x$, are the stones of the virtual
+\Maker. Hence, if $w$ is not empty on the real board, it holds a stone of \Breaker. In either case $w$ is
+a stone of \Breaker{} after the reply, and the reply adds no stone of \Maker. So (J1) holds again.
+
+Let $x\in M$. Then the virtual play and the stones of \Maker{} in $A$ are unchanged, and the reply of
+\Breaker{} adds at most a stone of \Breaker{} in $A$; so (J1) holds again.
+
+For (J2) let $l\subseteq M$ and let $z$ be the reply of \Breaker{} (if the board is full after the
+move $x$, there is nothing to show). If $l$ contained a stone of \Breaker, it still does. Otherwise
+both cells of $\pi(l)$ were empty. If $x\in\pi(l)$, then $x\in M$ and the partner of $x$ is empty,
+so $z$ is this partner, and $l$ now contains the stone $z$ of \Breaker. If $x\notin\pi(l)$, then
+either $z\in\pi(l)\subseteq l$, and $l$ contains a stone of \Breaker, or both cells of
+$\pi(l)$ are still empty.
+
+\smallskip\noindent\emph{\Maker{} never owns a line.} The strategy prescribes an empty cell whenever
+\Breaker{} is to move and the board is not full. Suppose that after some move $x$ of \Maker{} all seven
+cells of a line $l$ of $\Qseven$ are stones of \Maker. If $l\subseteq M$, then $l$ contains no
+stone of \Breaker, so by (J2), applied just before the move $x$, both cells of $\pi(l)$ were empty at
+that moment; but only the cell $x$ of $l$ was empty then. If $l\not\subseteq M$, then by
+\cref{lem:seven-decomp}\,(b) the six cells of $l\cap A$ form a line of $A=\Q$. By (J1), applied just
+before the move $x$, and by rule (i) if $x\in A$, these six cells are stones of the virtual \Maker{} in
+a play in which \Breaker{} follows $\sigma$. This contradicts the choice of $\sigma$.
+
+\smallskip\noindent\emph{The ordinary game.} The ordinary game on $\Qseven$ is a game as in
+\cref{prop:stealing}. If the second player follows the strategy just described, the first player never
+owns a line; so the second player has a strategy with which this player never loses, and the first
+player has no winning strategy. The second player has no winning strategy by \cref{prop:stealing}. As in
+the proof of \cref{cor:draw}, it follows from the determinacy of finite games with perfect information,
+usually attributed to Zermelo~\cite{Zermelo1913}, that the first player also has a strategy with which
+this player never loses.
+\end{proof}
+
+\begin{remark}\label{rem:seven}
+(i) The free moves in the proof are the reason for the virtual play. For instance, the set $M$ has an
+odd number of cells; when \Maker{} occupies its last empty cell and the board is not full, \Breaker{}
+has to place a stone in $A$ that $\sigma$ has not asked for. The invariant (J1) expresses the well-known fact that an additional stone never
+harms \Breaker: the virtual play ignores such a stone until $\sigma$ prescribes its cell, and \Maker{}
+can never occupy it.
+
+(ii) The proof uses \cref{thm:main} only through its statement, and \cref{lem:seven-decomp,lem:seven-pairing}
+are proved in the text, without a computation. They were also checked by a short program of the archive, the script
+\mbox{\fn{scripts/check_7cube_midplanes.py}}. It enumerates the $193$ lines, confirms that each
+has exactly two parametrizations, and checks the statements (b) and (c) of \cref{lem:seven-decomp} and that
+exactly $45$ lines are contained in $M$. It then reads \cref{tab:seven-pairing} from the source file of
+\cref{sec:seven-pairing} and checks the table as printed: its $45$ entries are $45$ different lines, namely
+the lines contained in $M$; the two cells listed for a line lie on this line; the $90$ cells are pairwise
+different; and the rule in the proof of \cref{lem:seven-pairing} reproduces every entry. (The program also
+finds some pairing of the $45$ lines by bipartite matching; this confirms only that a pairing exists.) The
+pairing of \cref{tab:seven-pairing} consists of a pairing of the $14$ lines of a $6\times6$ board, used in
+each of the three mid-planes, and of two cells on each of the three axis lines through the center.
+
+(iii) The outcomes for different $n$ are not known to be monotone. Golomb and
+Hales~\cite[Section~8]{GolombHales2002} state two hypotheses: that a draw on the board $n^d$ implies a draw
+on the board $n^{d-1}$, and that it implies a draw on the board $(n+1)^d$. They prove that for even $n$ the
+first hypothesis implies the second~\cite[Theorem~3]{GolombHales2002}; their proof uses the decomposition of
+the board $(n+1)^d$ by its mid-planes, the second player always replying in the sub-board in which the
+first player has just moved. The proof of \cref{cor:seven} is this argument, carried out for the
+Maker--Breaker game with $n=6$ and $d=3$: the sub-boards $6^2$ and $6^1$ in the mid-planes are handled by the
+explicit pairing of \cref{tab:seven-pairing}, and the free moves of \Breaker{} are treated explicitly. What
+it establishes is the implication for \Breaker's win: if \Breaker{} wins the Maker--Breaker game on the
+$6\times6\times6$ board as the second player, then \Breaker{} wins it on the $7\times7\times7$ board. It does
+not show that a draw of the ordinary game on the $6\times6\times6$ board implies a draw on the
+$7\times7\times7$ board, and it gives no information on the $5\times5\times5$ board.
+\end{remark}
+
+\subsection{Remarks}\label{ssec:remarks}
+
+\subsubsection*{A Strong Draw that is not a pairing draw}
+\Cref{thm:main} asserts more than a draw of the ordinary game: \Breaker{} wins the Maker--Breaker game as
+the second player, which is a Strong Draw in the terminology of Beck~\cite{Beck2008}. On the other hand
+the draw cannot be obtained by a pairing strategy, since no pairing exists on the empty board; by
+\cref{prop:seven} a pairing strategy cannot even take over before \Breaker's seventh move. The
+$6\times6\times6$ game thus belongs to the region in which Golomb and Hales placed it conjecturally:
+the second player can force a draw, but not by a pairing strategy~\cite[Table~1]{GolombHales2002}. By
+\cref{cor:seven} the same holds for the $7\times7\times7$ game.
+
+\subsubsection*{The Erd\H{o}s--Selfridge criterion}
+By the theorem of Erd\H{o}s and Selfridge~\cite{ErdosSelfridge1973}, in the form stated
+in~\cite[Theorem~4.2]{Krivelevich2014}, \Breaker{} wins a Maker--Breaker game as the second player if the
+winning sets $W$ satisfy $\sum_W 2^{-|W|}<1/2$. For the $6\times6\times6$ board the sum is
+$148/64=2.3125$, so the criterion does not apply. Neither does its variant for winning sets of equal size
+$k$ in which every cell lies in at most $\Delta$ of them, which requires that the number of winning
+sets plus $\Delta$ is less than $2^k$ (quoted from the preprint~\cite[Theorem~6.1]{CainRaymondKallersjo2025}): here
+$148+7=155\ge 64$. The sums for the boards of
+side $5$ and $7$ are $109/32$ and $193/128$, also larger than $1/2$.
+
+\subsubsection*{The shape of the certificate}
+The shape of the certificate reflects the course of the game; the numbers are given in
+\cref{ssec:shape}. During the first four rounds \Maker{} cannot force anything, and the tree is tiny. From
+round $5$ on \Maker{} can have five stones on a line, and from round $8$ on a danger pair; the growth of
+the tree is caused almost entirely by these forced events (\cref{tab:tree}). This is the difference from
+the $7\times7\times7$ board, where the pairing takes over before any forced event can occur. Here a
+pairing cannot exist before \Breaker's seventh stone, and every valid certificate needs at least eight
+rounds (\cref{prop:rmax8} below); in our certificate all leaves occur after rounds $8$, $9$ and $10$.
+
+\begin{proposition}[A lower bound for $\Rmax$]\label{prop:rmax8}
+If the root of the abstract game is \WON{} for $\Rmax$, then $\Rmax\ge 8$.
+\end{proposition}
+
+\begin{proof}
+We follow the branch of the abstract game in which nothing is revealed. Let $\Pst(B,\emptyset,t)$ be a
+P-state that is \WON; it is not \VOID. If it does not satisfy (P1) of \cref{def:won}, then $t<\Rmax$ and
+its child \textup{(a)}, the state $\Qst(B,\emptyset,t+1)$, is \WON, since it is not \VOID. So there is
+a table move $m$ for which the child \textup{(i)}, the state $\Pst(B+m,\emptyset,t+1)$, is \WON.
+Starting from the root we obtain in this way \WON{} states $\Pst(B_t,\emptyset,t)$ for $t=0,1,\dots$,
+until a state $\Pst(B,\emptyset,t)$ with $t\le\Rmax$ and $|B|=t$ satisfies (P1), that is,
+$\LEAF(B,\emptyset,t)$ holds. We show that $t\ge 8$.
+
+Suppose that $t\le 7$. By (L2) there is a pairing for $(B,\emptyset)$, so $t=|B|=7$ by
+\cref{prop:seven}. At least $148-49$ lines are live, so \cref{cor:slack-necessary} applies and gives
+$\slack(B)\ge 7$, that is, $209-2\,|\live{B}|\ge 7$: at most $101$ lines are live, and at least $47$ lines
+contain a cell of $B$. However, seven cells meet at most $46$ lines. If a cell of $B$ is not busy, it lies on
+at most four lines (\cref{lem:degree}), and the cells of $B$ meet at most $6\cdot 7+4=46$ lines. If all
+cells of $B$ are busy, three of them have the same level. Any two of these three are collinear
+(\cref{lem:busy}\,(c)), and the three lines so obtained are distinct, because no line contains three
+busy cells of the same level (\cref{lem:busy}\,(a),~(b)). Each of these three lines is counted at least
+twice among the $7\cdot 7$ incidences of a cell of $B$ with a line, so the cells of $B$ meet at most
+$49-3=46$ lines. This is a contradiction.
+\end{proof}
+
+\subsubsection*{$\LEAF$ versus $\CC$}
+What \Breaker{} needs at a leaf is the statement $\CC(B,F,t)$: a pairing exists for every admissible
+placement of the unrevealed stones. The certificate uses the stronger condition $\LEAF(B,F,t)$, for
+three reasons. It is decided by a small number of exact augmenting-path computations
+(\cref{alg:leaf}), whereas $\CC$ quantifies over all admissible sets and was decided in our
+cross-checks by enumeration, by branch and bound or by an integer program, at a much higher cost. A positive
+answer comes with explicit assignments, which serve as witnesses from which the surplus condition can be
+read off (\cref{rem:true-cert}). Finally, $\LEAF$ is monotone in all its arguments by a short argument
+(\cref{prop:leaf-monotone}), whereas $\CC$ is monotone in \Breaker's stones only for admissible $F$
+(\cref{prop:C-monotone}). The price is that $\LEAF$ is not necessary for $\CC$. The two conditions
+agree, for admissible $F$, when all stones are revealed, and when none is revealed and $t\le 10$
+(\cref{rem:leaf}, \cref{prop:leaf-equals-C}), but they differ in general (\cref{ex:C-not-leaf}; further
+instances were found in the cross-checks of \cref{ssec:cross}). A certificate built on $\CC$ could
+therefore be smaller than ours. For the leaves with at most three unrevealed stones the cross-checks
+confirm $\CC(B,F,t)$ directly (\cref{tab:leaves}).
+
+\subsection{Open problems and limitations}\label{ssec:open}
+
+\subsubsection*{The \texorpdfstring{$5\times5\times5$}{5x5x5} board}
+Whether the first player wins $5\times5\times5$ tic-tac-toe remains open; it is conjectured to be a
+draw~\cite{Beck2008,GolombHales2002}. We have not attempted it. The board has $109$ lines and only
+$125$ cells, its center lies on $13$ lines, a threat needs only four stones, and \Breaker{} needs at
+least nine stones before a pairing can exist (computed; \cref{ssec:fmt-minstones}). Cain, Raymond and
+K\"allersj\"o remark that their matching approach is not feasible for this
+board~\cite{CainRaymondKallersjo2025}. We do not know whether the method of the present paper,
+with definitions adapted to lines of five cells, leads to a certificate of manageable size.
+
+\subsubsection*{The number of rounds}
+In our certificate \Breaker{} plays from the table for at most ten rounds. By \cref{prop:rmax8} at least
+eight rounds are necessary. Whether the root is \WON{} for $\Rmax=8$ or $\Rmax=9$ is not settled: for
+$\Rmax=9$ the search failed, but with truncated lists of candidate moves, so that the failure proves
+nothing (\cref{ssec:observations}).
+
+\subsubsection*{Busy cells}
+The $24$ cells on the space diagonals lie on seven lines each, and all table moves of the first six
+rounds are such cells. It would be natural to restrict the table to them. A run of the search program
+indicates that this is impossible for $\Rmax\le 10$; the obstruction is the set of
+$14$ lines in a face of the cube (\cref{ssec:observations}). This statement rests on a single program
+and on a pruning bound that is not proved in this paper, and it has not been verified independently.
+Whether the table moves of \Breaker{} can be restricted to busy cells
+for some larger $\Rmax$ is open.
+
+\subsubsection*{The size of a certificate}
+The certificate was not optimized: its $93{,}164$ table entries and $106{,}723$ leaves are what the
+heuristic search happened to produce. We do not know how small a valid certificate
+can be, for $\Rmax=10$ or for larger $\Rmax$, nor how much would be gained by replacing $\LEAF$ by
+$\CC$ or by revealing stones in a different way (\cref{rem:eager}).
+
+\subsubsection*{Formal verification}
+The proof of \cref{thm:main} has not been formally verified; its trusted base is described in
+\cref{ssec:trust}. Our
+safeguard is redundancy: separately written implementations, audits and cross-checks, all of them produced
+with AI-based tools (see the Declarations below). A formalization of
+\cref{sec:board,sec:pairing,sec:leaf,sec:game} in a proof assistant, together with a formally verified
+checker for \cref{fact:H}, would remove both the written proofs and the programs from the trusted base.
+The checker is small, about $700$ lines in the simplest implementations of \cref{tab:verifiers}, and
+the certificate is processed in seconds by a compiled program, so this seems a realistic project.
+
+\section*{Declarations}
+
+\subsection*{Use of AI-based tools}
+This work was carried out with AI-based software agents
+([name and version of the tools, to be supplied by the authors]),
+directed by the author(s). The agents wrote all programs of the supplementary archive,
+among them the search program and all verifiers, ran the computations, drafted the proofs of
+\cref{sec:board,sec:pairing,sec:leaf,sec:game,sec:discussion} and of the appendices, searched the
+literature and drafted the manuscript. The internal review mentioned in
+\cref{ssec:intro-nature,ssec:fact,ssec:impl,ssec:audits,sec:repro} (the audits, the mutation experiments
+and the two re-expansions of \cref{tab:verifiers}) was carried out by such agents as well, in sessions
+separate from those that produced the material under review. The same holds for the internal refereeing
+of the first version of this manuscript, first mentioned in \cref{ssec:intro-nature}: its five reports and the three programs of
+\cref{tab:verifiers} that were written from the text of the paper were produced by agents in separate
+sessions, and the session that wrote the verifier listed there as ``replication'' was given only the PDF
+of the paper, a text extraction of it and the two certificate files.
+
+Throughout the paper, ``independently written'' means: written in a separate session, from the written
+specification or from the text of this paper, without access to the source code of the other programs.
+Independence in this sense does not exclude a common misreading of the specification by programs that
+were produced with tools of the same kind. Against such a misreading stand the precise statement of the
+verification algorithms in \cref{sec:verification}, the agreement, among the independently written programs of \cref{tab:verifiers}, of the numbers of
+states in every round and, among those of them that report the children by round, of the numbers of
+children in every round (\fn{verify/spotcheck.py} reports the children in total only; \cref{ssec:impl}),
+the comparisons with brute force (\cref{ssec:audits}), the verifier
+that was written from the PDF of the paper alone, and the possibility for every reader to write a
+verifier from this paper (\cref{ssec:own}).
+
+[statement of what the author(s) checked personally, to be supplied by the authors]
+The author(s) take full responsibility for the content of the paper.
+
+\subsection*{Data and code availability}
+The certificate (two text files), the source code of all programs, the scripts that reproduce the
+computation, and the outputs or the logs of the runs reported in
+\cref{sec:certificate,sec:verification,sec:repro} and in the appendices are contained in the
+supplementary archive \fn{ttt6-artifact.tar.gz} described in \cref{sec:repro}; every file named in this
+paper is part of it. The archive contains this paper, so its own checksum cannot be printed here; its
+file \fn{MANIFEST.sha256} lists the checksums of all other files.
+The archive is available at
+[DOI / repository URL to be added].
+License of the programs, of the certificate and of the other data files:
+[license to be chosen by the authors].
+The
+SHA-256 checksums of the two certificate files are given in \cref{ssec:intro-artifact}.
+
+\subsection*{Authors, acknowledgments, funding, competing interests}
+[Author names and affiliations, acknowledgments, funding information and a statement on competing
+interests, to be supplied by the authors]

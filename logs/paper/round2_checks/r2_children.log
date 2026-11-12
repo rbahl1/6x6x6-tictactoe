@@ -1,0 +1,12 @@
+(a) fails: F = (l-e) u (l'-e), t = |F| = 10: the pairs (l,e), (l',e) define the same child, revealed set F   ok
+(b) fails: |F cap a| = |F cap a1| = 4, |F cap b| = 0, t = 8: 0 children ({a,b},F cap a,Q_b) = ({a1,b},F cap a1,Q_b) ok
+(b) fails: |F cap a| = |F cap a1| = 4, |F cap b| = 0, t = 10: 0 children ({a,b},F cap a,Q_b) = ({a1,b},F cap a1,Q_b) ok
+(b) fails: |F cap a| = |F cap a1| = 4, |F cap b| = 0, t = 11: 5 children ({a,b},F cap a,Q_b) = ({a1,b},F cap a1,Q_b) ok
+(b) fails: |F cap a| = |F cap a1| = 4, |F cap b| = 0, t = 12: 5 children ({a,b},F cap a,Q_b) = ({a1,b},F cap a1,Q_b) ok
+(b) fails: |F cap a| = |F cap a1| = 4, |F cap b| = 1, t = 9: 0 children ({a,b},F cap a,Q_b) = ({a1,b},F cap a1,Q_b) ok
+(b) fails: |F cap a| = |F cap a1| = 4, |F cap b| = 1, t = 11: 4 children ({a,b},F cap a,Q_b) = ({a1,b},F cap a1,Q_b) ok
+(b) fails: |F cap a| = |F cap a1| = 4, |F cap b| = 1, t = 12: 4 children ({a,b},F cap a,Q_b) = ({a1,b},F cap a1,Q_b) ok
+(b) fails: |F cap a| = |F cap a1| = 4, |F cap b| = 1, t = 13: 4 children ({a,b},F cap a,Q_b) = ({a1,b},F cap a1,Q_b) ok
+(c) fails: F = (l-c) u 4 cells of a u 4 cells of b, t = |F| = 13: child (c) of (l,c) = child (d) of ({a,b},F cap a,F cap b) ok
+(c) fails: F = (l-c) u 4 cells of a u 4 cells of b, t = |F| = 13: child (c) of (l,c) = child (d) of ({a,b},F cap a,F cap b) ok
+ALL OK

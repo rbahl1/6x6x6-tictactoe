@@ -1,0 +1,54 @@
+
+== build ==
+PASS  build
+
+== self-tests of every program ==
+PASS  geom_selftest
+PASS  test_canon
+PASS  test_core
+PASS  treecheck_selftest
+PASS  sim_selftest
+PASS  spotcheck_selftest
+PASS  search_lost_selftest
+
+== regression 1: minimum number of SP stones for a pairing, n = 5..8 (expected 9, 7, 3, 0) ==
+PASS  minstones
+
+== leaf table by exact max-flow: LEAF(B, empty, |B|) for every orbit of busy sets, |B| = 8, 9, 10 ==
+PASS  leaftable_k8
+PASS  leaftable_k9
+PASS  leaftable_k10
+PASS  leaftable_merge
+k=8 summary: orbits 1057, slack >= k: 6, LEAF(B,-,k) true: 6
+k=9 summary: orbits 1669, slack >= k: 947, LEAF(B,-,k) true: 172
+k=10 summary: orbits 2468, slack >= k: 2185, LEAF(B,-,k) true: 0
+
+== AND-OR search: root of the tree of SPEC section 4, R_max = 10 (about 1 CPU-minute) ==
+PASS  search
+PASS  tree identical to results/final
+
+== independent verification of the whole tree (verify/treecheck.cpp, exact keys, validated flows) ==
+PASS  treecheck
+
+== third implementation (verify/spotcheck.py, pure Python), exhaustive mode ==
+PASS  spotcheck_full
+
+== leaf cross-checks ==
+PASS  leaf_instances
+PASS  leafcheck_all_leaves
+PASS  leafcheck_perturbed
+PASS  enum_theta0
+PASS  enum_theta1
+PASS  enum_theta2
+PASS  enum_theta3
+
+== simulator (sim/sim.cpp): SP plays the strategy against 20000 games of mixed adversaries ==
+PASS  sim_smoke
+PASS  sim_mix
+
+== summary ==
+search   : proved = True  P-states 153135  Q-states 93164  leaves 106723
+treecheck: ok = True  states 246299  leaves checked 106723  errors 0
+spotcheck: ok = True  P expanded 46412  Q checked 93164  leaves recomputed 106723
+simulator: games 20000  FP lines 0  holes 0  pairing failures 0  admissibility failures 0
+ALL STEPS PASSED

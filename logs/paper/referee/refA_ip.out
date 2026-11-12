@@ -1,0 +1,9 @@
+T8 model: variables 616  constraints 1605 {'n': 600, 'xn': 208, 'k': 1, 'cap': 100, 'q': 100, 'danger': 596}  (paper: 616 variables, 1,605 constraints, 596 of type (14))
+Running HiGHS 1.16.0 (git hash: f3f113d): Copyright (c) 2026 under MIT licence terms
+Includes third-party software components, see THIRD_PARTY_NOTICES.md for full details
+Prop B.1 on small instances: {'n': 150, 'infeasible': 26, 'equal': 150, 'diff': 0, 'pos': 0}
+Prop B.1 on dense instances: {'n': 200, 'equal': 200, 'diff': 0, 'pos': 28, 'hist': {0: 172, 1: 22, 2: 6}}
+worst(0,0,0) = 80  worst(0,0,1) = 81  (paper: 80, 81)
+worst(T7,0,7) = 6 (paper: 6);  worst(T8,0,9) = 1 (paper: 1)
+IP ALL OK  (26.9 s)
+exit 0

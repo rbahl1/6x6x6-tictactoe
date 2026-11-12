@@ -1,0 +1,46 @@
+# Re-checks for Sections 2-4 and Appendix C.1 (author A).  2026-11-12T15:49Z
+## python3 logs/paper/secA_check1.py
+lines: 148 by number of active coordinates: [108, 36, 4]
+degrees: {3: 48, 4: 144, 7: 24} incidences 888 = 148*6 = 888
+busy cells: 24, each on 3 axis lines, 3 face diagonals, 1 space diagonal; space diagonals closed under antipodes: ok
+triples (pi,r,s): 2304 distinct maps: 1152
+group: 1152 line-preserving bijections; inverses in G; generated group of 6 generators equals the set: ok
+T7 cells [0, 46, 92, 123, 169, 180, 215] killed 44 live 104 slack 1 collinear pairs 5 pairing True | all live lines: connected True cover 209 cells, sur 1
+T8 cells [0, 35, 46, 92, 123, 169, 180, 215] killed 48 live 100 slack 8 collinear pairs 8 pairing True | all live lines: connected True cover 208 cells, sur 8
+counting bound: 6 stones leave >= 106 live lines, need 212 cells, have 210
+LEAF(T8,-,8) = (True, 0)  LEAF(T8,-,9) = (False, 3)  LEAF(T7,-,7) = (False, 3)
+X9 admissible for T8: True  pairing for (T8,X9): False ; any 2 cells admissible for T7, e.g. True pairing: False
+connected triples of the empty board: 25176 {'triangle': 1464, 'star': 1464, 'path': 22248} inadmissible 4+3+3 placements: 0
+lines without busy cell: 72 (all axis lines: True )
+face diagonals that form a triangle with two busy-free lines: 36 of 36
+explicit (diagonal,row,column) triangles checked: 432 = 36*12 = 432
+example: |N(T)| = 16, L(B) = T: True  sur(T) = 10  LEAF(B,-,11) = (False, 3)  LEAF(B,-,10) = (True, 0)
+example: admissible subsets of N(T): 45292  largest: 10  Hall violations: 0
+appendix counterexample: line [0, 1, 2, 3, 4, 5] b = 0  F admissible for {}: False  for {b}: True  live lines for {b}: 141  free cells: 210  pairing for ({b},F): False
+ALL CHECKS PASSED
+
+## python3 logs/paper/secA_check2.py
+busy cells per line: space 6, face diagonal 2, axis 0 or 2; busy-free axis lines: 72
+two busy cells are collinear iff same level or same space diagonal: ok
+slack(B) = 13|B| - 80 - 2p(B) for busy sets with at most two stones on each space diagonal: ok
+g(antipode(c)) = antipode(g(c)), g(K) = K: ok on 200 maps
+admissible <=> Hall for |S| <= 2: [1338, 4662] (inadmissible, admissible) instances
+mu(U) by augmentation = brute-force minimum, witness closed with sur = mu, line by line, quick rejection, Phi = min over triples: {'inst': 400, 'sets': 4800, 'linebyline': 4800, 'quick': 1595}
+ALL CHECKS PASSED (part 2)
+
+## bin/phicheck on (k B F) = (8,T8,-), (9,T8,-), (1,T7,-), (2,T7,-)   [witness S printed as its number of lines]
+{'k': 8, 'B': '0,35,46,92,123,169,180,215', 'F': '-', 'leaf': True, 'reason': 0, 'sur': 8, 'S': 0}
+{'k': 9, 'B': '0,35,46,92,123,169,180,215', 'F': '-', 'leaf': False, 'reason': 3, 'sur': 8, 'S': 100}
+{'k': 1, 'B': '0,46,92,123,169,180,215', 'F': '-', 'leaf': True, 'reason': 0, 'sur': 1, 'S': 0}
+{'k': 2, 'B': '0,46,92,123,169,180,215', 'F': '-', 'leaf': False, 'reason': 3, 'sur': 1, 'S': 104}
+
+## bin/treecheck --leafcheck on the same four instances
+{"k":8,"B":"0,35,46,92,123,169,180,215","F":"-","leaf":true,"reason":0}
+{"k":9,"B":"0,35,46,92,123,169,180,215","F":"-","leaf":false,"reason":3}
+{"k":1,"B":"0,46,92,123,169,180,215","F":"-","leaf":true,"reason":0}
+{"k":2,"B":"0,46,92,123,169,180,215","F":"-","leaf":false,"reason":3}
+leafcheck: 4 instances (0 malformed), 4 LEAF evaluations in 0.082 s (20493.1 us each), 45458 BFS, 0 single / 0 pair / 5652 triple flows
+
+## python3 logs/paper/secA_check3.py
+construction of the appendix proof executed literally: {'inst': 60000, 'trivial': 28550, 'l0D5': 11476, 'l0D4': 19974, 'eps1': 4608, 'a0inS': 2362, 'notBadm': 21785, 'D5': 13270, 'F4': 17342} tries 69050
+ALL CHECKS PASSED (part 3)

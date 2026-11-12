@@ -1,0 +1,11 @@
+treecheck selftest (quick)
+[ok]   geometry                     (0.4 s) 148 lines = 108+36+4, 24 busy cells on 7 lines, 1152 line-preserving maps closed under composition/inverse
+[ok]   canonical form / hashing     (0.2 s) 600 random states vs brute force, invariance, visited-set model check
+[ok]   admissibility                (0.0 s) 2000 random (B,X) vs literal reference (1149 admissible), hand-made cases
+[ok]   LEAF regression (SPEC 8)     (0.3 s) LEAF(T7,-,7)=F(reason 3) LEAF(T8,-,8)=T LEAF(T8,-,9)=F(reason 3) LEAF(T8,{h},8)=T for 16/16 item5=T item6: r8=F(reason 2) r9=T r10=T item7=T/F(reason 3)
+[ok]   LEAF vs exhaustive subsets   (0.5 s) 1498 instances with <= 16 live lines, every k up to the exact threshold + 1: 12428 evaluations, reasons 0/1/2/3 = 9388/1655/400/985; min surplus 0/1/2/3/4/5/6/>=7: 35/46/52/45/72/85/121/631
+[ok]   LEAF vs unpruned flows       (5.7 s) 40 mid-size instances, k at the exact threshold, above and below: 215 evaluations, reasons 0/1/2/3 = 175/0/0/40; threshold value 0..10,>=11: 2/2/1/0/1/8/6/11/6/3/0/0; true verdicts using single flows 66, triple flows 38
+[ok]   LOST                         (12.2 s) hand-built E2/E3 + near misses; 120 random states vs literal reference: E2 fits 46, E3 fits 37 (E3 only 12), none 62; unpruned E3 reference on 100, crudely pruned reference on all
+[ok]   children (a),(c),(d)         (1.3 s) 150 random P-states vs literal reference (267077 children in total, max 18362), hand counts
+[ok]   tree expansion               (20.3 s)  A:P=1,Q=0,leaves=1,void=0,maxt=8(no non-LEAF inner P-state for the bogus-leaf test)(3/3 mutations rejected) B:P=296,Q=6,leaves=295,void=0,maxt=10(no non-LEAF inner P-state for the bogus-leaf test)(10/10 mutations rejected) C:P=3,Q=2,leaves=2,void=0,maxt=9(no non-LEAF inner P-state for the bogus-leaf test)(9/9 mutations rejected) D:P=1845,Q=620,leaves=1646,void=0,maxt=9(11/11 mutations rejected) G:P=323,Q=37,leaves=306,void=23,maxt=9(11/11 mutations rejected) H:P=201,Q=6,leaves=200,void=20,maxt=9(no non-LEAF inner P-state for the bogus-leaf test)(10/10 mutations rejected) | leaves re-checked by the unpruned reference in --crosscheck runs: 36
+selftest: ALL PASSED (0 failures, 40.9 s)

@@ -1,0 +1,2 @@
+loaded 92775 table lines (92775 distinct, 0 conflicting duplicates), 106681 leaf lines (106681 distinct) in 0.4 s
+2000 games, 0 bugs (fp_lines 0, holes 0, pairing 0, admissibility 0, illegal 0), 14225.1 games/s

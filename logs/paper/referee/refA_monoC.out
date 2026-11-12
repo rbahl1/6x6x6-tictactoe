@@ -1,0 +1,6 @@
+Prop C.1 (b): all 888 pairs (l, b): F not 0-admissible, F {b}-admissible, 2|L({b})| > 210; matching confirms "no pairing" on 23 sampled cases
+   after phase 1 (sparse): {'instances': 120, 'C_true': 120, 'C_false': 0, 'b_tested': 360, 'X_new_adm': 197674, 'X_not_B_adm': 250, 'constructions': 198174, 'claim_fail': 0, 'statement_fail': 0, 'stmt_checked_on_new_X': 250}
+Prop C.1 (a): {'instances': 700, 'C_true': 664, 'C_false': 36, 'b_tested': 940, 'X_new_adm': 969715, 'X_not_B_adm': 59925, 'constructions': 1089565, 'claim_fail': 0, 'statement_fail': 0, 'stmt_checked_on_new_X': 39104}
+   cases of the construction met: [('case l0 in D4, eps=0, a0 in S: -', 288954), ('case l0 in D4, eps=1, a0 in S: False', 2948), ('case l0 in D4, eps=1, a0 in S: True', 1544), ('case l0 in D5, eps=0, a0 in S: -', 136227), ('trivial', 659892)]
+MONOC ALL OK  (35.6 s)
+exit 0

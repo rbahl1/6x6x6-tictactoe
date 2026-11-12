@@ -1,0 +1,16 @@
+k=8 merge: 1 shard files, 1057 lines, 1057 orbit representatives; missing 0, extra (non-representative) 0, conflicting duplicates 0, unparsable lines 0 -> results/repro/leaftable/phi_k8.jsonl
+k=8 summary: orbits 1057, slack >= k: 6, LEAF(B,-,k) true: 6
+k=8 slack histogram (slack: orbits / LEAF true):  -32: 1/0  -20: 2/0  -12: 14/0  -10: 19/0  -8: 29/0  -6: 38/0  -4: 77/0  -2: 87/0  0: 202/0  2: 285/0  4: 224/0  6: 73/0  8: 6/6
+  LEAF-true k=8: B=0,5,43,61,93,122,154,210  = (0,0,0) (0,0,5) (1,1,1) (1,4,1) (2,3,3) (3,2,2) (4,1,4) (5,5,0)
+  LEAF-true k=8: B=0,5,43,61,93,122,154,215  = (0,0,0) (0,0,5) (1,1,1) (1,4,1) (2,3,3) (3,2,2) (4,1,4) (5,5,5)
+  LEAF-true k=8: B=0,5,43,61,93,122,172,215  = (0,0,0) (0,0,5) (1,1,1) (1,4,1) (2,3,3) (3,2,2) (4,4,4) (5,5,5)
+  LEAF-true k=8: B=0,5,43,92,93,122,172,210  = (0,0,0) (0,0,5) (1,1,1) (2,3,2) (2,3,3) (3,2,2) (4,4,4) (5,5,0)
+  LEAF-true k=8: B=0,5,43,92,93,122,172,215  = (0,0,0) (0,0,5) (1,1,1) (2,3,2) (2,3,3) (3,2,2) (4,4,4) (5,5,5)
+  LEAF-true k=8: B=0,5,61,93,122,154,210,215  = (0,0,0) (0,0,5) (1,4,1) (2,3,3) (3,2,2) (4,1,4) (5,5,0) (5,5,5)
+k=8 sanity: canonical form of T8 = 0,5,61,93,122,154,210,215 = (0,0,0) (0,0,5) (1,4,1) (2,3,3) (3,2,2) (4,1,4) (5,5,0) (5,5,5), slack 8, in the LEAF-true list: yes
+k=9 merge: 1 shard files, 1669 lines, 1669 orbit representatives; missing 0, extra (non-representative) 0, conflicting duplicates 0, unparsable lines 0 -> results/repro/leaftable/phi_k9.jsonl
+k=9 summary: orbits 1669, slack >= k: 947, LEAF(B,-,k) true: 172
+k=9 slack histogram (slack: orbits / LEAF true):  -21: 1/0  -11: 4/0  -9: 6/0  -5: 14/0  -3: 22/0  -1: 68/0  1: 40/0  3: 76/0  5: 206/0  7: 285/0  9: 436/29  11: 369/63  13: 127/65  15: 15/15
+k=10 merge: 1 shard files, 2468 lines, 2468 orbit representatives; missing 0, extra (non-representative) 0, conflicting duplicates 0, unparsable lines 0 -> results/repro/leaftable/phi_k10.jsonl
+k=10 summary: orbits 2468, slack >= k: 2185, LEAF(B,-,k) true: 0
+k=10 slack histogram (slack: orbits / LEAF true):  -12: 2/0  -10: 3/0  -4: 5/0  -2: 3/0  0: 22/0  2: 38/0  4: 23/0  6: 48/0  8: 139/0  10: 159/0  12: 281/0  14: 512/0  16: 634/0  18: 441/0  20: 143/0  22: 15/0

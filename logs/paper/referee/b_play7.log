@@ -1,0 +1,25 @@
+Maker random    free random   extra_in_A=1289 free_after_M=1648 games=50 partner_taken=279 w_already_Breaker=661
+Maker random    free first    extra_in_A=1342 free_after_M=1661 games=50 partner_taken=145 w_already_Breaker=434
+Maker random    free preferA  extra_in_A=2248 free_after_M=1686 games=50 partner_taken=23 w_already_Breaker=740
+Maker random    free preferM  extra_in_A=26 free_after_M=1596 games=50 partner_taken=421 w_already_Breaker=26
+Maker greedy    free random   extra_in_A=1371 free_after_M=1636 games=50 partner_taken=244 w_already_Breaker=645
+Maker greedy    free first    extra_in_A=1396 free_after_M=1643 games=50 partner_taken=115 w_already_Breaker=456
+Maker greedy    free preferA  extra_in_A=2362 free_after_M=1713 games=50 partner_taken=13 w_already_Breaker=766
+Maker greedy    free preferM  extra_in_A=25 free_after_M=1570 games=50 partner_taken=371 w_already_Breaker=25
+Maker Mfirst    free random   extra_in_A=2921 free_after_M=2200 games=50 partner_taken=458 w_already_Breaker=1401
+Maker Mfirst    free first    extra_in_A=2339 free_after_M=2119 games=50 partner_taken=291 w_already_Breaker=783
+Maker Mfirst    free preferA  extra_in_A=3382 free_after_M=1850 games=50 partner_taken=0 w_already_Breaker=1582
+Maker Mfirst    free preferM  extra_in_A=169 free_after_M=2403 games=50 partner_taken=808 w_already_Breaker=169
+Maker Afirst    free random   extra_in_A=0 free_after_M=1554 games=50 partner_taken=390 w_already_Breaker=0
+Maker Afirst    free first    extra_in_A=0 free_after_M=1547 games=50 partner_taken=284 w_already_Breaker=0
+Maker Afirst    free preferA  extra_in_A=0 free_after_M=1599 games=50 partner_taken=423 w_already_Breaker=0
+Maker Afirst    free preferM  extra_in_A=0 free_after_M=1571 games=50 partner_taken=415 w_already_Breaker=0
+Maker alternate free random   extra_in_A=2414 free_after_M=2129 games=50 partner_taken=398 w_already_Breaker=1194
+Maker alternate free first    extra_in_A=2069 free_after_M=2030 games=50 partner_taken=234 w_already_Breaker=681
+Maker alternate free preferA  extra_in_A=3275 free_after_M=1851 games=50 partner_taken=6 w_already_Breaker=1475
+Maker alternate free preferM  extra_in_A=31 free_after_M=2155 games=50 partner_taken=628 w_already_Breaker=31
+all assertions passed; 51.0 s
+
+real	0m52.288s
+user	0m51.545s
+sys	0m0.072s

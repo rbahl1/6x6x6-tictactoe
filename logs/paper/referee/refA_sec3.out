@@ -1,0 +1,19 @@
+T7 : live lines 104  dead 44  slack 1  collinear pairs p = 5  formula 148-7|B|+p = 104  13|B|-80-2p = 1
+   pairing for (T7, empty) found and checked against Def 3.1 (two methods); live lines cover 209 cells; connected: True ; sur(all live lines) = 1
+T8 : live lines 100  dead 48  slack 8  collinear pairs p = 8  formula 148-7|B|+p = 100  13|B|-80-2p = 8
+   pairing for (T8, empty) found and checked against Def 3.1 (two methods); live lines cover 208 cells; connected: True ; sur(all live lines) = 8
+lines through (0,5,5) already dead w.r.t. T7: 3 [[(0, 0, 0)], [(5, 0, 0)], [(5, 5, 5)]]
+LEAF(T8, empty, 8) by Algorithm 2 (literal): (True, '')
+LEAF(T8, empty, 9) by Algorithm 2 (literal): (False, 'L3')
+LEAF(T7, empty, 1) by Algorithm 2 (literal): (True, '')
+LEAF(T7, empty, 2) by Algorithm 2 (literal): (False, 'L3')
+collinear pairs of busy cells: 132
+Lemma 3.7: sets satisfying the hypothesis: 234256  violations of |L(B)| = 148-7|B|+p(B): 0  (sets excluded by the hypothesis: 16542960 )
+   the hypothesis is needed: the formula fails e.g. for [(0, 0, 0), (1, 1, 1), (2, 2, 2)]
+busy 8-sets by slack: [(-32, 3), (-20, 384), (-12, 3744), (-10, 5976), (-8, 8424), (-6, 16128), (-4, 55602), (-2, 65352), (0, 163026), (2, 226656), (4, 148056), (6, 39780), (8, 2340)]
+max number of lines met by 7 busy cells: 44
+Prop 3.6: 20000 random sets with |B|<=6, largest slack seen -8 (bound -2)
+Lemma 3.3(a),(b), 3.5: instances 1500 with pairing 1448 : max assignment = 2|L|-delta, pairing iff delta=0 (brute force over all S)
+Lemma 3.2: 300 games from (T8, X), X random admissible 8-sets: a pairing always existed, Breaker always had a move, Maker never completed a line
+SEC3 ALL OK
+exit 0

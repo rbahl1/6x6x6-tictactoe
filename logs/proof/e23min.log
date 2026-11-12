@@ -1,0 +1,7 @@
+E2: 5152320 patterns (l,a,b,e,S_a,S_b); distinct stones:  11: 562176  12: 4590144
+E3: 353422080 patterns (a,a',b,b' ordered, with stone sets); distinct stones:  13: 10948608  14: 67627008  15: 274846464
+minimum number of distinct stones: E2 11, E3 13
+
+real	0m11.676s
+user	0m4.615s
+sys	0m0.000s

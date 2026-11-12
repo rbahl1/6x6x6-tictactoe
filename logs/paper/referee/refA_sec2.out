@@ -1,0 +1,19 @@
+lines 148 axis/face/space = 108 36 4
+max |a cap b| over distinct lines = 1
+parametrizations: 296, every line has exactly two; line set equals the walk-generated set
+Cor 2.2: mismatches over all 23220 pairs = 0 ; collinear pairs = 2220
+Lemma 2.3: (number of distinct levels, degree) -> cells: [((1, 7), 24), ((2, 4), 144), ((3, 3), 48)]
+Lemma 2.5(b): axis lines without busy cell = 72
+Lemma 2.5(c): mismatches over busy pairs = 0
+|H| = 48  triples (s,r,pi) = 2304  distinct maps |G| = 1152
+every g in G: bijection, maps lines onto lines of the same kind, preserves busy cells, commutes with antipode
+closure: 20000 random products in G, all 1152 inverses in G
+orbits of G on cells: sizes [24, 48, 144] representatives [0, 1, 8]
+order of Section 2.5: total, transitive (random test), equals lexicographic order of sorted lists for equal sizes
+canon(T7,-) = [0, 5, 61, 93, 122, 154, 210]  (paper, App. A.2: 0,5,61,93,122,154,210)
+canon(T8,-) = [0, 5, 61, 93, 122, 154, 210, 215]  (paper: 0,5,61,93,122,154,210,215)
+canon({43},{0}) = ([0], [43])  (paper: 0 | 43)
+canon(4th vector) = ([0, 35, 43, 64, 86, 93, 123, 154, 210], [5, 30, 61, 122, 129, 151, 172, 180, 215])
+Lemma 2.8 (a),(b): 60 random instances ok
+SEC2 ALL OK
+exit 0

@@ -1,0 +1,17 @@
+# compiled programs (make bin/<name>)
+bin/
+# LaTeX intermediates (paper/paper.bbl is kept: journals ask for it)
+paper/build/
+paper/*.aux
+paper/*.blg
+paper/*.fdb_latexmk
+paper/*.fls
+paper/*.log
+paper/*.out
+paper/*.toc
+# output of scripts/reproduce.sh and of scripts/make_artifact.sh, caches
+results/repro/
+results/search_cache/
+dist/
+__pycache__/
+*.pyc

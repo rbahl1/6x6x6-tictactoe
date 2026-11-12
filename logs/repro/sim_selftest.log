@@ -1,0 +1,62 @@
+== sim self-test (seed 1); all timings are single-thread CPU time ==
+[A] geometry
+    lines 148 (axis 108, face 36, space 4), busy 24, maps 1152
+[B] canonical form
+    canon: 8.62 microseconds per call (20000 states, |B| 6..14 mostly busy, |F| 0..12) [chk 30548]
+    canon: 4.92 microseconds per call (20000 states, |B| 10..29 uniform cells, |F| 0..19)
+    naive reference: 60.7 microseconds per call [chk 47919]
+[C] pairing
+    random positions: 2247 of 3000 have a pairing, all valid
+    fast matcher vs plain Kuhn reference: 20000 positions, 11149 with a pairing, 0 disagreements
+    T8 + danger pair (8 stones): 14900 positions, 14900 without pairing (expected: all), 0 admissible
+    T8 + 30000 random admissible 8-stone X: all have a valid pairing; find_pairing 25.2 microseconds
+    T7 + 2000 random 7-stone X: 2000 admissible without pairing
+[D] threat, danger, admissibility
+    threat reply on 100 live lines x 6 cells, danger reply on 399 line pairs
+    4000 random heavy positions, 56 with a danger pair
+[E] end-to-end dry runs (synthetic table, B = image of T8, leaf at round 8)
+    18000 games (4 frames x 2 variants x 9 adversaries x 250), bugs 0, occupied reveals 9000 (expected 9000), leaf at round 8 in 18000, rejected openings 0, non-identity frames 8 of 8
+    PAIRING-mode speed, adversary random:    24842 games/s single thread (108.0 rounds per game)
+    PAIRING-mode speed, adversary greedy:     5100 games/s single thread (108.0 rounds per game)
+    PAIRING-mode speed, adversary steal :    22896 games/s single thread (108.0 rounds per game)
+    PAIRING-mode speed, adversary threat:     4474 games/s single thread (108.0 rounds per game)
+    PAIRING-mode speed, adversary search:     4212 games/s single thread (108.0 rounds per game)
+    PAIRING-mode speed, adversary danger:    10418 games/s single thread (108.0 rounds per game)
+    PAIRING-mode speed, adversary double:    10411 games/s single thread (108.0 rounds per game)
+    PAIRING-mode speed, adversary corner:    10141 games/s single thread (108.0 rounds per game)
+    PAIRING-mode speed, adversary tree  :    10377 games/s single thread (108.0 rounds per game)
+[E2] end-to-end with a threat (round 5) or a danger (round 8) before the leaf (round 9)
+    7200 games, bugs 0, threat events 3600, danger events 3600, leaf at round 9 in 7200, rejected openings 0, admissible leaf positions without pairing 0, danger scenarios skipped 0 of 4
+[F] free play and negative tests
+    free play random: 200 games, ended 174, holes 26, pairing_failures 0, admissibility 0, fp_lines 0, 27601 games/s, canon calls 24, cache hits 3290
+    free play greedy: 200 games, ended 0, holes 200, pairing_failures 0, admissibility 0, fp_lines 0, 55991 games/s, canon calls 135, cache hits 1801
+    free play steal : 200 games, ended 0, holes 200, pairing_failures 0, admissibility 0, fp_lines 0, 543675 games/s, canon calls 6, cache hits 966
+    free play threat: 200 games, ended 1, holes 199, pairing_failures 0, admissibility 0, fp_lines 0, 40650 games/s, canon calls 167, cache hits 1853
+    free play search: 200 games, ended 1, holes 199, pairing_failures 0, admissibility 0, fp_lines 0, 263 games/s, canon calls 128, cache hits 85537
+    free play danger: 200 games, ended 0, holes 200, pairing_failures 0, admissibility 0, fp_lines 0, 51406 games/s, canon calls 37, cache hits 2601
+    free play double: 200 games, ended 0, holes 200, pairing_failures 0, admissibility 0, fp_lines 0, 124618 games/s, canon calls 44, cache hits 3146
+    free play corner: 200 games, ended 0, holes 200, pairing_failures 0, admissibility 0, fp_lines 0, 115742 games/s, canon calls 80, cache hits 3612
+    free play tree  : 200 games, ended 0, holes 200, pairing_failures 0, admissibility 0, fp_lines 0, 61062 games/s, canon calls 75, cache hits 4214
+    missing entry: holes 300 of 300 games
+    bogus 7-stone leaf: pairing_failures 300 of 300 games (ended 0)
+[G] search adversary cost in TABLE mode (fake total policy, leaf forced at round 14)
+    depth 2 width 8: 0.70 ms per TABLE-mode decision (697 decisions, 11.6 TABLE rounds per game, 8.2 ms per game before the leaf, canon calls 1269, cache hits 60010)
+    depth 3 width 8: 2.73 ms per TABLE-mode decision (168 decisions, 11.2 TABLE rounds per game, 30.6 ms per game before the leaf, canon calls 502, cache hits 70611)
+[H] adversaries against a weak total policy (SP = smallest free busy cell in the canonical frame)
+    random: 100 games: FP wins in TABLE mode 0 (admissibility 0, fp_lines 0), pairing_failures at the forced leaf 0, completed 100, threat events 1, danger events 0, 0.3 ms per game
+    greedy: 100 games: FP wins in TABLE mode 0 (admissibility 0, fp_lines 0), pairing_failures at the forced leaf 0, completed 100, threat events 731, danger events 0, 0.5 ms per game
+    steal : 100 games: FP wins in TABLE mode 0 (admissibility 0, fp_lines 0), pairing_failures at the forced leaf 0, completed 100, threat events 202, danger events 0, 0.1 ms per game
+    threat: 100 games: FP wins in TABLE mode 0 (admissibility 0, fp_lines 0), pairing_failures at the forced leaf 0, completed 100, threat events 430, danger events 137, 0.7 ms per game
+    search: 100 games: FP wins in TABLE mode 100 (admissibility 100, fp_lines 0), pairing_failures at the forced leaf 0, completed 0, threat events 115, danger events 1, 7.9 ms per game
+    danger: 100 games: FP wins in TABLE mode 5 (admissibility 5, fp_lines 0), pairing_failures at the forced leaf 0, completed 95, threat events 299, danger events 170, 8.0 ms per game
+    double: 100 games: FP wins in TABLE mode 6 (admissibility 6, fp_lines 0), pairing_failures at the forced leaf 0, completed 94, threat events 567, danger events 42, 6.5 ms per game
+    corner: 100 games: FP wins in TABLE mode 3 (admissibility 3, fp_lines 0), pairing_failures at the forced leaf 3, completed 94, threat events 334, danger events 15, 6.9 ms per game
+    tree  : 100 games: FP wins in TABLE mode 17 (admissibility 17, fp_lines 0), pairing_failures at the forced leaf 2, completed 81, threat events 338, danger events 90, 15.4 ms per game
+[I] audit additions: exact store, illegal FP move, pairing invariant, final position, coverage marks, look-ahead bugs
+    pairing invariant: 98 live lines, positive and negative case each
+    leaf stress: (T8,{},8) 0 failures / 50 tests (expected 0), (T7,{},2) 50 failures / 50 tests (expected most)
+    danger vs weak policy: 200 games, threat events 69, danger events 195, occupied reveals 184, admissibility failures 0, pairing failures 57, 1.62 ms per game
+    double vs weak policy: 200 games, threat events 398, danger events 12, occupied reveals 117, admissibility failures 0, pairing failures 135, 0.97 ms per game
+    corner vs weak policy: 200 games, threat events 261, danger events 34, occupied reveals 811, admissibility failures 0, pairing failures 35, 1.85 ms per game
+    tree   vs weak policy: 200 games, threat events 313, danger events 67, occupied reveals 289, admissibility failures 4, pairing failures 109, 2.72 ms per game
+== self-test passed (0 failed checks, 17.1 s) ==

@@ -1,0 +1,64 @@
+== geometry ==
+  [ok] 148 lines = 108 axis + 36 face diagonals + 4 space diagonals (got 148=108+36+4)
+  [ok] cells on 7/4/3 lines: 24/144/48, 888 incidences
+  [ok] busy cells = cells on 7 lines = the 24 ids of Appendix A.1
+  [ok] 72 axis lines without busy cell (Lemma 2.5b)
+== group ==
+  [ok] |G| = 1152 (got 1152)
+  [ok] every g in G is a bijection mapping lines onto lines
+  [ok] G is closed under composition (all 1152^2 products)
+  [ok] 3 cell orbits with representatives (0,0,0),(0,0,1),(0,1,2), sizes 24/144/48
+== canonical form (Appendix A.2) ==
+  [ok] canon(43 | 0) = 0 | 43
+  [ok] canon(0,46,92,123,169,180,215 | -) = 0,5,61,93,122,154,210 | -
+  [ok] canon(0,35,46,92,123,169,180,215 | -) = 0,5,61,93,122,154,210,215 | -
+  [ok] canon(5,30,43,64,86,93,128,169,180 | 0,35,46,87,122,151,172,185,210) = 0,35,43,64,86,93,123,154,210 | 5,30,61,122,129,151,172,180,215
+  [ok] fast canon == literal canon and canon(gB,gF)=canon(B,F) on 300 random pairs
+== T7 / T8 (Examples 3.8, 3.9, Computed Facts 3.10, 4.23) ==
+  [ok] |L(T7)| = 104, slack(T7) = 1
+  [ok] |L(T8)| = 100, slack(T8) = 8
+  [ok] pairings for (T7,0) and (T8,0) exist
+  [ok] LEAF(T7,0,1) true, LEAF(T7,0,2) false (L3)
+  [ok] L(T7) is connected and covers all cells outside the set
+  [ok] L(T8) is connected and covers all cells outside the set
+== LEAF test vectors (Table 11) ==
+  [ok] 7 0,46,92,123,169,180,215 - -> false (3)
+  [ok] 8 0,35,46,92,123,169,180,215 - -> true
+  [ok] 9 0,35,46,92,123,169,180,215 - -> false (3)
+  [ok] 8 0,35,46,92,123,169,180,215 5 -> true
+  [ok] 8 0,35,46,92,123,169,180,215 30 -> true
+  [ok] 8 0,35,46,92,123,169,180,215 43 -> true
+  [ok] 8 0,35,46,92,123,169,180,215 61 -> true
+  [ok] 8 0,35,46,92,123,169,180,215 64 -> true
+  [ok] 8 0,35,46,92,123,169,180,215 86 -> true
+  [ok] 8 0,35,46,92,123,169,180,215 87 -> true
+  [ok] 8 0,35,46,92,123,169,180,215 93 -> true
+  [ok] 8 0,35,46,92,123,169,180,215 122 -> true
+  [ok] 8 0,35,46,92,123,169,180,215 128 -> true
+  [ok] 8 0,35,46,92,123,169,180,215 129 -> true
+  [ok] 8 0,35,46,92,123,169,180,215 151 -> true
+  [ok] 8 0,35,46,92,123,169,180,215 154 -> true
+  [ok] 8 0,35,46,92,123,169,180,215 172 -> true
+  [ok] 8 0,35,46,92,123,169,180,215 185 -> true
+  [ok] 8 0,35,46,92,123,169,180,215 210 -> true
+  [ok] 8 0,35,43,46,92,123,169,180 215 -> true
+  [ok] 8 0,5,35,43,46,61,86,92 123,129,169,172,180,210,215 -> false (2)
+  [ok] 9 0,5,35,43,46,61,86,87,92 123,129,154,169,172,180,210,215 -> true
+  [ok] 10 0,5,30,35,43,46,61,86,87,92 123,128,129,154,169,172,180,210,215 -> true
+  [ok] 9 0,8,35,46,92,123,169,180,215 44,80,116,152,188 -> true
+  [ok] 8 0,8,46,92,123,169,180,215 44,80,116,152,188 -> false (3)
+  [ok] 0 - - -> false (2)
+  [ok] Example 4.11: LEAF(B,0,11) false by (L3), LEAF(B,0,10) true
+== Algorithm 2 against the direct definition (Def. 4.7) on random small instances ==
+  [ok] 19995 instances (true/L1/L2/L3 = 16325/715/2/2953), mismatches: 0
+== LOST (Def. 5.2, Prop. 5.9, Appendix C.3 remark) on the empty record ==
+  LOST(0,0,t) pattern bits (1=E2, 2=E3): t=9:0 t=10:1 t=11:1 t=12:3
+  [ok] no pattern fits 10 stones (Prop. 5.9c)
+  [ok] E2 attains 11 stones; no E3 with 11 stones
+  [ok] an E3 pattern needs at least 13 stones on this board (stated in Sec. 5.6)
+
+ALL CHECKS PASSED (0 mismatches)
+
+real	0m16.483s
+user	0m16.338s
+sys	0m0.025s

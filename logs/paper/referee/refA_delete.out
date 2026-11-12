@@ -1,0 +1,3 @@
+deleting variant (as in treecheck.cpp) vs Definition 4.7 vs Algorithm 2 as printed: {'inst': 700, 'evals': 4200, 'true': 3476, 'false': 724, 'mismatch_def': 0, 'mismatch_alg2': 0, 'deleted': 9477, 'triple_flows': 953, 'lemma_checks': 9546}
+DELETE OK  (2.3 s)
+exit 0

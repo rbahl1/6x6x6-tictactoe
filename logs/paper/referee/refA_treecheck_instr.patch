@@ -1,0 +1,21 @@
+--- ../../../verify/treecheck.cpp	2026-11-12 06:57:02.821009021 +0000
++++ refA_treecheck_instr.cpp	2026-11-12 17:14:07.375257898 +0000
+@@ -779,8 +779,10 @@
+     }
+   }
+   // literal check of "flow for the source set src with gain q" (see the comment above)
++  mutable u64 nVal = 0, nValDel = 0, nValDelLines = 0;
+   void validateFlow(const uint8_t* src, int ns, int q) const {
+     int cnt[NLMAX];
++    { int nd = 0; for (int i = 0; i < nlive; i++) nd += deleted[live[i]]; if (ns > 0) { nVal++; if (nd) nValDel++; nValDelLines += nd; } }
+     memset(cnt, 0, sizeof cnt);
+     for (int c = 0; c < NC; c++) {
+       int o = owner[c];
+@@ -3826,6 +3828,7 @@
+   fprintf(stderr, "leafcheck: %llu instances (%llu malformed), %llu LEAF evaluations in %.3f s (%.1f us each), %llu BFS, %llu single / %llu pair / %llu triple flows\n",
+           (unsigned long long)n, (unsigned long long)bad, (unsigned long long)lc.nCalls, dt, lc.nCalls ? dt * 1e6 / lc.nCalls : 0.0,
+           (unsigned long long)lc.nBfs, (unsigned long long)lc.nSingle, (unsigned long long)lc.nPair, (unsigned long long)lc.nTriple);
++  fprintf(stderr, "REFEREE INSTRUMENTATION: flows validated behind true verdicts (ns>0): %llu ; of these with at least one deleted line (some live line holds 0 cells, not 2): %llu ; average number of deleted lines: %.1f\n", (unsigned long long)lc.nVal, (unsigned long long)lc.nValDel, lc.nVal ? (double)lc.nValDelLines / lc.nVal : 0.0);
+   return bad ? 2 : 0;
+ }
+ 

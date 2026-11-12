@@ -1,0 +1,25 @@
+A.1 canonical forms
+  43 | 0 -> 0 | 43                                                                                         ok
+  0,46,92,123,169,180,215 | - -> 0,5,61,93,122,154,210 | -                                                 ok
+  0,35,46,92,123,169,180,215 | - -> 0,5,61,93,122,154,210,215 | -                                          ok
+  5,30,43,64,86,93,128,169,180 | 0,35,46,87,122,151,172,185,210 -> 0,35,43,64,86,93,123,154,210 | 5,30,61,122,129,151,172,180,215 ok
+  ids of T7 and T8                                                                                         ok
+  the three quoted table entries are entries 1, 2354, 9791                                                 ok
+  the three quoted leaf entries are entries 1, 8185 and the last                                           ok
+  coordinates of the second and third table entry                                                          ok
+  coordinates of the third table entry (B and F)                                                           ok
+  coordinates of the first leaf entry                                                                      ok
+A.5 LEAF test vectors (Table 9): Algorithm 2 as printed, own code
+  the 16 cells h are the busy cells outside T8                                                             ok
+  26 instances                                                                                             ok
+  all 26 values of LEAF and the failing condition reproduced                                               ok
+  row 5: B = T8-(5,5,5)+(1,1,1)                                                                            ok
+  antipode stealing after 8 rounds: B = first 8 stones, F = antipodes of all but the last                  ok
+  antipode stealing after 9 rounds: B = first 9 stones, F = antipodes of all but the last                  ok
+  antipode stealing after 10 rounds: B = first 10 stones, F = antipodes of all but the last                ok
+  threat rows: F = {(x,1,2): x>=1}, forced cell (0,1,2) = id 8                                             ok
+  empty board: delta = 80  (worst(0,0,0) = 80)                                                             ok
+  antipode stealing after 8 rounds: worst = 6 (enumeration of all admissible X with |X| <= 8)              ok
+  T7, k=7: an admissible X with deficiency 6 exists (worst >= 6; worst <= 6 since Phi = 1)                 ok
+  T8, k=9: an admissible X with deficiency 1 exists (worst >= 1; worst <= 1 since Phi = 8)                 ok
+RESULT: all checks passed   (23.3s)

@@ -1,0 +1,1 @@
+k=10 shard 0/1: 2468 orbits in total, computed 2468 (skipped 0 already present), slack>=k 2185, LEAF true 0, 0.22 s -> results/repro/leaftable/phi_k10.shard0of1.jsonl

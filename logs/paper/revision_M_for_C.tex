@@ -1,0 +1,381 @@
+% logs/paper/revision_M_for_C.tex
+% ---------------------------------------------------------------------------------------------------
+% From reviser M (mathematical sections) to reviser C (owner of paper/sec_verification.tex).
+% Corrected LaTeX for the findings of referee_math_a.md and referee_math_b.md that are located in
+% sec_verification.tex (and one sentence each in sec_intro.tex / the trust paragraph).  Every block
+% says exactly where it goes.  Line numbers refer to paper/sec_verification.tex as it was at the start
+% of the revision (= logs/paper/paper_v1/sec_verification.tex).  All labels used below exist in the
+% paper (def:U-assignment, prop:maxflow, lem:hall, lem:triple, cor:pruning, lem:game-invariance,
+% def:certificate, ...) or are introduced here (lem:deleted, rem:any-image).
+% Nothing in this file is \input by the paper; copy the blocks.
+%
+% Terminology (journal referee N1), used consistently in my files from now on:
+%   "certificate"        = the triple (Tbl, Lv, R_max) only;
+%   "leaf condition"     = the predicates C, C_Phi, LEAF ("pairing condition C", "surplus condition
+%                          C_Phi", "leaf condition LEAF");
+%   "witness"            = the object that proves a single verdict (an assignment / flow behind a true
+%                          verdict of LEAF, a set S of small surplus behind a false one).
+% Please use the same three words in sec_verification.tex, sec_certificate.tex, app_ip.tex, sec_intro.tex.
+% ---------------------------------------------------------------------------------------------------
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (C1)  referee_math_a, Finding 1 (MAJOR): the leaf test of the main verifier.
+%       WHERE: new unnumbered subsubsection in Section 7.3, directly AFTER the subsubsection
+%       "Accelerations" (old lines 228-233) and BEFORE "Cost".
+%       The lemma was checked against verify/treecheck.cpp (comment lines 628-652, validateFlow
+%       lines 782-812, deletion lines 954-987) and against Definition 4.14 / Proposition 4.15.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection*{Deleting strong lines}
+The main verifier uses one further device, and this one changes the assignments on which its true
+verdicts rest. Let $\theta\ge1$. As soon as a line has been found strong it is \emph{deleted}: it gives
+up its two cells and is ignored in all later searches, for single lines, pairs and triples alike. To
+justify this, let $D\subseteq\live{B}$ be a set of lines and $L_D=\live{B}\setminus D$. For
+$T\subseteq L_D$, a \emph{$T$-assignment relative to $D$} is a map $\alpha$ from a set of cells to $L_D$
+such that $c\in\alpha(c)$ and $c\notin F$ for every assigned cell $c$, every line of $L_D\setminus T$
+holds exactly two cells and every line of $T$ holds at least two; its \emph{excess} is
+$\sum_{l\in T}(|\alpha^{-1}(l)|-2)$. The lines of $D$ hold no cell. Put
+\[
+  \mu_D(T)=\min\{\sur_F(S) : T\subseteq S\subseteq L_D\}.
+\]
+For $D=\emptyset$ these are the notions of \cref{def:U-assignment} and the number $\mu(T)$.
+
+\begin{lemma}[Deleted lines]\label{lem:deleted}
+Let $\theta\ge 1$, let $D\subseteq\live{B}$ be a set of lines with $\mu(\{d\})\ge\theta$ for every
+$d\in D$, and let $T\subseteq L_D$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item If there is a $T$-assignment relative to $D$ of excess at least $\theta$, then $\mu(T)\ge\theta$.
+\item $\min(\theta,\mu(T))=\min(\theta,\mu_D(T))$. If $\pi$ is a pairing for $(B,F)$, then $\mu_D(T)$ is
+      the number of augmentations along augmenting paths from lines of $T$ that are performed when one
+      starts from the restriction of $\pi$ to the cells held by the lines of $L_D$, uses lines of $L_D$
+      only, and continues until there is no such path.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) Let $T\subseteq S\subseteq\live{B}$; we have to show $\sur_F(S)\ge\theta$. If $S$ contains a line
+$d\in D$, then $\sur_F(S)\ge\mu(\{d\})\ge\theta$ by the definition of $\mu$. Otherwise $S\subseteq L_D$.
+The cells held by the lines of $S$ are distinct cells of $\N(S)\setminus F$, and their number is at least
+$2|S|+\theta$, because $T\subseteq S$, the lines of $S\setminus T$ hold two cells each and the lines of
+$T$ hold at least $2|T|+\theta$ cells together. Hence $|\N(S)\setminus F|\ge 2|S|+\theta$.
+
+(b) By definition, $\mu(T)$ is the smaller of $\mu_D(T)$ and of the minimum of $\sur_F(S)$ over the sets
+$S\supseteq T$ of live lines that contain a line of $D$; the latter is at least $\theta$, as in (a). This
+gives the first assertion. \Cref{def:U-assignment}, \cref{prop:maxflow} and its proof use no property of
+the set $\live{B}$ except that $\pi$ assigns two cells of $l\setminus F$ to each of its lines $l$, all
+these cells being distinct; they apply verbatim to the set $L_D$ of lines and to the restriction of
+$\pi$. Part (d) of the proposition, read for $L_D$, is the second assertion.
+\end{proof}
+
+By induction on the order of deletion, every deleted line is indeed strong: when a line $d$ is tested,
+the lines deleted before it are strong by the induction hypothesis, and if the test finds a
+$\{d\}$-assignment of excess $\theta$ relative to them, then $\mu(\{d\})\ge\theta$ by part (a). Hence
+\cref{lem:deleted} applies to every set $D$ of deleted lines that occurs, and single lines, pairs and
+triples may be tested in the network without the deleted lines: by (a) a true verdict of such a test is
+correct, and by (b) so is a false one. For a verifier that deletes strong lines the properties to be
+validated behind a true verdict for a set $T$ are therefore: no cell is assigned twice; every assigned
+cell lies on its line and outside $F$; the deleted lines hold no cell; every other live line outside $T$
+holds exactly two cells; and the lines of $T$ hold $2|T|+\theta$ cells together. For $\theta=1$ a line
+$l$ is strong if and only if there is an augmenting path from $l$ with respect to the pairing
+(\cref{prop:maxflow}\,(d)); the main verifier finds all these lines by a single backward search from the
+unassigned cells and, with the option \fn{--paranoid} that was used in the certifying run, constructs
+and validates the assignment for each of them nevertheless.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (C2)  referee_math_a, Finding 1 (i) and symptom (b): Remark 7.3 (rem:true-cert), old lines 213-226.
+%       REPLACE the whole remark by the following.  Changes: the pair rule is covered; the main
+%       verifier is said to validate the modified properties of (C1); title uses "witness" (N1).
+%       (Keep the label rem:true-cert, it is cited from Table 7.)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{remark}[True verdicts carry explicit witnesses]\label{rem:true-cert}
+For the soundness of a verifier only the implication ``the algorithm returns true $\Rightarrow\LEAF$''
+matters, and this implication does not need the max-flow min-cut theorem. Suppose
+$\textsc{Gain}(\mathit{own},U,\theta)=\theta$, and let $\mathit{own}'$ be the final assignment: no cell is
+assigned twice, every live line outside $U$ holds exactly two cells, and the lines of $U$ hold $2|U|+\theta$
+cells together. For every set $S\supseteq U$ of live lines, the lines of $S$ then hold $2|S|+\theta$
+distinct cells of $\N(S)\setminus F$, so $\sur_F(S)\ge\theta$ (\cref{prop:maxflow}\,(a)). Every $F$-connected
+set $S$ with $|S|\ge3$ contains an $F$-connected triple $T$ (\cref{lem:triple}), and $T$ either has
+$\textsc{Gain}=\theta$ itself, or contains a strong line $l$, or, if the second pruning rule below is
+used, contains a pair $\{a,b\}$ with $\textsc{Gain}=\theta$; in the last two cases the same counting
+applies with $U=\{l\}$ or $U=\{a,b\}$. An implementation can therefore validate each true verdict
+literally, by checking the final assignments against these three properties. The main verifier does
+so, in the modified form described under ``Deleting strong lines'' below (\cref{lem:deleted}). False
+verdicts affect only completeness: a wrong ``false'' can make a verifier reject a valid certificate,
+never accept an invalid one.
+\end{remark}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (C3)  referee_math_a, Finding 1 (ii): Table 7 (tab:verifiers), first row, middle column,
+%       old lines 259-261.  REPLACE
+%          "\cref{alg:leaf} with both pruning rules, every flow behind a true verdict validated
+%           literally (\cref{rem:true-cert})"
+%       BY
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%   \cref{alg:leaf} with both pruning rules and deletion of strong lines (\cref{lem:deleted}); for
+%   $\theta=1$ the strong lines are found by one backward search; every assignment behind a true
+%   verdict validated literally (\cref{rem:true-cert})
+
+% In "Accelerations" (old lines 232-233) the sentence "None of this is needed for correctness, and
+% independent implementations differ in what they use" stays true for the three devices named there;
+% add after it:  "The main verifier uses a fourth device, which needs an argument of its own."
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (C4)  referee_math_a, Finding 1 (iii) and symptom (a): "Cost", old lines 239-241.
+%       The number 869,185 is NOT the number of single-line gains of Algorithm 2 (that would be about
+%       four million: one per live line of each of the 41,882 leaves with theta >= 1).  According to the
+%       source (treecheck.cpp, counter nSingle, lines 954-975) it counts only the single-line flows for
+%       theta >= 2, from lines that have at least theta+2 cells outside F and from which an augmenting
+%       path exists at all.  Please re-read the three counters from results/final/treecheck.json
+%       (leaf_triple_flows = 7391 is there; take the names of the other two from the file) and REPLACE
+%          "over all $106{,}723$ leaves the main verifier computes $869{,}185$ single-line flows,
+%           $77{,}268$ flows for pairs and only $7{,}391$ flows for triples."
+%       BY (numbers to be confirmed from the json by reviser C):
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%   over all $106{,}723$ leaves the main verifier, which deletes strong lines, computes $869{,}185$
+%   single-line flows (these are counted for $\theta\ge2$ only, and only for lines that have at least
+%   $\theta+2$ cells outside $F$ and from which an augmenting path exists at all; for $\theta=1$ the
+%   strong lines are found by the backward search), $77{,}268$ flows for pairs and only $7{,}391$ flows
+%   for triples.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (C5)  referee_math_a, Finding 2: proof of Proposition 7.2 (prop:leaf-correct), old lines 200-203.
+%       REPLACE the two sentences
+%          "The loop of lines \ref{ln:pair1}--\ref{ln:pair2} is the augmenting-path algorithm for the
+%           network of \cref{lem:hall}, in which every live line has capacity two; it ends with a
+%           pairing if one exists and fails otherwise, which decides (L2)."
+%       BY the following (the search is restricted to paths that start at the one line being
+%       processed, so "fails otherwise" needs its own argument; this one avoids max-flow min-cut):
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The loop of lines \ref{ln:pair1}--\ref{ln:pair2} decides (L2). Throughout the loop every cell is held
+by at most one line, a line holds only cells of its own outside $F$, and every line holds at most two
+cells: an augmentation from $l$ gives one more cell to $l$, which held at most one, and leaves the
+number of cells of every other line unchanged. If the loop ends, every live line holds exactly two
+cells, and $\mathit{own}$ is a pairing for $(B,F)$. If \textsc{Augment}$(\mathit{own},\{l\})$ fails in
+line~\ref{ln:pair2}, let $R$ be the set of lines that are reachable from $l$ by alternating paths
+(\cref{def:U-assignment}; the definition of alternating paths and fact~(iii) after it do not require
+that the lines hold two cells). Every cell of $\N(R)\setminus F$ is held by a line of $R$: a cell
+$c\in l'\setminus F$ with $l'\in R$ that is not assigned would complete an augmenting path from $l$,
+and a cell that is held by a line $l''\ne l'$ makes $l''$ reachable. At this moment every line of $R$
+holds at most two cells and $l\in R$ holds at most one; hence $|\N(R)\setminus F|\le 2|R|-1$, and there
+is no pairing for $(B,F)$ by \cref{lem:hall}\,(b).
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (C6)  referee_math_b, Finding 3: Section 7.1, old lines 40-42, the unproved side remark
+%          "For soundness it is not even necessary that the representative stored for a state is the
+%           \emph{minimal} image; it is enough that it is the image of the state under one element of
+%           $\G$. Minimality matters only for finding the entries of the two files."
+%       Proposition 7.1 does not cover it (its Seen = V consists of canonical forms).
+%       REPLACE these sentences in Section 7.1 by the pointer
+%          "A verifier that stores an arbitrary image of a state instead of the minimal one is
+%           still sound, although \cref{prop:verify-correct} does not apply to it literally; see
+%           \cref{rem:any-image}."
+%       and INSERT the following remark directly AFTER the proof of Proposition 7.1
+%       (prop:verify-correct, after old line 137).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{remark}[Representatives that are not minimal]\label{rem:any-image}
+Suppose that in \cref{alg:verify} the function $\canon$ is replaced by any function $r$ that maps every
+state to the image of this state under some element of $\G$, which may depend on the state, and that
+the algorithm returns \accept. Then the root is still \WON. Indeed, every state $s$ that was processed
+is \WON, by induction on the rank of $s$ (\cref{lem:rank}; a state and its images under $\G$ have the
+same rank, since the rank depends only on $t$, $|F|$ and the kind of the state). If $s$ is a P-state
+in $\Lv$, then $\LEAF$ was required. If $s$ is a P-state outside $\Lv$, then $t<\Rmax$ and the
+falsity of $\LOST$ were required, and for every child $s'$ of $s$ of type (a), (c) or (d) that is not
+\VOID{} the state $r(s')$ was processed and has smaller rank than $s$; so $r(s')$ is \WON, and so is
+$s'$ by \cref{lem:game-invariance}\,(c). If $s$ is a Q-state, the cell $m=\Tbl(s)\notin B\cup F$ that
+was required is a table move by the same argument, applied to the child (i) and to the child (ii) if
+it exists and is not \VOID. Finally the root is processed, because it is fixed by every element of
+$\G$. In this situation the triple $(\Tbl,\Lv,\Rmax)$ need not be a valid certificate in the sense of
+\cref{def:certificate}, whose reachable set consists of canonical forms; minimality of the stored
+representative matters for finding the entries of the two files, which are listed by canonical form.
+\end{remark}
+
+% NOTE for (C6): please check the label of the rank lemma in sec_game.tex (Lemma 5.4); if it is not
+% lem:rank, use the right one.  [M will confirm the label in logs/paper/response_M.md.]
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (C7)  referee_math_b, Finding 5, first bullet: Algorithm 1 (old lines 69-73) and the comment
+%       "The children" (old lines 100-103).  In Definition 5.2, Lemma 5.12, Remarks 5.13, 5.18,
+%       Proposition C.3 and Example C.5 the letters a', b' are LINES; in Algorithm 1 they are cells.
+%       Rename the two cells to p, q.  REPLACE old lines 70-71 by
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%      \ForEach{$p\in a\setminus(F\cup\{c\})$ and $q\in b\setminus(F\cup\{c\})$}{
+%        $Q_a\gets a\setminus\{c,p\}$;\quad $Q_b\gets b\setminus\{c,q\}$\;
+
+%       and in the comment "The children" REPLACE
+%          "$Q_a$ is determined by the one cell $a'$ that is left out, and the condition
+%           $F\cap a\subseteq Q_a$ says $a'\notin F$."
+%       BY
+%          "$Q_a$ is determined by the one cell $p$ that is left out, and the condition
+%           $F\cap a\subseteq Q_a$ says $p\notin F$; likewise for $Q_b$ and $q$."
+%       (In my files the letters a', b' now denote lines only, and the board is never written next to
+%       the sets Q_a, Q_b or the Q-states; see response_M.md.)
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (C8)  referee_math_a, Finding 4: Section 7.6 "The integer program", old lines 400-401.
+%       "weaker" is the opposite of the terminology of Sections 4 and 9 (LEAF implies C, so LEAF is
+%       the STRONGER condition), and "when F \neq \emptyset" wrongly suggests equivalence for F empty
+%       (true only for k <= 10, Proposition 4.20 / Example 4.11).  REPLACE
+%          "Among the $656$ instances that hold there are $160$ for which $\LEAF$ is false: $\LEAF$ is
+%           strictly weaker than $\CC$ when $F\neq\emptyset$."
+%       BY
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Among the $656$ instances that hold there are $160$ for which $\LEAF$ is false: $\LEAF$ is a strictly
+stronger condition than $\CC$ (it fails on instances on which $\CC$ holds), not only in the situation
+of \cref{ex:C-not-leaf}.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (C9)  referee_math_a, Finding 1, "trust" sentences: Section 7.7 (old lines 459-463) and
+%       sec_intro.tex (old lines 189-193, 198-199).  "at least one implementation of these two
+%       algorithms" is inaccurate for the main verifier, whose leaf test is Algorithm 2 with the
+%       deletion of strong lines.  Suggested wording for the second and third item of Section 7.7:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%  \item that the definition of validity used by the verifiers (\cref{ssec:what}) is the one of
+%    \cref{def:certificate}, and that \cref{alg:verify,alg:leaf} are correct
+%    (\cref{prop:verify-correct,prop:leaf-correct}), as is the variant of \cref{alg:leaf} with deleted
+%    lines that the main verifier uses (\cref{lem:deleted});
+%  \item at least one implementation of these algorithms (\fn{verify/spotcheck.py} implements
+%    \cref{alg:leaf} as printed, \fn{verify/treecheck.cpp} the variant with deleted lines), together
+%    with ...
+%
+%  and in sec_intro.tex, after "... and proves them correct
+%  (\cref{prop:verify-correct,prop:leaf-correct})" add:
+%  "; the main verifier uses a variant of the second algorithm, which is justified in
+%  \cref{lem:deleted}".
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (C10) Labels and wording in MY files that sec_verification.tex / sec_certificate.tex / app_*.tex
+%       cite.  No label of Sections 2-5, Appendix C or Appendix D is renamed or removed by reviser M.
+%       New labels will be listed at the end of logs/paper/response_M.md (section "For reviser C").
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ADDED 17:40 UTC (second batch; everything above is unchanged)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (C11) referee_math_a, Finding 5, second location: sec_discussion.tex, paragraph "LEAF versus C"
+%       (old lines 261-263; this paragraph is yours, I only edit Section 9.1 and Proposition 9.5).
+%       For theta = 0 the two conditions agree only if F is B-admissible (otherwise C holds vacuously
+%       and LEAF fails by (L1)).  REPLACE
+%          "The two conditions agree when all stones are revealed and when none is revealed and
+%           $t\le 10$"
+%       BY
+%          "The two conditions agree, for admissible $F$, when all stones are revealed, and when
+%           none is revealed and $t\le 10$"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (C12) Journal referee T2 / E6: Table 2 (tab:notation, in sec_board.tex) is now extended by the
+%       notation of Section 5 and cited from Sections 2 and 5.  Please cite it once in Section 1.8
+%       (sec_intro.tex, "Organization"):  "The notation is collected in \cref{tab:notation}."
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (C13) Replication referee, finding 7 (counting conventions): Section 5.2 used to say "Different
+%       data may define the same child".  For a parent that is NOT void this is false, and Section 5.2
+%       now proves it:  \cref{lem:children-distinct}  ("Children are counted once": for a P-state that
+%       is not VOID, different data (l,e) resp. ({a,b},Q_a,Q_b) define different children, and a child
+%       (c) is never a child (d); the two children of a Q-state are of different kinds).
+%       So the two wordings of the caption of Table 3 ("counted every time it is generated") and of
+%       Appendix A.5 ("for every pair of an expanded state and one of its non-void children (the
+%       children of one state are pairwise distinct)") describe the same number.  Please use ONE
+%       wording in both places and cite the lemma, e.g.
+%          "A child is counted once for every expanded state of which it is a child; by
+%           \cref{lem:children-distinct} this is the number of data $(l,e)$, respectively
+%           $(\{a,b\},Q_a,Q_b)$, that are generated in lines \ref{ln:childa}--\ref{ln:childd} of
+%           \cref{alg:verify}.  Children of different states that have the same canonical form are
+%           counted separately."
+%       Related (replication finding 6): Algorithm 1, line 25 (Push) drops any VOID child silently,
+%       although a child (a) or (i) of a state that is not VOID is never VOID (\cref{lem:adm-closed});
+%       this is stated in Section 5.2 after \cref{def:states}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (C14) Journal referee N4 (the letter Q).  The symbol of the BOARD is changed from Q to \Omega by
+%       one line appended to macros.tex  (\renewcommand{\Q}{\Omega}); the 7x7x7 board \Qseven becomes
+%       \Omega_7 automatically.  Nothing to do in your files as long as the board is written \Q
+%       (it is, everywhere).  Please never write a literal $Q$ for the board.  The letter Q then
+%       means: Q-states \Qst(B,F,t), and the stone sets Q_a, Q_b of the danger children (kept,
+%       because they occur in Algorithm 1 and in Appendix A; in my files they are always called
+%       "the revealed stones Q_a on a").  The letters a', b' are lines only (C7).
+%
+% (C15) Journal referee N1 in the remaining places of YOUR files that speak about Sections 3-5:
+%       "A pairing is a certificate that is easy to check" (Section 3.4) is now "a witness";
+%       Section 4 is now called "Leaf conditions"; Definition 4.4 "The pairing condition C",
+%       Definition 4.7 "The surplus condition C_Phi and the leaf condition LEAF".
+%       \cref{...} to these labels is unaffected (labels unchanged: sec:leaf, def:C, def:leaf, ...).
+%       Wording to use elsewhere:  "the pairing condition $\CC(B,F,k)$", "the surplus condition
+%       $\CPhi$", "the leaf condition $\LEAF$" (not: leaf certificate, leaf predicate, pairing
+%       certificate).  "Predicate" is still used for $\LOST$.
+%
+% (C16) Journal referee P9 (Zermelo): in sec_game.tex and in Section 9.1 the wording is now
+%       "by the determinacy of finite games with perfect information, usually attributed to
+%       Zermelo~\cite{Zermelo1913} and proved by backward induction on the game tree".
+%       If sec_intro.tex (Section 1.6) mentions Zermelo, please use the same wording.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ADDED at the end of reviser M's phase (third batch; information only, nothing above is changed).
+% Thank you for integrating (C1)-(C7), (C12), (C13); I have read the result in sec_verification.tex
+% (lem:deleted, rem:any-image, "The leaf test of the main verifier") and have no objection.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% (C17) New labels in my files (all labels that existed before are unchanged):
+%         lem:children-distinct   sec_game.tex, Section 5.2  "Different data define different children"
+%         ex:first-rounds         sec_game.tex, Section 5.2  worked example (root, child (a), an occupied
+%                                 cell, a threat child, a danger child); it cites \cref{tab:opening},
+%                                 \cref{ssec:walk}, \cref{ex:T8}, \cref{fact:H} -- please keep these labels
+%         fig:patterns            sec_game.tex, Section 5.3  figure of the patterns E2 and E3
+%       The numbering inside Section 5 has shifted (old Definition 5.2 = new 5.4, old Lemma 5.7 = new
+%       5.9, old Theorem 5.14 = new 5.16, ...).  Everything in the paper uses \cref; if README.md or
+%       another archive document quotes statement numbers of Section 5, they have to be updated after
+%       the final build.
+%
+% (C18) "strong": the definition (a line l with mu({l}) >= theta, a pair with mu({a,b}) >= theta) is now
+%       also printed in Section 4.3 directly after \cref{cor:pruning}, so Section 7.3 may refer to it.
+%
+% (C19) Proposition 4.22 (prop:busy10) is now stated for |B| <= 17 (referee A, finding 7; the label is
+%       unchanged).  Section 6.4 quotes it for sets of ten busy cells, which remains correct.
+%
+% (C20) Files that are cited in MY sections and therefore have to be in the archive (D4); all exist in
+%       the project tree:
+%         logs/canon/autgroup.cpp, logs/canon/autgroup.log            (Computed Fact 2.9)
+%         logs/minstones/run.log, logs/core/test_core.log             (Computed Facts 3.10, 4.23)
+%         logs/paper/secA_check1.py, logs/paper/secA_checks.log       (Computed Facts 3.10, 4.23)
+%         results/regression/ip_regression.json                       (Computed Fact 4.23)
+%         logs/proof/fuzz_cprime.py                                   (end of Appendix C.1)
+%         logs/proof/e23min.cpp, logs/proof/e23min.log                (Computed Fact C.4)
+%         scripts/check_7cube_midplanes.py                            (Remark 9.4 (ii))
+%       scripts/check_7cube_midplanes.py now READS paper/app_seven.tex (it checks the printed table of
+%       Appendix D), so the archive must contain paper/app_seven.tex at that relative path; its output
+%       is logs/paper/check_7cube_midplanes.out (regenerated, exit code 0).
+%       My own check scripts for the revision (not cited in the paper) are in logs/paper/revM_checks/.
+%
+% (C21) Not done by me, for your decision:
+%       * replication referee, finding 3: test vectors for LOST with a positive answer (Appendix A.6);
+%         I only added the sentence on "x in F" after Definition 5.4 (old 5.2);
+%       * journal referee E5/E10 and the table of Section 6 of his report (moving Section 4.3, the
+%         five-step list at the end of 4.3, the last page of Section 5.10, Appendix C): these are
+%         moves between files and belong to your second phase (D3); I moved nothing;
+%       * sec_discussion.tex, "The shape of the certificate": "from round $8$ on he can have a danger
+%         pair" still has a pronoun (your part of the file); likewise (C11).

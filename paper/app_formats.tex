@@ -1,0 +1,232 @@
+\section{File formats, canonical form and test vectors}\label{sec:formats}
+
+
+This appendix collects what an independent implementer needs in order to read the two certificate files
+and to test a verifier written from \cref{alg:verify,alg:leaf}. Cells are named by their \emph{ids}: the
+cell $(x,y,z)\in\{0,\dots,5\}^3$ has the id $36x+6y+z\in\{0,\dots,215\}$ (\cref{ssec:canon}), and all files
+use ids. The lines and the group $\G$ are those of \cref{sec:board}; a summary of the geometry in terms of
+ids, with the ids of the $24$ busy cells, is given in \cref{ssec:fmt-cells}. Both certificate files are
+plain ASCII text files. Every line,
+including the last one, is terminated by a single line feed (byte \texttt{0x0A}); there are no carriage
+returns, no empty lines, no tabs and no spaces other than the single spaces that separate the fields;
+the only characters that occur are the digits, the comma, the hyphen, the space and the line feed.
+Numbers are written in decimal without leading zeros.
+
+\subsection{Sets, their order, and canonical forms}\label{ssec:fmt-canon}
+
+A set of cells is written as the list of its ids in ascending order, separated by commas and without
+spaces; the empty set is written as a single hyphen. Sets of the same size are ordered
+lexicographically by these lists: $A<A'$ if, at the first position where the two ascending lists differ,
+the id in the list of $A$ is the smaller one. (Equivalently: the smallest element of the symmetric
+difference of $A$ and $A'$ belongs to $A$.)
+
+The \emph{canonical form} of a pair $(B,F)$ of disjoint sets is the pair $(g(B),g(F))$, $g\in\G$, that is
+smallest when the images of $B$ are compared first and, among the maps that minimize $g(B)$, the images
+of $F$ second. A state $\Pst(B,F,t)$ or $\Qst(B,F,t)$ is canonical if $(B,F)$ is; $t$ and the type of the
+state are not affected. Both files contain canonical states only. If $(B,F)$ is any state and $g$ is a map
+with $(g(B),g(F))$ canonical, the table move $m$ listed for the canonical Q-state corresponds to the move
+$g^{-1}(m)$ in the frame of $(B,F)$; any $g$ attaining the canonical form may be used (\cref{lem:canon}).
+
+For a verifier it suffices to compute the canonical form by trying all $1{,}152$ maps. Test vectors (ids;
+each line reads $B\mid F\ \to\ $ canonical $B\mid$ canonical $F$):
+\begin{center}\small\ttfamily
+\begin{tabular}{@{}l@{}}
+43 | 0 \ $\to$\ 0 | 43\\
+0,46,92,123,169,180,215 | - \ $\to$\ 0,5,61,93,122,154,210 | -\\
+0,35,46,92,123,169,180,215 | - \ $\to$\ 0,5,61,93,122,154,210,215 | -\\
+5,30,43,64,86,93,128,169,180 | 0,35,46,87,122,151,172,185,210\\
+\qquad$\to$\ 0,35,43,64,86,93,123,154,210 | 5,30,61,122,129,151,172,180,215
+\end{tabular}
+\end{center}
+The second and third are the sets $\Tseven$ and $\Teight$ of \cref{ex:T7,ex:T8}; the last is the final
+position of Play~B in \cref{ssec:walk}.
+
+\subsection{The strategy table}\label{ssec:fmt-table}
+
+The file \fn{results/final/strategy.tbl} is a text file with $93{,}164$ lines (its \emph{entries}), one
+for each Q-state of the
+certificate, in no particular order and without a header. An entry has four fields separated by single
+spaces:
+\begin{center}
+\texttt{t\ \ B\ \ F\ \ m}
+\end{center}
+where $t$ is the round in decimal, $B$ and $F$ are sets in the notation above, and $m$ is a cell id. The
+entry says: \emph{in the canonical Q-state $\Qst(B,F,t)$, in which Maker has made $t$ moves, Breaker owns the
+$t-1$ stones $B$, and the stones $F$ of Maker are revealed ($|F|\le t$), the table move of Breaker is the
+cell $m$}.
+The move is given in the frame of the canonical state and satisfies $m\notin B\cup F$. No key $(t,B,F)$
+occurs twice. Three entries of the file (the first, the $2{,}354$th and the $9{,}791$st):
+\begin{verbatim}
+1 - - 0
+5 0,46,169,215 - 92
+7 0,35,46,92,123,169 5,30,43,180,185,210,215 50
+\end{verbatim}
+In coordinates: the first is Breaker's opening move $(0,0,0)$ in the state $\Qst(\emptyset,\emptyset,1)$.
+The second says that with $B=\{(0,0,0),(1,1,4),(4,4,1),(5,5,5)\}$ and nothing revealed, Breaker plays
+$(2,3,2)$ in round $5$. In the third, Breaker owns $(0,0,0)$, $(0,5,5)$, $(1,1,4)$, $(2,3,2)$, $(3,2,3)$,
+$(4,4,1)$, the seven revealed stones of Maker are $(0,0,5)$, $(0,5,0)$, $(1,1,1)$, $(5,0,0)$, $(5,0,5)$,
+$(5,5,0)$, $(5,5,5)$, and Breaker's move in round $7$ is the non-busy cell $(1,2,2)$.
+
+\subsection{The leaf file}\label{ssec:fmt-leaves}
+
+The file \fn{results/final/leaves.txt} has $106{,}723$ lines (entries) with three fields,
+\begin{center}
+\texttt{t\ \ B\ \ F}
+\end{center}
+meaning: \emph{the canonical P-state $\Pst(B,F,t)$, in which $t$ rounds are complete, Breaker owns the $t$
+stones $B$, and the stones $F$ of Maker are revealed, is a leaf}, i.e.\ $\LEAF(B,F,t)$ is claimed to hold
+and the
+state is not expanded. Three entries (the first, the $8{,}185$th and the last):
+\begin{verbatim}
+9 0,1,5,30,43,93,122,172,210 7,13,14,19,21,25,28,31,35
+8 0,5,61,93,122,154,210,215 -
+9 0,35,43,64,86,93,123,154,210 5,30,61,122,129,151,172,180,215
+\end{verbatim}
+In the first, Breaker owns $(0,0,0)$, $(0,0,1)$, $(0,0,5)$, $(0,5,0)$, $(1,1,1)$, $(2,3,3)$, $(3,2,2)$,
+$(4,4,4)$, $(5,5,0)$, and $F$ consists of the nine cells $(0,1,1)$, $(0,2,1)$, $(0,2,2)$, $(0,3,1)$,
+$(0,3,3)$, $(0,4,1)$, $(0,4,4)$, $(0,5,1)$, $(0,5,5)$: Maker has made two threats, on the line $\{(0,i,1)\}$ and on the diagonal
+$\{(0,i,i)\}$ of the face $x=0$, which share the stone $(0,1,1)$; Breaker's forced replies are $(0,0,1)$ and
+$(0,0,0)$, and all nine stones of Maker are revealed ($\theta=0$). The second entry is the canonical form of
+$\Pst(\Teight,\emptyset,8)$, the only leaf with $\theta=8$. The third is the final state of Play~B of
+\cref{ssec:walk}.
+
+A verifier must not assume that the files are correct; \cref{alg:verify} only uses them as hints. An
+entry is \emph{well formed} if it has the right number of fields, $t$ is a non-negative integer, $B$ and
+$F$ are strictly ascending lists of ids between $0$ and $215$ (or the hyphen), $B\cap F=\emptyset$,
+$|F|\le t$, $|B|=t-1$ for a Q-state and $|B|=t$ for a P-state, and, in the table, $m$ is an id with
+$m\notin B\cup F$. What a verifier has to do with an entry that is not well formed, with an entry whose
+state is not canonical, with a key that occurs twice and with an entry that is never reached is stated in
+\cref{ssec:what}: none of these defects can make a sound verifier accept wrongly, but a verifier that is
+to establish \cref{fact:H} as stated must reject or report all four. Both files consist of well-formed,
+canonical, pairwise different entries, all of which are reached.
+
+\subsection{Numbers a verifier should reproduce}\label{ssec:fmt-targets}
+
+A correct implementation of \cref{alg:verify} with $\Rmax=10$ accepts the two files and visits
+$246{,}299$ states: $153{,}135$ P-states, of which $46{,}412$ are expanded and $106{,}723$ are leaves, and
+$93{,}164$ Q-states. The numbers of P-states, of leaves, of Q-states, of threat children, of danger
+children and of \VOID{} children of type (ii) in each round $t=0,\dots,10$ are those of \cref{tab:tree};
+they are printed once more, with one row for each kind of number, in \cref{ssec:supp-targets}.
+The conventions are those of \cref{tab:tree} and of the comment ``Counting'' in \cref{ssec:algverify}:
+states are counted as canonical forms; a threat or danger
+child is counted, at the round of the child, once for every expanded canonical P-state of which it is a
+non-\VOID{} child. By \cref{lem:children-distinct} different data $(l,e)$, respectively
+$(\{a,b\},Q_a,Q_b)$, of one state define different children, so this is the number of data for which
+\cref{alg:verify} generates a non-\VOID{} child; children of one state may be symmetric to each other or
+to children of other states, and they are then counted separately. A \VOID{} child of type (ii) is
+counted at the round of its parent Q-state. In total there are $143{,}498$ threat children, $28{,}275$ danger children
+and $54{,}482$ children of type (ii), of which $151$ are \VOID; no child of type (c) or (d) is \VOID. Every
+entry of both files is reached. The leaves split by $\theta=t-|F|=0,\dots,8$ into
+$64{,}841$, $32{,}703$, $7{,}267$, $1{,}434$, $343$, $105$, $25$, $4$, $1$ (\cref{tab:leaf-theta}), and $434$ table moves are
+non-busy cells ($16$, $399$, $11$, $8$ in rounds $7$ to $10$).
+
+\subsection{Test vectors for the leaf test}\label{ssec:fmt-leaf}
+
+Let
+\[
+\Tseven=\{(0,0,0),(5,5,5),(1,1,4),(4,4,1),(2,3,2),(3,2,3),(5,0,0)\},\qquad
+\Teight=\Tseven\cup\{(0,5,5)\},
+\]
+with ids \texttt{0,46,92,123,169,180,215} and \texttt{0,35,46,92,123,169,180,215}. \Cref{tab:leafvectors}
+lists values of $\LEAF(B,F,k)$ that an implementation of \cref{alg:leaf} should reproduce; in the
+notation of the files an instance is the line ``$k$ $B$ $F$'' formed from the first three columns. Each
+value was obtained with three independent
+implementations (the two verifiers and the library of the search), which also agree on which of the
+three conditions (L1)--(L3) of \cref{def:leaf} fails. During the internal refereeing of the first version
+of this paper (\cref{ssec:impl}) all $26$ instances were
+reproduced, including the failing condition, by three further implementations of \cref{alg:leaf}. The last column gives, for comparison, the number
+$\worst(B,F,k)$ of \cref{sec:ip} computed with the integer program; the pairing condition
+$\CC(B,F,k)$ holds if and only if it is $0$.
+
+\begin{table}[ht]
+\centering\footnotesize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}r>{\raggedright\arraybackslash}p{0.265\textwidth}>{\raggedright\arraybackslash}p{0.2\textwidth}>{\raggedright\arraybackslash}p{0.275\textwidth}lr@{}}
+\toprule
+$k$ & $B$ (ids) & $F$ (ids) & description & $\LEAF$ & $\worst$\\
+\midrule
+\texttt{7} & \fn{0,46,92,123,169,180,215} & \texttt{-} & $\Tseven$, $k=7$ & false (3) & 6\\
+\texttt{8} & \fn{0,35,46,92,123,169,180,215} & \texttt{-} & $\Teight$, $k=8$ & true & 0\\
+\texttt{9} & \fn{0,35,46,92,123,169,180,215} & \texttt{-} & $\Teight$, $k=9$ & false (3) & 1\\
+\texttt{8} & \fn{0,35,46,92,123,169,180,215} & $h$ & $\Teight$, $F=\{h\}$; one instance for each of the
+  $16$ busy cells $h\notin\Teight$ & true & 0\\
+\texttt{8} & \fn{0,35,43,46,92,123,169,180} & \texttt{215} & $\Teight-(5,5,5)+(1,1,1)$, $F=\{(5,5,5)\}$ & true & 0\\
+\texttt{8} & \fn{0,5,35,43,46,61,86,92} & \fn{123,129,169,172,180,210,215} & antipode stealing after $8$
+  rounds & false (2) & 6\\
+\texttt{9} & \fn{0,5,35,43,46,61,86,87,92} & \fn{123,129,154,169,172,180,210,215} & antipode stealing after
+  $9$ rounds & true & 0\\
+\texttt{10} & \fn{0,5,30,35,43,46,61,86,87,92} & \fn{123,128,129,154,169,172,180,210,215} & antipode
+  stealing after $10$ rounds & true & 0\\
+\texttt{9} & \fn{0,8,35,46,92,123,169,180,215} & \fn{44,80,116,152,188} & threat: $\Teight\cup\{(0,1,2)\}$,
+  $F=\{(x,1,2)\colon x\ge1\}$ & true & 0\\
+\texttt{8} & \fn{0,8,46,92,123,169,180,215} & \fn{44,80,116,152,188} & threat: $\Tseven\cup\{(0,1,2)\}$, the
+  same $F$ & false (3) & 2\\
+\texttt{0} & \texttt{-} & \texttt{-} & the empty board & false (2) & 80\\
+\bottomrule
+\end{tabular}
+\caption{Test vectors for $\LEAF(B,F,k)$, with $B$ and $F$ in separate columns. ``false ($i$)'' means that
+condition (L$i$) of \cref{def:leaf}
+is the first to fail: (L2) no pairing for $(B,F)$; (L3) an $F$-connected set of at least three live lines
+has surplus less than $k-|F|$. The fourth row stands for $16$ instances; the $16$ cells $h$ have the ids
+5, 30, 43, 61, 64, 86, 87, 93, 122, 128, 129, 151, 154, 172, 185, 210. In all there are $26$ instances.}
+\label{tab:leafvectors}
+\end{table}
+
+Some explanations (see also \cref{fact:T8-leaf}). For $\Tseven$ the set of all $104$ live lines is
+$\emptyset$-connected and has surplus $216-7-208=1=\slack(\Tseven)<7$. For $\Teight$ the $100$ live lines
+have surplus $216-8-200=8$, which is the minimum over all $\emptyset$-connected sets of at least three
+live lines; hence $\LEAF(\Teight,\emptyset,8)$ holds and $\LEAF(\Teight,\emptyset,9)$ fails. In the ``antipode stealing''
+instances Breaker has played $(0,0,0)$, $(1,1,4)$, $(2,3,2)$, $(0,5,5)$, $(1,1,1)$, $(2,2,2)$, $(0,0,5)$,
+$(1,4,1)$ and then $(2,2,3)$ and $(0,5,0)$, and $F$ consists of the antipodes of all these stones except the
+last one. In the two threat instances Maker holds five cells of the line $\{(x,1,2)\}$ and Breaker has been
+forced to $(0,1,2)$. On the empty board $148$ lines would need $296$ cells, and the deficiency
+$296-216=80$ is the value of $\worst$.
+
+Further values can be generated with the programs of the archive: \fn{bin/phicheck} and
+\fn{bin/treecheck} with the option \fn{--leafcheck} read instances ``$k$ $B$ $F$'' from standard input and
+print the value of $\LEAF$, the failing condition and a witness.
+
+\subsection{Test vectors for \texorpdfstring{$\LOST$}{LOST}}\label{ssec:fmt-lost}
+
+The predicate $\LOST$ of \cref{def:lost} is false at every expanded state of the certificate
+(\cref{prop:lost-stones}), so that an implementation of it cannot be tested on the certificate; a verifier
+for $\Rmax=10$ does not need it. For implementers who want it nevertheless, for instance for experiments
+with larger $\Rmax$, \cref{tab:lostvectors} gives nine instances $(B,F,t)$ with $t\ge 9$. The cell $x$
+of a pattern may belong to $F$ (see the comment after \cref{def:lost}). The values were computed with
+\fn{bin/treecheck} \fn{--lostcheck}, which reads lines ``$t$ $B$ $F$'' from standard input, and
+cross-checked with two other implementations: the function \texttt{lost} of \fn{verify/spotcheck.py} and
+the literal test of \cref{def:lost} in the verifier that was written from the paper alone during the
+internal refereeing
+(\fn{logs/paper/replication_from_paper/verify.cpp}). The three agree on the verdict and on which kind of
+pattern fits; the instances, the outputs and a script that repeats the comparison are in
+\fn{logs/paper/lost_vectors/}. The first and the last implementation agree, moreover, on the $800$
+instances with $t=9,\dots,13$ that were used in the audit of the main verifier (\cref{ssec:supp-audits}).
+
+\begin{table}[ht]
+\centering\footnotesize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}r>{\raggedright\arraybackslash}p{0.33\textwidth}>{\raggedright\arraybackslash}p{0.33\textwidth}ll@{}}
+\toprule
+$t$ & $B$ (ids) & $F$ (ids) & $\LOST$ & fitting patterns\\
+\midrule
+\texttt{9} & \texttt{-} & \texttt{-} & false & none\\
+\texttt{10} & \texttt{-} & \texttt{-} & true & $\Etwo$ ($11$ stones)\\
+\texttt{10} & \fn{0,56,61,65,91,92,146,151,154,172} & \texttt{-} & true & $\Etwo$\\
+\texttt{10} & \fn{5,30,98,123,128,129,141,169,172,185} & \fn{15,79,148} & false & none\\
+\texttt{10} & \fn{1,21,50,128,135,136,180,183,206,210} & \fn{5,23,59,77,83,107,131,173,203,215} & true & $\Etwo$\\
+\texttt{11} & \fn{43,46,61,64,87,149,169,185,209,210,215} & \fn{7,83,204} & false & none\\
+\texttt{12} & \fn{12,23,24,30,87,88,142,156,165,172,180,210} & \fn{40,43,45,46,48,50,53,58,63,64,69,71} & true
+  & $\Ethree$ only ($13$ stones)\\
+\texttt{12} & \fn{5,11,79,86,92,93,94,121,123,154,186,210} & \fn{26,70,77,194} & false & none\\
+\texttt{10} & \fn{54,55,127,131,133,142,143,157,164,214} & \fn{0,12,18,90,108,120,144,150,180} & true
+  & $\Etwo$ ($x\in F$)\\
+\bottomrule
+\end{tabular}
+\caption{Test vectors for $\LOST(B,F,t)$. In the notation of the files an instance is the line
+``$t$ $B$ $F$''. The last column says which kinds of patterns fit $(B,F,t)$; ``$\Ethree$ only'' means that no
+$\Etwo$ pattern fits. $\LOST(B,F,t)$ is defined for arbitrary disjoint sets $B$, $F$ and $t\ge 0$
+(\cref{def:lost}); in the first two instances $t$, $B$ and $F$ are such arbitrary inputs of the predicate and
+not states ($|B|\ne t$), and they must be read without the test $|B|=t$ of \cref{ssec:fmt-leaves}. In the
+other seven instances $|B|=t$ and $F$ is $B$-admissible. In the fifth and in the seventh instance all stones
+of Maker are revealed. In the last instance every fitting pattern has $x\in F$; an implementation that
+requires $x\notin F$ returns false there.}
+\label{tab:lostvectors}
+\end{table}

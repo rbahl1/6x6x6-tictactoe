@@ -1,0 +1,2 @@
+leafcheck: 106723 instances (0 malformed), 106723 LEAF evaluations in 8.499 s (79.6 us each), 8549521 BFS, 869185 single / 77268 pair / 7391 triple flows
+REFEREE INSTRUMENTATION: flows validated behind true verdicts (ns>0): 4126162 ; of these with at least one deleted line (some live line holds 0 cells, not 2): 4002547 ; average number of deleted lines: 47.0

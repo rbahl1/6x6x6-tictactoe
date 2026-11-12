@@ -1,0 +1,17 @@
+[search] rmax=10 maxcand=4 relcand=10 threads=2 order=1 nonbusy=1 tt=2^25 good8=2340 good9=83904 (setup 0.0 s)
+[30s] calls=66375 P=2917 Q=6322 relP=5874 relQ=14072 tt=145845 ttHit=28288 leafTests=115791(true 115562, screened 5512, 28.9 cpu-s) thr=9875 dng=3805 void=0 lostExact=103 lostTrue=0 potCut=0 relCut=0 rmaxCut=0
+        P-expanded by t: [1,1,1,1,1,76,266,507,2014,49,0]  leaves by t: [0,0,0,0,0,0,0,0,2375,110647,2540]  failed by t: [0,0,0,0,0,0,0,0,0,0,0]
+[60s] calls=167901 P=8107 Q=16284 relP=10899 relQ=23934 tt=283748 ttHit=88574 leafTests=225911(true 225682, screened 10118, 62.9 cpu-s) thr=33811 dng=23280 void=0 lostExact=622 lostTrue=0 potCut=0 relCut=0 rmaxCut=0
+        P-expanded by t: [1,1,1,1,1,78,440,1363,6029,192,0]  leaves by t: [0,0,0,0,0,0,0,0,3152,215017,7513]  failed by t: [0,0,0,0,0,0,0,0,0,0,0]
+[90s] calls=258574 P=14298 Q=28829 relP=16896 relQ=36155 tt=437445 ttHit=129682 leafTests=345673(true 345444, screened 15681, 96.0 cpu-s) thr=51608 dng=24464 void=0 lostExact=1010 lostTrue=0 potCut=0 relCut=0 rmaxCut=8
+        P-expanded by t: [1,1,1,1,3,118,712,2686,10265,510,0]  leaves by t: [0,0,0,0,0,0,0,0,3514,326587,15343]  failed by t: [0,0,0,0,0,0,0,0,2,8,8]
+[120s] calls=381807 P=23313 Q=44775 relP=25422 relQ=51226 tt=617446 ttHit=188037 leafTests=480997(true 480768, screened 23694, 126.4 cpu-s) thr=80203 dng=26844 void=0 lostExact=1944 lostTrue=0 potCut=0 relCut=0 rmaxCut=16
+        P-expanded by t: [1,1,1,3,10,137,1146,4667,16422,925,0]  leaves by t: [0,0,0,0,0,0,0,0,5425,452034,23309]  failed by t: [0,0,0,0,0,0,0,0,4,16,16]
+[150s] calls=546431 P=35263 Q=69079 relP=36663 relQ=74063 tt=887000 ttHit=263016 leafTests=685048(true 684819, screened 34521, 157.4 cpu-s) thr=107833 dng=27588 void=0 lostExact=3126 lostTrue=0 potCut=0 relCut=0 rmaxCut=35
+        P-expanded by t: [1,1,3,8,19,163,1297,5884,23032,4855,0]  leaves by t: [0,0,0,0,0,0,0,0,5773,569935,109111]  failed by t: [0,0,0,0,0,0,0,0,10,36,35]
+[176s] calls=730405 P=48995 Q=95347 relP=49153 relQ=97716 tt=1197557 ttHit=351003 leafTests=925441(true 925212, screened 46499, 183.7 cpu-s) thr=146131 dng=28293 void=0 lostExact=4297 lostTrue=0 potCut=0 relCut=0 rmaxCut=35
+        P-expanded by t: [1,2,5,14,35,207,1892,7828,32772,6239,0]  leaves by t: [0,0,0,0,0,0,0,0,7450,778297,139465]  failed by t: [0,0,0,0,0,0,0,0,10,36,35]
+[search] root WON after 175.9 s
+[emit] P(expanded)=46219 Q=92775 leaves=106681 threat children=143551 danger children=28293 void=0 max t=10 errors=0
+[selfcheck] P=46219 Q=92775 leaves=106681 errors=0 (table 92775, leaf file 106681)
+[search] proved=1 seconds=175.9 peak_rss=601 MB
