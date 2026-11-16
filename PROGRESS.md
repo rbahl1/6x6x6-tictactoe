@@ -288,3 +288,16 @@ one audit of every number, one on journal standards, one replication from the PD
 independent accepting verifier) and two second-round checks. No report found a false statement or a gap in
 a proof. Left for the authors: the placeholders above; consulting the two original sources; choosing a
 license; the volume number of one proceedings reference. Nothing was committed, pushed or uploaded.
+
+## Revision 2026-11-16: explicit strategy for the first player
+
+* The user asked whether the strategy is constructive. The paper obtained the first player's non-losing
+  strategy from determinacy (Zermelo), which does not exhibit it. Added Remark 5.20 (`rem:first-player`,
+  `paper/sec_game.tex`, after Corollary 5.19): the first player plays an arbitrary first stone (the ghost)
+  and then follows sigma in a virtual play in which the second player is Maker, exactly as in the proof of
+  Proposition 5.18; the same device applies to the 7x7x7 strategy (one sentence added to the proof of
+  Corollary 9.3, `paper/sec_discussion.tex`). The remark also states what playing the strategy costs.
+* Measured for that statement with `sim/sim.cpp` (one core, position cache off, random opponent): about
+  12,000 complete games per second, 38 MB of memory.
+* `paper/paper.pdf` rebuilt: 93 pages (main part pp. 1-72, supplement from p. 73), no LaTeX warnings,
+  bibliography unchanged; `MANIFEST.sha256` updated for the three changed paper files and this file.

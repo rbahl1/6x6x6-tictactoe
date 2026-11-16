@@ -1026,6 +1026,37 @@ lose. Hence the first player also has a strategy with which
 the first player never loses.
 \end{proof}
 
+\begin{remark}[An explicit strategy for the first player]\label{rem:first-player}
+The proof of \cref{cor:draw} obtains the strategy of the first player from the determinacy of finite games,
+which does not exhibit it. An explicit strategy with which the first player never loses is obtained from
+$\sigma$ by the device of the proof of \cref{prop:stealing}; it uses only \cref{thm:sigma}. The first player
+occupies an arbitrary cell, whose stone is marked as the \emph{ghost}, and keeps a virtual play of the
+Maker--Breaker game of \cref{thm:sigma}, in which the virtual \Maker{} makes the moves of the real second
+player and the virtual \Breaker{} follows $\sigma$; at the start no move has been made in the virtual play.
+Let $z$ be the cell of the ghost. When the real second player has occupied a cell $y$ and the real game is
+not over, the virtual \Maker{} occupies $y$, and $\sigma$ prescribes a cell $w$ that is empty in the virtual
+position. If $w\ne z$, the first player occupies $w$. If $w=z$, the first player occupies an arbitrary empty
+cell $z'$ of the real board, which exists because the real game is not over; the stone on $z'$ becomes the
+ghost, and the stone on $z$ is no longer marked. In both cases the virtual \Breaker{} occupies $w$.
+
+Whenever the real second player is to move, the stones of the virtual \Maker{} are exactly the stones of the
+real second player, the stones of the virtual \Breaker{} are exactly the stones of the real first player other
+than the ghost, and $z$ is empty in the virtual position. Hence the cell of every move of the real second
+player is empty in the virtual position, the virtual play is a play of the Maker--Breaker game in which \Breaker{}
+follows $\sigma$ (the virtual board has one empty cell more than the real one, so $\sigma$ is asked for a
+move only on a board that is not full), and by \cref{thm:sigma} the virtual \Maker{} never owns all six
+cells of a line. So the real second player never owns a line, and the first player never loses. The first
+player may also, at any of his turns, complete a line of his own instead; this ends the game with his win.
+
+The same device turns the strategy in the proof of \cref{cor:seven} into an explicit strategy for the first
+player on the $7\times7\times7$ board, and it applies to every strategy with which \Breaker, moving second,
+prevents \Maker{} from owning a line: an additional stone never harms \Breaker{} (\cref{rem:seven}\,(i)).
+Thus on both boards each player has an explicit strategy with which this player never loses. Playing it
+costs little: in \TABLE{} mode a round needs the detection of forced events, at most a few canonical forms
+and table look-ups, and in the round of the switch one maximum flow; in \PAIRING{} mode a reply is a
+look-up of the partner cell.
+\end{remark}
+
 \begin{proof}[Proof of \cref{thm:main}]
 By \cref{fact:H} the triple $(\Tbl,\Lv,10)$ given by the two certificate files is a valid certificate. Let
 $\sigma$ be the strategy of \cref{def:sigma} for this certificate, played by \Breaker{} as the second
